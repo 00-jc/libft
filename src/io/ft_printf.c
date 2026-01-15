@@ -5,91 +5,102 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 10:41:39 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/16 00:16:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lft.h"
+#include "io.h"
 
-static inline int	is_flag(char c)
+__attribute__((__always_inline__))
+static inline void	pflt(int fd, double d)
 {
-	return (c == 'c' || c == 'd' || c == 'u'
-		|| c == 'p' || c == 'x'
-		|| c == 'X' || c == 'u'
-		|| c == 's' || c == 'i'
-		|| c == '%');
+	char		buffer[32];
+	size_t		i;
+	double		frac;
+
+	putu(fd, (size_t)d);
+	(void)write(fd, ".", 1);
+	frac = (double)(d - (double)(size_t)d);
+	i = 0;
+	while (i < 6)
+	{
+		frac *= 10.0;
+		buffer[i++] = (char)((size_t)frac % 10) + '0';
+	}
+	(void)write(fd, buffer, 6);
 }
 
-static int	numhelper(char c, va_list args)
+__attribute__((__nonnull__(2), __always_inline__))
+static inline size_t	manage_l(int fd, const char *const c,
+		size_t remaining, va_list args)
 {
-	int	l;
+	size_t	i;
 
-	l = 0;
-	if (c == 'u')
-		ft_printunbr_fd(va_arg(args, unsigned int), 1, &l);
-	else if (c == 'x')
-		ft_printhex_fd(va_arg(args, unsigned int),
-			"0123456789abcdef", &l, 1);
-	else if (c == 'X')
-		ft_printhex_fd(va_arg(args, unsigned int),
-			"0123456789ABCDEF", &l, 1);
+	i = 0;
+	if (remaining > 1)
+	{
+		if (c[1] == 'd')
+			(putd(fd, va_arg(args, ssize_t)), i += 2);
+		else if (c[1] == 'u')
+			(putu(fd, va_arg(args, size_t)), i += 2);
+		else if ((c[1] | 32) == 'x')
+			(putx(fd, va_arg(args, size_t), (char)((c[1] == 'x') * 32)),
+				i += 2);
+	}
 	else
-		ft_printnbr_fd(va_arg(args, int), 1, &l);
-	return (l);
+		(putu(fd, va_arg(args, size_t)), i += 1);
+	return (i);
 }
 
-static inline int	ptrhelper(va_list args)
+__attribute__((__nonnull__(2), __always_inline__))
+static inline size_t	manage(int fd, const char *const c,
+		size_t remaining, va_list args)
 {
-	int				l;
-	unsigned long	p;
+	char	_c;
+	size_t	i;
 
-	p = (unsigned long)va_arg(args, void *);
-	l = 0;
-	ft_printptr_fd(p, &l, 1);
-	return (l);
-}
-
-static inline int	dispatch(char fmt, va_list args)
-{
-	if (fmt == 'c')
-		return (ft_printchar_fd((char)va_arg(args, int), 1));
-	else if (fmt == '%')
-		return (ft_printchar_fd('%', 1));
-	else if (fmt == 's')
-		return (ft_printstr_fd(va_arg(args, char *), 1));
-	else if (fmt == 'i' || fmt == 'd' || (fmt | 32) == 'x'
-		|| fmt == 'u')
-		return (numhelper(fmt, args));
-	else if (fmt == 'p')
-		return (ptrhelper(args));
-	return (0);
+	i = 0;
+	_c = *c;
+	if (_c == 'x' || _c == 'X')
+		(putx(fd, va_arg(args, size_t), (char)((_c == 'x') * 32)), i += 2);
+	else if (_c == 'd')
+		(puti(fd, va_arg(args, ssize_t)), i += 2);
+	else if (_c == 'u')
+		(putu(fd, va_arg(args, size_t)), i += 2);
+	else if (_c == 'l' | _c == 'p')
+		i += manage_l(fd, c, remaining, args);
+	else if (_c == 's')
+		(pputs(fd, va_arg(args, char *)), i += 2);
+	else if (_c == 'f')
+		(pflt(fd, va_arg(args, double)), i += 2);
+	else if (_c == '%')
+		((void)write(fd, "%", 1), i += 2);
+	return (i);
 }
 
 __attribute__((__nonnull__(1)))
-int	ft_printf(const char *fmt, ...)
+void	ft_printf(const char *restrict const fmt, ...)
 {
-	va_list		args;
-	int			c;
+	size_t					len;
+	size_t					maxptr;
+	const char	*restrict	subst;
+	const char	*restrict	start;
+	va_list					args;
 
-	c = 0;
 	va_start(args, fmt);
-	if (!*fmt)
-		return (0);
-	while (*fmt)
+	len = ft_strlen(fmt);
+	maxptr = (t_uptr)fmt + len;
+	start = fmt;
+	subst = ft_memchr(fmt, '%', len);
+	while (subst && (t_uptr)subst + 1 < maxptr)
 	{
-		if (*fmt == '%')
-		{
-			++fmt;
-			if (*fmt && is_flag(*fmt))
-				c += dispatch(*fmt, args);
-			++fmt;
-			continue ;
-		}
-		(void)write (1, fmt, 1);
-		++c;
-		++fmt;
+		(void)write(STDOUT_FILENO, start, (t_uptr)subst - (t_uptr)start);
+		len = maxptr - (t_uptr)subst;
+		subst += manage(STDOUT_FILENO, subst + 1, len, args);
+		start = subst;
+		subst = ft_memchr(start, '%', len);
 	}
+	(void)write(STDOUT_FILENO, start, maxptr - (t_uptr)start);
 	va_end(args);
-	return (c);
 }

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 10:37:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/16 00:00:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef IO_H
@@ -19,7 +19,6 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include "cstr.h"
-# include "tstr.h"
 # include "mem.h"
 # include "alloc.h"
 
@@ -31,18 +30,16 @@
 #  define BUFSIZE 4096
 # endif
 
-t_string		get_next_line(int fd);
-int				ft_printchar_fd(const char c, int fd);
-int				ft_printstr_fd(const char *s, int fd);
-void			ft_printnbr_fd(int n, int fd, int *c);
-void			ft_printunbr_fd(unsigned int n, int fd, int *c);
-void			ft_printptr_fd(unsigned long p, int *c, int fd);
-int				ft_printf(const char *fmt, ...)\
+void			putu(int fd, size_t n)\
+					__attribute__((__always_inline__));
+void			putx(int fd, size_t n, char or)\
+					__attribute__((__always_inline__));
+void			putd(int fd, ssize_t n)\
+					__attribute__((__always_inline__));
+void			puti(int fd, int n)\
+					__attribute__((__always_inline__));
+void			pputs(int fd, const char *__restrict__ const str)\
+					__attribute__((__always_inline__));
+void			ft_printf(const char *__restrict__ const fmt, ...)\
 					__attribute__((__nonnull__(1)));
-void			ft_printhex_fd(unsigned int x, const char *set, int *l, int fd);
-int				ft_fprintf(int fd, const char *fmt, ...)\
-					__attribute__((__nonnull__(2)));
-int				ft_fgetc(int fd, bool clean);
-t_string		ft_readline(t_string *prompt, bool clean);
-
 #endif

@@ -46,21 +46,6 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/cstr/ft_isnumeric.c\
 				src/cstr/ft_tolower.c\
 				src/cstr/ft_strjoin.c\
-				src/io/ft_printptr_fd.c\
-				src/io/ft_putstr_fd.c\
-				src/io/get_next_line.c\
-				src/io/ft_printhex_fd.c\
-				src/io/ft_fprintf.c\
-				src/io/ft_putendl_fd.c\
-				src/io/ft_putchar_fd.c\
-				src/io/ft_printchar.c\
-				src/io/ft_printunbr_fd.c\
-				src/io/ft_putnbr_fd.c\
-				src/io/ft_readline.c\
-				src/io/ft_printstr.c\
-				src/io/ft_printf.c\
-				src/io/ft_fgetc.c\
-				src/io/ft_printnbr_fd.c\
 				src/alloc/ft_realloc.c\
 				src/alloc/ft_alloc.c\
 				src/alloc/ft_recalloc.c\
@@ -74,24 +59,6 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/math/ft_q_sqrt.c\
 				src/math/ft_sqrt.c\
 				src/math/ft_round.c\
-				src/tstr/ft_tstr_repeat.c\
-				src/tstr/ft_tstr_strrchr.c\
-				src/tstr/ft_tstr_new.c\
-				src/tstr/ft_tstr_dup_cstr.c\
-				src/tstr/ft_tstr_from_cstr.c\
-				src/tstr/ft_tstr_insert.c\
-				src/tstr/ft_tstr_trim.c\
-				src/tstr/ft_tstr_borrow.c\
-				src/tstr/ft_tstr_reserve.c\
-				src/tstr/ft_tstr_free.c\
-				src/tstr/ft_tstr_pushstr.c\
-				src/tstr/ft_tstr_from_slice.c\
-				src/tstr/ft_tstr_pop.c\
-				src/tstr/ft_tstr_push.c\
-				src/tstr/ft_tstr_instr.c\
-				src/tstr/ft_tstr_clear.c\
-				src/tstr/ft_tstr_fit.c\
-				src/tstr/ft_tstr_clone.c\
 				src/conv/ft_itoa_base.c\
 				src/conv/ft_utoa_base.c\
 				src/conv/ft_atod.c\
@@ -131,6 +98,12 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/vec/ft_vec_free.c\
 				src/vec/ft_vec_pop.c\
 				src/vec/ft_vec_new.c\
+				src/io/ft_putchar_fd.c\
+				src/io/ft_putendl_fd.c\
+				src/io/ft_putnbr_fd.c\
+				src/io/ft_putstr_fd.c\
+				src/io/ft_printf.c\
+				src/io/ft_printf_helpers.c\
 
 OBJS		:=	build/ctype/ft_isprint.o\
 				build/ctype/ft_isxdigit.o\
@@ -167,21 +140,6 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/cstr/ft_isnumeric.o\
 				build/cstr/ft_tolower.o\
 				build/cstr/ft_strjoin.o\
-				build/io/ft_printptr_fd.o\
-				build/io/ft_putstr_fd.o\
-				build/io/get_next_line.o\
-				build/io/ft_printhex_fd.o\
-				build/io/ft_fprintf.o\
-				build/io/ft_putendl_fd.o\
-				build/io/ft_putchar_fd.o\
-				build/io/ft_printchar.o\
-				build/io/ft_printunbr_fd.o\
-				build/io/ft_putnbr_fd.o\
-				build/io/ft_readline.o\
-				build/io/ft_printstr.o\
-				build/io/ft_printf.o\
-				build/io/ft_fgetc.o\
-				build/io/ft_printnbr_fd.o\
 				build/alloc/ft_realloc.o\
 				build/alloc/ft_alloc.o\
 				build/alloc/ft_recalloc.o\
@@ -195,24 +153,6 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/math/ft_q_sqrt.o\
 				build/math/ft_sqrt.o\
 				build/math/ft_round.o\
-				build/tstr/ft_tstr_repeat.o\
-				build/tstr/ft_tstr_strrchr.o\
-				build/tstr/ft_tstr_new.o\
-				build/tstr/ft_tstr_dup_cstr.o\
-				build/tstr/ft_tstr_from_cstr.o\
-				build/tstr/ft_tstr_insert.o\
-				build/tstr/ft_tstr_trim.o\
-				build/tstr/ft_tstr_borrow.o\
-				build/tstr/ft_tstr_reserve.o\
-				build/tstr/ft_tstr_free.o\
-				build/tstr/ft_tstr_pushstr.o\
-				build/tstr/ft_tstr_from_slice.o\
-				build/tstr/ft_tstr_pop.o\
-				build/tstr/ft_tstr_push.o\
-				build/tstr/ft_tstr_instr.o\
-				build/tstr/ft_tstr_clear.o\
-				build/tstr/ft_tstr_fit.o\
-				build/tstr/ft_tstr_clone.o\
 				build/conv/ft_itoa_base.o\
 				build/conv/ft_utoa_base.o\
 				build/conv/ft_atod.o\
@@ -252,6 +192,12 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/vec/ft_vec_free.o\
 				build/vec/ft_vec_pop.o\
 				build/vec/ft_vec_new.o\
+				build/io/ft_putchar_fd.o\
+				build/io/ft_putendl_fd.o\
+				build/io/ft_putnbr_fd.o\
+				build/io/ft_putstr_fd.o\
+				build/io/ft_printf.o\
+				build/io/ft_printf_helpers.o\
 
 all: $(NAME)
 
