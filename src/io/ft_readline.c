@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/14 02:10:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_string	ft_readline(t_string *prompt, bool clean)
 	if (clean)
 		return ((void)ft_fgetc(0, true), (t_string){0});
 	out = ft_tstr_new(100);
-	write(1, prompt->data, prompt->len);
+	(void)write(1, prompt->data, prompt->len);
 	c = ft_fgetc(0, false);
 	while (c != EOF && c != '\n')
 	{

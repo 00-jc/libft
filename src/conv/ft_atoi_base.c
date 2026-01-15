@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/14 02:10:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int	ft_ftalidate_base(char *base)
 	int		l;
 
 	l = ft_strlen(base);
-	ptr = base;
 	if (l < 2)
 		return (-1);
 	while (*base)

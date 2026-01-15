@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:14:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/14 05:07:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,15 @@
  */
 typedef union u_fp
 {
+	float	f;
+	t_u32	i;
+}	t_fp;
+
+typedef union u_dp
+{
 	double	f;
 	t_u64	i;
-}	t_fp;
+}	t_dp;
 
 /**
  * @brief Computes the fast square root of a number.
@@ -51,6 +57,10 @@ typedef union u_fp
  * @return Approximation of the square root.
  */
 float			ft_q_sqrt(float x);
+double			ft_q_dsqrt(double number);
+
+float			ft_sqrt(float number);
+double			ft_dsqrt(double number);
 
 /**
  * @brief Computes the fast square root and rounds the result.

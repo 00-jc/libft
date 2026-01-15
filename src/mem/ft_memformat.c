@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 04:56:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-void	*ft_memformat(void *ptr, size_t size)
+void	*ft_memformat(void *restrict const ptr, size_t size)
 {
 	void	*fmt;
 

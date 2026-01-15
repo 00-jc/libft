@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/14 02:10:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_printf(const char *fmt, ...)
 			fmt++;
 			continue ;
 		}
-		write (1, fmt, 1);
+		(void)write (1, fmt, 1);
 		c++;
 		fmt++;
 	}

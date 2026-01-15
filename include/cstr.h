@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:14:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/14 03:03:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int				ft_tolower(int c);
 int				ft_toupper(int c);
-size_t			ft_strlen(const char *str);
+size_t			ft_strlen(const char *restrict str);
 char			*ft_strdup(const char *str);
 char			*ft_strchr(const char *haystack, int needle);
 char			*ft_strchr_small(const char *haystack, int needle);

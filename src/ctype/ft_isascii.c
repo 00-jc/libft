@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 09:15:10 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	ft_isascii(int c)
 {
-	return (c >= 0 && c <= 127);
+	return (!(c & ~0x7f));
 }

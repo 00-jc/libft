@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 04:55:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 # define BUFFER_SIZE 256
 #endif
 
-FT_INLINE inline static t_u8	ft_memswap_dyn(void *__restrict__ p1,
+__attribute__((nonnull(1, 2)))
+inline static t_u8	ft_memswap_dyn(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
 	void	*buffer;
 
-	if (!p1 || !p2 || !len)
+	if (!len)
 		return (0);
 	buffer = ft_alloc(len * sizeof(t_u8));
 	if (!buffer)
@@ -33,12 +34,13 @@ FT_INLINE inline static t_u8	ft_memswap_dyn(void *__restrict__ p1,
 	return (1);
 }
 
-FT_INLINE inline static t_u8	ft_memswap_bounded(void *__restrict__ p1,
+__attribute__((nonnull(1, 2)))
+inline static t_u8	ft_memswap_bounded(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
 	t_u8	buffer[BUFFER_SIZE];
 
-	if (!p1 || !p2 || !len)
+	if (!len)
 		return (0);
 	ft_memcpy(buffer, p1, len);
 	ft_memcpy(p1, p2, len);
@@ -46,6 +48,7 @@ FT_INLINE inline static t_u8	ft_memswap_bounded(void *__restrict__ p1,
 	return (1);
 }
 
+__attribute__((nonnull(1, 2)))
 t_u8	ft_memswap(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
@@ -55,11 +58,12 @@ t_u8	ft_memswap(void *__restrict__ p1,
 		return (ft_memswap_dyn(p1, p2, len));
 }
 
-FT_INLINE inline t_u8	ft_memswap_extern(void *__restrict__ p1,
+__attribute__((nonnull(1, 2)))
+inline t_u8	ft_memswap_extern(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len,
 	void *__restrict__ buffer)
 {
-	if (!p1 || !p2 || !len)
+	if (!len)
 		return (0);
 	ft_memcpy(buffer, p1, len);
 	ft_memcpy(p1, p2, len);

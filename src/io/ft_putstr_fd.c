@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:45 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/14 02:10:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void	ft_putstr_fd(const char *str, int fd)
 		return ;
 	i = 0;
 	while (str[i])
-		write(fd, &(str[i++]), 1);
+		(void)write(fd, &(str[i++]), 1);
 }

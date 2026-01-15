@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/14 02:10:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	ft_putnbr_fd(int n, int fd)
 
 	if (n == -2147483648)
 	{
-		write(fd, "-2147483648", 11);
+		(void)write(fd, "-2147483648", 11);
 		return ;
 	}
 	if (n < 0)
 	{
 		n = -n;
-		write(fd, "-", 1);
+		(void)write(fd, "-", 1);
 	}
 	if (n >= 10)
 	{
@@ -34,6 +34,6 @@ void	ft_putnbr_fd(int n, int fd)
 	else
 	{
 		o = (n % 10) + '0';
-		write(fd, &o, 1);
+		(void)write(fd, &o, 1);
 	}
 }

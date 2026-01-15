@@ -5,14 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/14 05:14:34 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/14 05:19:10 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
 
-t_u8	ft_pow_u8(t_u8 x, t_u8 n)
+__attribute__((__always_inline__, const))
+inline t_u8	ft_pow_u8(t_u8 x, t_u8 n)
 {
 	t_u8	res;
 
@@ -27,7 +28,8 @@ t_u8	ft_pow_u8(t_u8 x, t_u8 n)
 	return (res);
 }
 
-t_u32	ft_pow_u32(t_u32 x, t_u32 n)
+__attribute__((__always_inline__, const))
+inline t_u32	ft_pow_u32(t_u32 x, t_u32 n)
 {
 	t_u32	res;
 
@@ -42,7 +44,8 @@ t_u32	ft_pow_u32(t_u32 x, t_u32 n)
 	return (res);
 }
 
-t_u64	ft_pow_u64(t_u64 x, t_u64 n)
+__attribute__((__always_inline__, const))
+inline t_u64	ft_pow_u64(t_u64 x, t_u64 n)
 {
 	t_u64	res;
 
@@ -57,7 +60,8 @@ t_u64	ft_pow_u64(t_u64 x, t_u64 n)
 	return (res);
 }
 
-t_u128	ft_pow_u128(t_u128 x, t_u128 n)
+__attribute__((__always_inline__, const))
+inline t_u128	ft_pow_u128(t_u128 x, t_u128 n)
 {
 	t_u128	res;
 

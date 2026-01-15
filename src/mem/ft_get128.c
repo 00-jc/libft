@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get128.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/15 00:10:36 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/15 03:54:36 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "mem.h"
+
+#ifndef __LIBFT_SCALAR__
+
+__attribute__((const, __always_inline__))
+t_vu128	get_high128(void)
+{
+	return ((t_vu128)
+		{
+			0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
+			0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
+		});
+}
+
+__attribute__((const, __always_inline__))
+t_vu128	get_lones128(void)
+{
+	return ((t_vu128)
+		{
+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+		});
+}
+
+__attribute__((const, __always_inline__))
+t_vu128	get_z128(void)
+{
+	return ((t_vu128)
+		{
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		});
+}
+
+__attribute__((const, __always_inline__))
+t_vu128	get_mask128(t_u8 x)
+{
+	return ((t_vu128)
+		{
+			x, x, x, x, x, x, x, x,
+			x, x, x, x, x, x, x, x,
+		});
+}
+
+#endif

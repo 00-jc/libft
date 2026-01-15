@@ -5,18 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/14 05:28:56 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/14 21:46:02 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
 
-float	ft_q_sqrt(float number)
+__attribute__ ((__always_inline__, const))
+inline float	ft_q_sqrt(float number)
 {
-	long		i;
+	t_u32a		i;
 	float		x2;
 	float		y;
+	t_fp		fp;
 	float		threehalfs;
 
 	if (number < 0)
@@ -24,20 +26,48 @@ float	ft_q_sqrt(float number)
 	threehalfs = 1.5F;
 	x2 = number * 0.5F;
 	y = number;
-	ft_memcpy(&i, &y, sizeof(float));
-	i = 0x5f3759df - (i >> 1);
-	ft_memcpy(&y, &i, sizeof(float));
+	fp.f = y;
+	i = fp.i;
+	i = 0x5F3759DF - (i >> 1);
+	fp.i = i;
+	y = fp.f;
 	y = y * (threehalfs - (x2 * y * y));
 	y = y * (threehalfs - (x2 * y * y));
 	return (number * y);
 }
 
-float	ft_q_sqrt_round(float number, t_u8 n)
+__attribute__ ((__always_inline__, const))
+inline double	ft_q_dsqrt(double number)
+{
+	t_u64a	i;
+	double	x2;
+	double	y;
+	t_dp	fp;
+	double	threehalfs;
+
+	if (number < 0)
+		return (-1);
+	threehalfs = 1.5F;
+	x2 = number * 0.5F;
+	y = number;
+	fp.f = y;
+	i = fp.i;
+	i = 0x5FE6EC85E7DE30DA - (i >> 1);
+	fp.i = i;
+	y = fp.f;
+	y = y * (threehalfs - (x2 * y * y));
+	y = y * (threehalfs - (x2 * y * y));
+	return (number * y);
+}
+
+__attribute__ ((__always_inline__, const))
+inline float	ft_q_sqrt_round(float number, t_u8 n)
 {
 	return (ft_roundf(ft_q_sqrt(number), n));
 }
 
-float	ft_q_sqrt_fround(float number)
+__attribute__ ((__always_inline__, const))
+inline float	ft_q_sqrt_fround(float number)
 {
 	return (ft_roundff(ft_q_sqrt(number)));
 }

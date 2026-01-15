@@ -1,6 +1,14 @@
 NAME		:=	libft.a
-CC			:=	clang
-FLAGS		:=	-Wall -Wextra -Werror -Wpedantic
+THRESHOLD	:=  0.40
+CC			:=	cc
+SCANNER		:=	scan-build
+WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedantic -std=c99 \
+				-Waddress -Wambiguous-ellipsis -Wambiguous-macro -Wassume -Wpessimizing-move -Wgnu-union-cast \
+				-Wgnu-union-cast -Wlanguage-extension-token -Wgnu-statement-expression-from-macro-expansion \
+				-Wbounds-safety-counted-by-elt-type-unknown-size -Wstrict-aliasing -Wcast-function-type-strict \
+				-Wcast-function-type-mismatch -Wc99-compat -Wbool-conversions -Wbool-operation -Wbitwise-instead-of-logical \
+				-Wbitfield-enum-conversion -Warray-bounds-pointer-arithmetic -Wnull-pointer-arithmetic
+CFLAGS 		:=  -flto -O3 -march=native -ffunction-sections -fdata-sections -fvectorize -finline-functions $(WARNS)
 AR			:=	ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/ctype/ft_isprint.c\
@@ -55,17 +63,16 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/io/ft_printnbr_fd.c\
 				src/alloc/ft_realloc.c\
 				src/alloc/ft_alloc.c\
-				src/alloc/ft_defer.c\
 				src/alloc/ft_recalloc.c\
 				src/alloc/ft_calloc.c\
 				src/alloc/ft_free.c\
 				src/alloc/ft_extend_zero.c\
-				src/alloc/ft_arena.c\
 				src/alloc/ft_extend.c\
 				src/math/ft_pow_signed.c\
 				src/math/ft_fabs.c\
 				src/math/ft_pow.c\
 				src/math/ft_q_sqrt.c\
+				src/math/ft_sqrt.c\
 				src/math/ft_round.c\
 				src/tstr/ft_tstr_repeat.c\
 				src/tstr/ft_tstr_strrchr.c\
@@ -94,29 +101,27 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/conv/ft_atoul.c\
 				src/conv/ft_itoa.c\
 				src/conv/ft_atoi_base.c\
-				src/mem/ft_memcpy.c\
-				src/mem/ft_hash.c\
-				src/mem/ft_memmove.c\
-				src/mem/ft_memswap.c\
-				src/mem/ft_memformat.c\
-				src/mem/ft_memchr.c\
-				src/mem/mem_helpers/__maxs.c\
-				src/mem/mem_helpers/ft_memlk_r.c\
-				src/mem/mem_helpers/ft_memw_bw.c\
-				src/mem/mem_helpers/ft_bitcmp.c\
-				src/mem/mem_helpers/ft_memw_fw.c\
-				src/mem/mem_helpers/ft_memst_w.c\
-				src/mem/mem_helpers/__hasz.c\
-				src/mem/mem_helpers/__populate.c\
-				src/mem/mem_helpers/__max.c\
-				src/mem/mem_helpers/ft_memcm_r.c\
-				src/mem/ft_memtake.c\
-				src/mem/ft_memclone.c\
-				src/mem/ft_membroadcast.c\
-				src/mem/ft_memset.c\
-				src/mem/ft_memcmp.c\
 				src/mem/ft_bzero.c\
+				src/mem/ft_memclone.c\
+				src/mem/ft_memformat.c\
+				src/mem/ft_memswap.c\
+				src/mem/ft_memtake.c\
+				src/mem/ft_memset_portable.c\
+				src/mem/__max.c\
+				src/mem/__maxs.c\
 				src/mem/ft_memctz.c\
+				src/mem/ft_memcpy_portable.c\
+				src/mem/ft_memcpy.c\
+				src/mem/ft_get512.c\
+				src/mem/ft_membroadcast.c\
+				src/mem/ft_get256.c\
+				src/mem/ft_get128.c\
+				src/mem/ft_memset.c\
+				src/mem/ft_memmove.c\
+				src/mem/__populate.c\
+				src/mem/__hasz.c\
+				src/mem/ft_memchr.c\
+				src/mem/ft_memcmp.c\
 				src/vec/ft_vec_insert.c\
 				src/vec/ft_vec.c\
 				src/vec/ft_vec_reserve.c\
@@ -183,17 +188,16 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/io/ft_printnbr_fd.o\
 				build/alloc/ft_realloc.o\
 				build/alloc/ft_alloc.o\
-				build/alloc/ft_defer.o\
 				build/alloc/ft_recalloc.o\
 				build/alloc/ft_calloc.o\
 				build/alloc/ft_free.o\
 				build/alloc/ft_extend_zero.o\
-				build/alloc/ft_arena.o\
 				build/alloc/ft_extend.o\
 				build/math/ft_pow_signed.o\
 				build/math/ft_fabs.o\
 				build/math/ft_pow.o\
 				build/math/ft_q_sqrt.o\
+				build/math/ft_sqrt.o\
 				build/math/ft_round.o\
 				build/tstr/ft_tstr_repeat.o\
 				build/tstr/ft_tstr_strrchr.o\
@@ -222,29 +226,27 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/conv/ft_atoul.o\
 				build/conv/ft_itoa.o\
 				build/conv/ft_atoi_base.o\
-				build/mem/ft_memcpy.o\
-				build/mem/ft_hash.o\
-				build/mem/ft_memmove.o\
-				build/mem/ft_memswap.o\
-				build/mem/ft_memformat.o\
-				build/mem/ft_memchr.o\
-				build/mem/mem_helpers/__maxs.o\
-				build/mem/mem_helpers/ft_memlk_r.o\
-				build/mem/mem_helpers/ft_memw_bw.o\
-				build/mem/mem_helpers/ft_bitcmp.o\
-				build/mem/mem_helpers/ft_memw_fw.o\
-				build/mem/mem_helpers/ft_memst_w.o\
-				build/mem/mem_helpers/__hasz.o\
-				build/mem/mem_helpers/__populate.o\
-				build/mem/mem_helpers/__max.o\
-				build/mem/mem_helpers/ft_memcm_r.o\
-				build/mem/ft_memtake.o\
-				build/mem/ft_memclone.o\
-				build/mem/ft_membroadcast.o\
-				build/mem/ft_memset.o\
-				build/mem/ft_memcmp.o\
 				build/mem/ft_bzero.o\
+				build/mem/ft_memclone.o\
+				build/mem/ft_memformat.o\
+				build/mem/ft_memswap.o\
+				build/mem/ft_memtake.o\
+				build/mem/ft_memset_portable.o\
+				build/mem/__max.o\
+				build/mem/__maxs.o\
 				build/mem/ft_memctz.o\
+				build/mem/ft_memcpy_portable.o\
+				build/mem/ft_memcpy.o\
+				build/mem/ft_get512.o\
+				build/mem/ft_membroadcast.o\
+				build/mem/ft_get256.o\
+				build/mem/ft_get128.o\
+				build/mem/ft_memset.o\
+				build/mem/ft_memmove.o\
+				build/mem/__populate.o\
+				build/mem/__hasz.o\
+				build/mem/ft_memchr.o\
+				build/mem/ft_memcmp.o\
 				build/vec/ft_vec_insert.o\
 				build/vec/ft_vec.o\
 				build/vec/ft_vec_reserve.o\
@@ -262,26 +264,30 @@ OBJS		:=	build/ctype/ft_isprint.o\
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c $< -o $@ -Iinclude
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
-	@$(AR) $@ $^
-
-install: all
-	@sudo cp $(NAME) /usr/local/lib
-	@sudo mkdir -p /usr/local/include/llv/
-	@sudo cp include/* /usr/local/include/llv/
+	$(AR) $@ $^
 
 clean:
-	@rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR)
 
 fclean: clean
-	@rm -f $(NAME)
-
-test: install test-mem test-cstr
+	rm -f $(NAME)
 
 re: fclean full all
 
-.PHONY: all clean fclean re bonus install full
-MAKEFLAGS += --no-print-directory
+static_analysis:
+	$(SCANNER) $(CC) $(WARNS) -Xclang -analyzer-output=text --analyze $(SRCS) -Iinclude
+
+analyze: static_analysis
+	@if command -v ast2md >/dev/null 2>&1; then \
+		AST2MD_THREADS=$$(nproc) ast2md -L c -i $$(find . -name "*.c") -o stats -t $(THRESHOLD) -- -I include; \
+	else \
+		echo "ast2md not found, skipping coupling analysis"; \
+	fi
+
+bonus: all
+
+.PHONY: all clean fclean re bonus full static_analysis analyze

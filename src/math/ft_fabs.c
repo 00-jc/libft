@@ -6,17 +6,18 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/14 05:05:48 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
 
-double	ft_fabs(double x)
+__attribute__((__always_inline__, const))
+inline double	ft_fabs(double x)
 {
-	t_fp	u;
+	t_dp	u;
 
-	u = (t_fp){x};
+	u = (t_dp){x};
 	u.i &= -1ULL >> 1;
 	return (u.f);
 }

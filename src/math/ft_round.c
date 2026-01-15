@@ -6,51 +6,51 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/14 05:19:41 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
 
-float	ft_floorf(float x)
+__attribute__((__always_inline__, const))
+inline float	ft_floorf(float x)
 {
 	long long	i;
 
 	i = (long long)x;
-	if ((float)i > x)
-		return (i - 1);
-	return (i);
+	return ((float)(((i > x) * (i - 1)) | ((i <= x) * i)));
 }
 
-float	ft_ceilf(float x)
+__attribute__((__always_inline__, const))
+inline float	ft_ceilf(float x)
 {
 	long long	i;
 
 	i = (long long)x;
-	if ((float)i < x)
-		return (i + 1);
-	return (i);
+	return ((float)(((i > x) * (i + 1)) | ((i <= x) * i)));
 }
 
-float	ft_roundf(float x, t_u8 n)
+__attribute__((__always_inline__, const))
+inline float	ft_roundf(float x, t_u8 n)
 {
 	float	p10;
+	int		sign;
+	float	offset;
 
 	if (n > 7)
 		n = 7;
 	p10 = 0.1f;
 	while (n--)
 		p10 *= 10.0f;
-	if (x >= 0)
-		return (ft_floorf(x * p10 + 0.5f) / p10);
-	else
-		return (ft_ceilf(x * p10 - 0.5f) / p10);
+	sign = (x < 0);
+	offset = 0.5f - (float)sign;
+	return ((ft_floorf(x * p10 + offset) * (1 - sign)
+			+ ft_ceilf(x * p10 + offset) * sign) / p10);
 }
 
-float	ft_roundff(float x)
+__attribute__((__always_inline__, const))
+inline float	ft_roundff(float x)
 {
-	if (x >= 0.0f)
-		return ((float)((int)(x + 0.5f)));
-	else
-		return ((float)((int)(x - 0.5f)));
+	return ((float)((x >= 0.0f) * (int)(x + 0.5f)
+				| (x < 0.0f) * (int)(x - 0.5f)));
 }

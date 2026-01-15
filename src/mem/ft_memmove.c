@@ -6,17 +6,16 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 08:15:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-inline void	*ft_memmove(void *__restrict__ dest,
-	const void *__restrict__ src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	t_u8	*bd;
-	t_u8	*bs;
+	t_u8					*bd;
+	const t_u8	*restrict	bs;
 
 	if ((!dest || !src || dest == src) && n != 0)
 		return (NULL);
@@ -25,10 +24,8 @@ inline void	*ft_memmove(void *__restrict__ dest,
 	{
 		bd = (t_u8 *)dest + n;
 		bs = (t_u8 *)src + n;
-		_copy_u128_bw((void **)&bd, (const void **)&bs, &n);
-		_copy_u64_bw((void **)&bd, (const void **)&bs, &n);
-		_copy_u32_bw((void **)&bd, (const void **)&bs, &n);
-		_copy_u8_bw((void **)&bd, (const void **)&bs, &n);
+		while (n-- > 0)
+			*--bd = *--bs;
 	}
 	else
 		ft_memcpy(dest, src, n);
