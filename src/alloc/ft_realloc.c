@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 15:02:04 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	*ft_realloc(void *ptr, size_t n, size_t size)
 		return (ft_free(&ptr), NULL);
 	if (size < n)
 		n = size;
-	ft_memmove(p, ptr, n);
-	if (ptr)
-		ft_free(&ptr);
+	ft_memcpy(p, ptr, n);
+	ft_free(&ptr);
 	return (p);
 }

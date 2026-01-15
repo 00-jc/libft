@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 05:56:14 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:25:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static unsigned int	count_words(char *str, char set)
 	return (wc);
 }
 
+__attribute__((__nonnull__(1)))
 static char	*eat_literal(char *str, char set)
 {
 	int		i;
@@ -41,7 +42,7 @@ static char	*eat_literal(char *str, char set)
 	i = 0;
 	while (str[i] && str[i] != set)
 		i++;
-	out = (char *)ft_alloc(i + 1);
+	out = (char *)ft_alloc((size_t)i + 1);
 	if (!out)
 		return (NULL);
 	i = 0;
@@ -54,6 +55,7 @@ static char	*eat_literal(char *str, char set)
 	return (out);
 }
 
+__attribute__((__nonnull__(1, 3)))
 static int	fill_words(const char *str, char set, char **out)
 {
 	unsigned int	i;
@@ -78,13 +80,12 @@ static int	fill_words(const char *str, char set, char **out)
 	return (1);
 }
 
+__attribute__((__nonnull__(1)))
 char	**ft_split(const char *str, char set)
 {
 	char			**out;
 	unsigned int	wc;
 
-	if (!str)
-		return (NULL);
 	wc = count_words((char *)str, set);
 	out = (char **)ft_alloc((wc + 1) * sizeof(char *));
 	if (!out)

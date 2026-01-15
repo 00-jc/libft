@@ -6,19 +6,20 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 00:54:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:34:24 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h"
 
-bool	ft_s_isblob(char *s)
+__attribute__((__nonnull__(1)))
+int	ft_s_isblob(char *s)
 {
 	while (*s)
 	{
 		if (ft_isspace(*s) || !ft_isalnum(*s))
-			return (false);
+			return (0);
 		s++;
 	}
-	return (true);
+	return (1);
 }

@@ -6,28 +6,27 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 16:48:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "alloc.h"
 
+__attribute__((__nonnull__(1)))
 void	ft_free(void **ptr)
 {
-	void	*pp;
-
-	if (!ptr || !*ptr)
+	if (!*ptr)
 		return ;
-	pp = *ptr;
-	free(((void **)pp)[-1]);
+	free(((void **)*ptr)[-1]);
 	*ptr = NULL;
 }
 
+__attribute__((__nonnull__(1)))
 void	ft_free_array(void ***arr)
 {
 	size_t	i;
 
-	if (!arr || !*arr)
+	if (!*arr)
 		return ;
 	i = 0;
 	while ((*arr)[i])

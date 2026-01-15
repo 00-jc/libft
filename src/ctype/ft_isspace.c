@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 09:19:16 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:33:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ctype.h"
 
 __attribute__((const, __always_inline__, hot))
-t_u8	ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	return ((c == 0x20) | ((c - 0x07) < 0x0E));
 }

@@ -5,46 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/20 17:23:14 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:21 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/15 16:19:12 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/15 16:29:25 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
 
-void	ft_vec_remove(t_vec *v, size_t i)
+__attribute__((__nonnull__(1)))
+int	ft_vec_remove(t_vec *restrict const v, size_t i, size_t type_size)
 {
-	if (!v || !v->size || !v->data || i >= v->size)
-		return ;
-	if (i == v->size - 1)
-		ft_vec_pop(v);
-	else
-	{
-		ft_memmove(ft_vec_get_mut(v, i),
-			ft_vec_get_mut(v, i + 1), (v->size - i - 1) * v->sizeof_type);
-		v->size--;
-	}
+	t_u8		*elem;
+	const t_u8	*last;
+
+	if (!v->data)
+		return (0);
+	elem = ft_vec_get_mut(v, i, type_size);
+	last = ft_vec_peek_last(v, type_size);
+	if (elem == NULL || last == NULL)
+		return (0);
+	ft_memcpy(elem, elem + type_size,
+		((t_uptr)last - (t_uptr)elem) + type_size);
+	v->head -= type_size;
+	return (1);
 }
 
-void	ft_vec_remove_f(t_vec *v, size_t i, void (*f) (void *))
+__attribute__((__nonnull__(1)))
+int	ft_vec_removef(t_vec *restrict const v, size_t i, size_t type_size,
+		void (*f)(void *))
 {
-	void	*element;
+	t_u8		*elem;
+	const t_u8	*last;
 
-	if (!v || !v->size || !v->data || i >= v->size)
-		return ;
-	element = ft_vec_get_mut(v, i);
-	if (!element)
-		return ;
-	if (i == v->size - 1)
-	{
-		f(element);
-		ft_vec_pop(v);
-	}
-	else
-	{
-		f(element);
-		ft_memmove(ft_vec_get_mut(v, i),
-			ft_vec_get_mut(v, i + 1), (v->size - i - 1) * v->sizeof_type);
-		v->size--;
-	}
+	if (!v->data)
+		return (0);
+	elem = ft_vec_get_mut(v, i, type_size);
+	last = ft_vec_peek_last(v, type_size);
+	if (elem == NULL || last == NULL)
+		return (0);
+	f(elem);
+	ft_memcpy(elem, elem + type_size,
+		((t_uptr)last - (t_uptr)elem) + type_size);
+	v->head -= type_size;
+	return (1);
 }

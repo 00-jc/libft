@@ -110,6 +110,7 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/mem/__max.c\
 				src/mem/__maxs.c\
 				src/mem/ft_memctz.c\
+				src/mem/ft_memctz_asm.c\
 				src/mem/ft_memcpy_portable.c\
 				src/mem/ft_memcpy.c\
 				src/mem/ft_get512.c\
@@ -122,19 +123,14 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/mem/__hasz.c\
 				src/mem/ft_memchr.c\
 				src/mem/ft_memcmp.c\
-				src/vec/ft_vec_insert.c\
-				src/vec/ft_vec.c\
-				src/vec/ft_vec_reserve.c\
-				src/vec/ft_vec_popmv.c\
 				src/vec/ft_vec_get.c\
-				src/vec/ft_vec_fit.c\
-				src/vec/ft_vec_rev.c\
-				src/vec/ft_vec_pop.c\
-				src/vec/ft_vec_peek_last.c\
+				src/vec/ft_vec_extend.c\
+				src/vec/ft_vec_push_back.c\
 				src/vec/ft_vec_remove.c\
-				src/vec/ft_vec_push.c\
+				src/vec/ft_vec_bytesize.c\
 				src/vec/ft_vec_free.c\
-				src/vec/ft_vec_clear.c
+				src/vec/ft_vec_pop.c\
+				src/vec/ft_vec_new.c\
 
 OBJS		:=	build/ctype/ft_isprint.o\
 				build/ctype/ft_isxdigit.o\
@@ -235,6 +231,7 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/mem/__max.o\
 				build/mem/__maxs.o\
 				build/mem/ft_memctz.o\
+				build/mem/ft_memctz_asm.o\
 				build/mem/ft_memcpy_portable.o\
 				build/mem/ft_memcpy.o\
 				build/mem/ft_get512.o\
@@ -247,24 +244,19 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/mem/__hasz.o\
 				build/mem/ft_memchr.o\
 				build/mem/ft_memcmp.o\
-				build/vec/ft_vec_insert.o\
-				build/vec/ft_vec.o\
-				build/vec/ft_vec_reserve.o\
-				build/vec/ft_vec_popmv.o\
 				build/vec/ft_vec_get.o\
-				build/vec/ft_vec_fit.o\
-				build/vec/ft_vec_rev.o\
-				build/vec/ft_vec_pop.o\
-				build/vec/ft_vec_peek_last.o\
+				build/vec/ft_vec_extend.o\
+				build/vec/ft_vec_push_back.o\
 				build/vec/ft_vec_remove.o\
-				build/vec/ft_vec_push.o\
+				build/vec/ft_vec_bytesize.o\
 				build/vec/ft_vec_free.o\
-				build/vec/ft_vec_clear.o
+				build/vec/ft_vec_pop.o\
+				build/vec/ft_vec_new.o\
 
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
-	mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)

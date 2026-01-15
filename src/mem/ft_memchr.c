@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 08:21:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 16:32:04 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline void	*__fix_last_w(const t_u64a *ptr, size_t diff, t_u64a msk)
 	return (NULL);
 }
 
-__attribute__((__nonnull__ (1), __always_inline__))
+__attribute__((__nonnull__ (1), __always_inline__, pure))
 void	*ft_memchr(const void *__restrict__ ptr, int c, size_t n)
 {
 	t_u64a						msk;
@@ -99,7 +99,7 @@ static inline void	*__fix_last_w(const t_vu512 *ptr, size_t diff, t_vu512 msk)
 	return (NULL);
 }
 
-__attribute__((__nonnull__ (1), __always_inline__))
+__attribute__((__nonnull__ (1), __always_inline__, pure))
 void	*ft_memchr(const void *__restrict__ ptr, int c, size_t n)
 {
 	t_vu512a					msk;

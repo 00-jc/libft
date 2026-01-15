@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 03:36:25 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 03:40:49 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:15:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,16 @@ typedef uintptr_t __attribute__((__may_alias__))						t_uptr;
 
 typedef struct s_string
 {
-	size_t	len;
-	size_t	alloc_size;
-	char	*data;
+	size_t		len;
+	size_t		alloc_size;
+	const char	*data;
 }	t_string;
 
 typedef struct s_vec
 {
-	size_t	size;
-	void	*data;
-	size_t	alloc_size;
-	size_t	sizeof_type;
+	t_u8						*head;
+	size_t						capacity;
+	const t_u8	*restrict		data;
 }	t_vec;
-
-typedef struct s_arena
-{
-	size_t			size;
-	size_t			offset;
-	struct s_arena	*next;
-	void			*pool;
-}	t_arena;
 
 #endif

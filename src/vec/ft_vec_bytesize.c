@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vec_reserve.c                                   :+:      :+:    :+:   */
+/*   ft_vec_bytesize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:21 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/15 15:29:11 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/15 16:58:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
 
-void	ft_vec_reserve(t_vec *v, size_t n)
+__attribute__((__nonnull__(1), __always_inline__, pure))
+inline size_t	ft_vec_bytesize(const t_vec *restrict const v)
 {
-	void	*new;
+	return ((t_uptr)v->head - (t_uptr)v->data);
+}
 
-	if (!v || !n || n <= v->alloc_size)
-		return ;
-	new = ft_extend_zero(v->data, v->alloc_size * v->sizeof_type,
-			n * v->sizeof_type);
-	if (!new)
-		return ;
-	v->data = new;
-	v->alloc_size += n;
+__attribute__((__nonnull__(1), __always_inline__, pure))
+inline size_t	ft_vec_len(const t_vec *restrict const v, size_t type_size)
+{
+	return (ft_vec_bytesize(v) / type_size);
 }

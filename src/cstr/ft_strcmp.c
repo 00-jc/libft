@@ -6,20 +6,17 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:24:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h"
 
+__attribute__((__nonnull__(1, 2)))
 int	ft_strcmp(const char *a, const char *b)
 {
 	size_t	c;
 
-	if ((!a && b) || (a && !b))
-		return (-1);
-	if (!a && !b)
-		return (0);
 	c = 0;
 	while (a[c] && b[c])
 	{

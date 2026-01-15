@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 08:22:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 12:51:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,49 @@
 
 # define LONES_64 0x0101010101010101ULL
 # define HIGHS_64 0x8080808080808080ULL
-# define ZEROS_64 0x0000000000000000ULL
-# define LONES_32  0x01010101U
-# define HIGHS_32  0x80808080U
-# define HASH_SEED 0xCCAAF344FDULL
-# define HASH_PRIME 0xD0C76E161D9FULL
 
-void			ft_bzero(void *__restrict__ ptr, size_t n);
-void			ft_memset(void *__restrict__ s, const t_u8 c, size_t n);
+void			ft_bzero(void *__restrict__ ptr, size_t n)\
+					__attribute__((__nonnull__(1)));
+
+void			ft_memset(void *__restrict__ s, const t_u8 c, size_t n)\
+					__attribute__((__nonnull__(1)));
+
 void			ft_memcpy(void *__restrict__ dest,
-					const void *__restrict__ src, size_t n);
+					const void *__restrict__ src, size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+
 void			ft_memtake(void *__restrict__ dest,
-					void *__restrict__ src, size_t n);
+					void *__restrict__ src, size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+
 t_u8			ft_memswap(void *__restrict__ p1,
-					void *__restrict__ p2, size_t n);
+					void *__restrict__ p2, size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+
 t_u8			ft_memswap_extern(void *__restrict__ p1,
 					void *__restrict__ p2, size_t n,
-					void *__restrict__ buf);
+					void *__restrict__ buf)\
+					__attribute__((__nonnull__(1, 2, 4)));
+
 void			*ft_memmove(void *__restrict__ dest,
-					const void *__restrict__ src, size_t n);
-void			*ft_memchr(const void *__restrict__ ptr, int c, size_t n);
+					const void *__restrict__ src, size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+
+void			*ft_memchr(const void *__restrict__ ptr, int c, size_t n)\
+					__attribute__((__nonnull__(1)));
+
 ssize_t			ft_memcmp(const void *__restrict__ const dest,
-					const void *__restrict__ src, size_t n);
-void			*ft_memclone(void *__restrict__ ptr, size_t size);
-void			*ft_memformat(void *restrict const ptr, size_t size);
-void			ft_membroadcast(void *dst, void *src, size_t chunks, size_t n);
+					const void *__restrict__ src, size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+
+void			*ft_memclone(void *__restrict__ ptr, size_t size)\
+					__attribute__((__nonnull__(1)));
+
+void			*ft_memformat(void *restrict const ptr, size_t size)\
+					__attribute__((__nonnull__(1)));
+
+void			ft_membroadcast(void *dst, void *src, size_t chunks, size_t n)\
+					__attribute__((__nonnull__(1, 2)));
 
 t_u128			__hasz128(t_u128 x);
 t_u64			__hasz64(t_u64 x);
@@ -64,20 +82,26 @@ t_u128			__maxu128(t_u128 x, t_u128 y);
 
 void			ft_memcpy_tail(void *__restrict__ dest,
 					const void	*__restrict__ const src,
-					size_t offst, size_t n);
+					size_t offst, size_t n)\
+					__attribute__((__nonnull__(1, 2)));
 void			ft_memcpy_naive(void *__restrict__ dest,
 					const void	*__restrict__ const src,
-					size_t n);
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
 void			ft_memcpy_8x64(void *__restrict__ dest,
 					const void	*__restrict__ const src,
-					size_t n);
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
 
 void			ft_memset_tail(void *__restrict__ dest,
-					size_t offst, const t_u8 b, size_t n);
+					size_t offst, const t_u8 b, size_t n)\
+					__attribute__((__nonnull__(1)));
 void			ft_memset_naive(void *__restrict__ dest,
-					const t_u8 b, size_t n);
+					const t_u8 b, size_t n)\
+					__attribute__((__nonnull__(1)));
 void			ft_memset_8x64(void *__restrict__ dest,
-					const t_u8 b, size_t n);
+					const t_u8 b, size_t n)\
+					__attribute__((__nonnull__(1)));
 
 typedef t_u8 * restrict const										t_blk8w;
 typedef const t_u8 * restrict const									t_blk8r;
@@ -92,20 +116,26 @@ typedef const t_u64a * restrict const								t_blk64ra;
 
 void			ft_memcpy_8x128(void *__restrict__ dest,
 					const void	*__restrict__ const src,
-					size_t n);
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
 void			ft_memcpy_8x256(void *__restrict__ dest,
 					const void	*__restrict__ const src,
-					size_t n);
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
 void			ft_memcpy_8x512(void *__restrict__ dest,
 					const void	*__restrict__ const src,
-					size_t n);
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
 
 void			ft_memset_8x128(void *__restrict__ dest,
-					const t_u8 b, size_t n);
+					const t_u8 b, size_t n)\
+					__attribute__((__nonnull__(1)));
 void			ft_memset_8x256(void *__restrict__ dest,
-					const t_u8 b, size_t n);
+					const t_u8 b, size_t n)\
+					__attribute__((__nonnull__(1)));
 void			ft_memset_8x512(void *__restrict__ dest,
-					const t_u8 b, size_t n);
+					const t_u8 b, size_t n)\
+					__attribute__((__nonnull__(1)));
 
 typedef __attribute__((vector_size(16), aligned(1))) t_u8			t_vu128;
 typedef t_vu128 * restrict const __attribute__((aligned(1)))		t_blk128w;

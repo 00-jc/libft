@@ -6,12 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:23:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h"
 
+__attribute__((__nonnull__(2)))
 static int	in_set(char c, const char *set)
 {
 	int	i;
@@ -26,6 +27,7 @@ static int	in_set(char c, const char *set)
 	return (-1);
 }
 
+__attribute__((__nonnull__(1, 2)))
 char	*ft_strtrim(const char *str, const char *set)
 {
 	size_t	b;
@@ -33,9 +35,7 @@ char	*ft_strtrim(const char *str, const char *set)
 	size_t	trimmed_len;
 	char	*out;
 
-	if (!str)
-		return (NULL);
-	if (!set || !set[0] || !str[0])
+	if (!set[0] || !str[0])
 		return (ft_strdup(str));
 	b = 0;
 	e = ft_strlen(str) - 1;

@@ -6,20 +6,21 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:26:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h"
 
+__attribute__((__nonnull__(1, 2)))
 char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
 {
 	size_t	i;
 	size_t	l;
 
-	if (!needle || !*needle)
+	if (!*needle)
 		return ((char *)haystack);
-	if (!haystack || !*haystack)
+	if (!*haystack)
 		return (NULL);
 	i = 0;
 	l = ft_strlen(needle);

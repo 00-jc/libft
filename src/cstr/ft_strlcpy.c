@@ -6,18 +6,19 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/14 02:10:12 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:27:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h"
 
+__attribute__((__nonnull__(1, 2)))
 size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 {
 	size_t	src_len;
 	size_t	bytes_to_copy;
 
-	if (!src || n == 0 || !dest)
+	if (n == 0)
 		return (0);
 	src_len = ft_strlen(src);
 	if (src_len < (n - 1))

@@ -6,11 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 07:20:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/15 16:54:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
+
+#ifndef __BMI__
 
 __attribute__((hot, const, __always_inline__))
 inline t_u8	ft_memctz_u32(t_u32 x)
@@ -77,3 +79,5 @@ inline t_u8	ft_memctz_u128(t_u128 x)
 	r += t;
 	return (r + ((2 - (x >> 1)) & -((x & 1) == 0)));
 }
+
+#endif
