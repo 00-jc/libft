@@ -22,6 +22,16 @@ ft_cpy:
 	prefetch	(%rsi)
 	prefetchw	(%rdi)
 .Lalign_loop:
+	cmp		$8, %r8
+	jb		.Lalign_bytes
+	mov		(%rsi), %rax
+	mov		%rax, (%rdi)
+	add		$8, %rsi
+	add		$8, %rdi
+	sub		$8, %rdx
+	sub		$8, %r8
+	jmp		.Lalign_loop
+.Lalign_bytes:
     test    %r8, %r8
     jz      .Lcheck_size
     movb    (%rsi), %al
@@ -30,21 +40,19 @@ ft_cpy:
     inc     %rdi
     dec     %rdx
     dec     %r8
-    jmp     .Lalign_loop
+    jmp     .Lalign_bytes
 .Lcheck_size:
-	mov			%rdx,	%r8
-	shr			$9,		%r8
-	cmp			$32,	%r8
-	jae			.Laligned_512x32
-	cmp			$16,	%r8
-	jae			.Laligned_512x16
-	cmp			$8,		%r8
-	jae			.Laligned_512x8
-	cmp			$2,		%r8
-	jae			.Laligned_512x2
-	cmp			$1,		%r8
-	je			.Laligned_512
-	jmp			.Ltail
+	cmp		$16384,	%rdx
+	jae		.Laligned_512x32
+	cmp		$8192,	%rdx
+	jae		.Laligned_512x16
+	cmp		$4096,	%rdx
+	jae		.Laligned_512x8
+	cmp		$1024,	%rdx
+	jae		.Laligned_512x2
+	cmp		$512,	%rdx
+	jae		.Laligned_512
+	jmp		.Ltail
 .Laligned_512x32:
 	cmp			$2048,	%rdx
 	jb			.Lcheck_size
