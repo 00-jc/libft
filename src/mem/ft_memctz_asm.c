@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 17:09:12 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/16 05:24:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ inline t_u8	ft_memctz_u128(t_u128 x)
 	low = (t_u64)x;
 	high = (t_u64)(x >> 64);
 	__asm__("tzcnt %1, %0" : "=r"(low) : "r"(low));
-	if (low == 64)
-	{
-		__asm__("tzcnt %1, %0" : "=r"(high) : "r"(high));
-		return (64 + (t_u8)high);
-	}
-	return ((t_u8)low);
+	__asm__("tzcnt %1, %0" : "=r"(high) : "r"(high));
+	return ((t_u8)low + (t_u8)((low == 64) * high));
 }
 
 #endif
