@@ -10,6 +10,8 @@
 #                                                                              ;
 # **************************************************************************** ;
 
+#if	defined(__AVX512F__) && !defined(__LIBFT_SCALAR__)
+
 .global ft_cpy
 .text
 ft_cpy:
@@ -388,7 +390,6 @@ ft_cpy:
 	mov			%eax, (%rdi)
 	mov			%ecx, -4(%rdi,%rdx)
 	ret
-
 .Ltail_2:
 	cmp			$2, %rdx
 	jb			.Ltail_1
@@ -405,3 +406,5 @@ ft_cpy:
 .Lret:
 	ret
 .section .note.GNU-stack,"",@progbits
+
+#endif

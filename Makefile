@@ -79,10 +79,10 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/mem/ft_memctz.c\
 				src/mem/ft_memctz_asm.c\
 				src/mem/ft_memcpy_portable.c\
-				src/mem/ft_memcpy_avx512.c\
+				src/mem/ft_memcpy_avx256.c\
 				src/mem/ft_memcpy.c\
 				src/mem/ft_get512.c\
-				src/mem/ft_cpy.s\
+				src/mem/ft_cpy.S\
 				src/mem/ft_membroadcast.c\
 				src/mem/ft_get256.c\
 				src/mem/ft_get128.c\

@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 08:24:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 00:43:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h" 
 
-#ifndef __LIBFT_SCALAR__
+#if !defined(__LIBFT_SCALAR__) && defined(__AVX512F__)
 
 __attribute__((__always_inline__, const))
 static inline size_t	handle_simd_tail(const t_u128a qw[4])

@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 08:26:50 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 00:43:59 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-#ifndef __LIBFT_SCALAR__
+#if !defined(__LIBFT_SCALAR__) && defined(__AVX512F__)
 
 __attribute__((__nonnull__(1), __always_inline__))
 inline void	ft_memset_8x512(void *__restrict__ dest,
