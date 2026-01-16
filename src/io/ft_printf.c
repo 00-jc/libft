@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/16 00:16:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/16 00:25:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static inline size_t	manage_l(int fd, const char *const c,
 {
 	size_t	i;
 
-	i = 0;
+	i = 1;
 	if (remaining > 1)
 	{
 		if (c[1] == 'd')
@@ -77,6 +77,32 @@ static inline size_t	manage(int fd, const char *const c,
 	else if (_c == '%')
 		((void)write(fd, "%", 1), i += 2);
 	return (i);
+}
+
+__attribute__((__nonnull__(2)))
+void	ft_fprintf(int fd, const char *restrict const fmt, ...)
+{
+	size_t					len;
+	size_t					maxptr;
+	const char	*restrict	subst;
+	const char	*restrict	start;
+	va_list					args;
+
+	va_start(args, fmt);
+	len = ft_strlen(fmt);
+	maxptr = (t_uptr)fmt + len;
+	start = fmt;
+	subst = ft_memchr(fmt, '%', len);
+	while (subst && (t_uptr)subst + 1 < maxptr)
+	{
+		(void)write(fd, start, (t_uptr)subst - (t_uptr)start);
+		len = maxptr - (t_uptr)subst;
+		subst += manage(fd, subst + 1, len, args);
+		start = subst;
+		subst = ft_memchr(start, '%', len);
+	}
+	(void)write(fd, start, maxptr - (t_uptr)start);
+	va_end(args);
 }
 
 __attribute__((__nonnull__(1)))

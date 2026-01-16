@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/16 00:09:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/16 02:37:25 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ inline void	putu(int fd, size_t n)
 	while (n)
 	{
 		buffer[--i] = (char)((n % 10) + '0');
-		n /= 10;
+		n = n * 0xCCCCCCCDULL >> 35;
 	}
 	(void)write(fd, buffer + i, 32 - i);
 }

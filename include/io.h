@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/16 00:00:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/16 00:25:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef IO_H
@@ -42,4 +42,6 @@ void			pputs(int fd, const char *__restrict__ const str)\
 					__attribute__((__always_inline__));
 void			ft_printf(const char *__restrict__ const fmt, ...)\
 					__attribute__((__nonnull__(1)));
+void			ft_fprintf(int fd, const char *restrict const fmt, ...)\
+					__attribute__((__nonnull__(2)));
 #endif
