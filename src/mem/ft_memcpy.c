@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 22:55:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/16 23:06:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:52:03 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_memcpy(void *__restrict__ dest,
 	}
 	else
 		ft_cpy(dest, src, n);
-	
 }
 
 #else
