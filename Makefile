@@ -79,8 +79,10 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/mem/ft_memctz.c\
 				src/mem/ft_memctz_asm.c\
 				src/mem/ft_memcpy_portable.c\
+				src/mem/ft_memcpy_avx512.c\
 				src/mem/ft_memcpy.c\
 				src/mem/ft_get512.c\
+				src/mem/ft_cpy.s\
 				src/mem/ft_membroadcast.c\
 				src/mem/ft_get256.c\
 				src/mem/ft_get128.c\
@@ -173,6 +175,8 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/mem/ft_memctz.o\
 				build/mem/ft_memctz_asm.o\
 				build/mem/ft_memcpy_portable.o\
+				build/mem/ft_memcpy_avx256.o\
+				build/mem/ft_cpy.o\
 				build/mem/ft_memcpy.o\
 				build/mem/ft_get512.o\
 				build/mem/ft_membroadcast.o\
@@ -204,6 +208,10 @@ all: $(NAME)
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@ -Iinclude
+
+$(OBJDIR)/%.o: src/%.s
+	@mkdir -p $(dir $@)
+	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^
