@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/16 02:37:25 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/16 05:21:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ inline void	putu(int fd, size_t n)
 	char			buffer[32];
 	size_t			i;
 
-	i = 31;
+	i = 32;
 	if (n == 0)
 		buffer[--i] = '0';
 	while (n)
@@ -36,7 +36,7 @@ inline void	putx(int fd, size_t n, char or)
 	size_t			i;
 	char			h;
 
-	i = 31;
+	i = 32;
 	if (n == 0)
 		buffer[--i] = '0';
 	while (n)
@@ -55,7 +55,7 @@ inline void	putd(int fd, ssize_t n)
 	t_u8			neg;
 	size_t			i;
 
-	i = 31;
+	i = 32;
 	if (n == 0)
 		buffer[--i] = '0';
 	neg = 0;
@@ -81,7 +81,7 @@ inline void	puti(int fd, int n)
 	t_u8			neg;
 	size_t			i;
 
-	i = 31;
+	i = 32;
 	if (n == 0)
 		buffer[--i] = '0';
 	if (n == INT_MIN)
