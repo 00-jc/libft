@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 07:37:35 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 08:04:04 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h" 
 
-#if !defined(__AVX512F__) || defined(__LIBFT_SCALAR__)
+#if !defined(__AVX512VL__) || defined(__LIBFT_SCALAR__)
 
 __attribute__((__nonnull__(1)))
 size_t	ft_strlen(const char *restrict str)

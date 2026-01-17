@@ -10,7 +10,7 @@
 #                                                                              ;
 # **************************************************************************** ;
 
-#if	defined(__AVX512F__) && !defined(__LIBFT_SCALAR__)
+#if	defined(__AVX512VL__) && !defined(__LIBFT_SCALAR__)
 
 .global ft_memcpy
 .type ft_memcpy, @function
