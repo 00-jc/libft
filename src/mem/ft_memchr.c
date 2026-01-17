@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 02:44:49 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 02:52:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ void	*ft_memchr(const void *__restrict__ ptr, int c, size_t n)
 	}
 	return (__fix_last_w (w_64, n, msk));
 }
-
