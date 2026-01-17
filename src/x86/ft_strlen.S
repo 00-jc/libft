@@ -21,50 +21,50 @@ ft_strlen:
 	prefetcht1	256(%rdi)
 .Lunaligned:
 	test			$63, %rsi
-	jz				.Laligned_loop
+	jz				.Laligned_loop_setup
 	movb			(%rsi), %al
 	test			%al, %al
 	jz				.Lret
 	inc				%rsi
 	jmp				.Lunaligned
+.Laligned_loop_setup:
+	vpxorq			%zmm15,%zmm15,%zmm15
 .Laligned_loop:
-	vmovdqa64		(%rsi),		%zmm0
-	vpminub			64(%rsi),	%zmm0, %zmm1
-	vmovdqa64		128(%rsi),	%zmm2
-	vpminub			192(%rsi),	%zmm2, %zmm3
-	vptestnmb		%zmm1,%zmm1,%k0
-	vptestnmb		%zmm3,%zmm3,%k1
-	ktestq			%k0,%k0
-	jnz				.Lfound0				
-	ktestq			%k1,%k1
-	jnz				.Lfound1				
-	add				$256,	%rsi
+	vptestnmb		(%rsi),		%zmm15, %k0
+	vptestnmb		64(%rsi),	%zmm15, %k1
+	vptestnmb		128(%rsi),	%zmm15, %k3
+	vptestnmb		192(%rsi),	%zmm15, %k4
+	korq            %k0, %k1, %k2
+	ktestq          %k2, %k2
+	jnz				.Lfound1
+	korq            %k3, %k4, %k5
+	ktestq          %k5, %k5
+	jnz				.Lfound2
+	add				$256, %rsi
 	jmp				.Laligned_loop
-.Lfound0:
-    xor             %r15,%r15
-    mov             $64,%rax
-    vptestnmb       %zmm0,%zmm0,%k1
-    kmovq           %k1,%r9
-    kmovq           %k0,%r8
-    ktestq          %k1,%k1
-    cmovz           %rax,%r15
-    cmovz           %r8,%r9
-    tzcnt           %r9,%r9
-    add             %r9,%rsi
-    add             %r15,%rsi
-    jmp             .Lret
 .Lfound1:
-    mov             $128,%r15
-    mov             $192,%rax
-    vptestnmb       %zmm2,%zmm2,%k1
-    kmovq           %k1,%r9
-    kmovq           %k0,%r8
-    ktestq          %k1,%k1
-    cmovz           %rax,%r15
-    cmovz           %r8,%r9
-    tzcnt           %r9,%r9
-    add             %r9,%rsi
-    add             %r15,%rsi
+	xor				%r15, %r15
+	movq			$64, %rax
+	kmovq			%k0, %r8
+	kmovq			%k1, %r9
+	test			%r8, %r8
+	cmovz			%r9, %r8
+	cmovz			%rax, %r15
+	tzcnt			%r8, %r8
+	add				%r15, %rsi
+	add				%r8,  %rsi
+	jmp				.Lret
+.Lfound2:
+	movq			$128, %r15
+	movq			$192, %rax
+	kmovq			%k3, %r8
+	kmovq			%k4, %r9
+	test			%r8, %r8
+	cmovz			%r9, %r8
+	cmovz			%rax, %r15
+	tzcnt			%r8, %r8
+	add				%r15, %rsi
+	add				%r8,  %rsi
 .Lret:
 	mov	%rsi, %rax
 	sub	%rdi, %rax
