@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 02:46:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 03:45:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void			ft_memset(void *__restrict__ s, const t_u8 c, size_t n)\
 void			ft_memcpy(void *__restrict__ dest,
 					const void *__restrict__ src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
+
+void			ft_set(void *__restrict__ s, const t_u8 c, size_t n)\
+					__attribute__((__nonnull__(1)));
 
 void			ft_cpy(void *__restrict__ dest,
 					const void *__restrict__ src, size_t n)\
