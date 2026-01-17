@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 02:42:52 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 04:19:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ size_t	ft_strlen(const char *restrict str)
 	w_64 = (const t_u64a *)str;
 	while (1)
 	{
-		w = *((t_blk64r)w_64);
-		w = (((w) - LONES_64) & (~w) & HIGHS_64);
+		w = __hasz64(*((t_blk64r)w_64));
 		if (w)
 		{
 			w = ft_memctz_u64(w);

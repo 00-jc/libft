@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 02:52:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 04:19:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	*ft_memchr(const void *__restrict__ ptr, int c, size_t n)
 	w_64 = (const t_u64a *)bp;
 	while (n >= sizeof (t_u64))
 	{
-		w = *((t_blk64ra)w_64) ^ msk;
-		w = (((w) - LONES_64) & (~w) & HIGHS_64);
+		w = __hasz64(*((t_blk64ra)w_64) ^ msk);
 		if (w)
 		{
 			w = ft_memctz_u64(w);
