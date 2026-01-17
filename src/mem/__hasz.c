@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:05:57 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 04:18:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 04:21:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ inline t_u128	__hasz128(t_u128 x)
 
 	high_part = (t_u64)(x >> 64);
 	low_part = (t_u64)x;
-	return (__hasz64 (low_part) | __hasz64 (high_part));
+	return (__hasz64 (low_part)
+		| ((t_u128)__hasz64 (high_part) << 64));
 }
