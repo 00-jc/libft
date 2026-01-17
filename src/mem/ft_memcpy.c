@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 22:55:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 08:03:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 09:54:37 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-#if !defined(__LIBFT_SCALAR__) && !defined(__AVX512VL__)
+#if !defined(__LIBFT_SCALAR__) && defined(__AVX2__) && !defined(__AVX512VL__)
 
 __attribute__((__nonnull__(1, 2)))
 void	ft_memcpy(void *__restrict__ dest,

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/16 00:25:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 22:32:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline void	pflt(int fd, double d)
 	size_t		i;
 	double		frac;
 
-	putu(fd, (size_t)d);
+	putd(fd, (ssize_t)d);
 	(void)write(fd, ".", 1);
 	frac = (double)(d - (double)(size_t)d);
 	i = 0;
