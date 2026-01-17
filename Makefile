@@ -109,6 +109,10 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/io/ft_putstr_fd.c\
 				src/io/ft_printf.c\
 				src/io/ft_printf_helpers.c\
+				src/str/ft_str_extend.c\
+				src/str/ft_str_new.c\
+				src/str/ft_str_remove.c\
+				src/str/ft_str_push_back.c
 
 OBJS		:=	build/ctype/ft_isprint.o\
 				build/ctype/ft_isxdigit.o\
@@ -208,7 +212,10 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/io/ft_putstr_fd.o\
 				build/io/ft_printf.o\
 				build/io/ft_printf_helpers.o\
-
+				build/str/ft_str_extend.o\
+				build/str/ft_str_new.o\
+				build/str/ft_str_remove.o\
+				build/str/ft_str_push_back.o
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c

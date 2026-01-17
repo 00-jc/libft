@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 03:57:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 22:45:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ ssize_t	ft_memcmp(const void *__restrict__ const ptr1,
 	t_u64	load1;
 
 	offst = 0;
-	diff = 0;
 	nw = n >> 3;
 	while (offst < nw)
 	{
