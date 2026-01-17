@@ -82,8 +82,8 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/mem/ft_memcpy_avx256.c\
 				src/mem/ft_memcpy.c\
 				src/mem/ft_get512.c\
-				src/mem/ft_cpy.S\
-				src/mem/ft_set.S\
+				src/x86/ft_cpy.S\
+				src/x86/ft_set.S\
 				src/mem/ft_membroadcast.c\
 				src/mem/ft_get256.c\
 				src/mem/ft_get128.c\
@@ -177,8 +177,8 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/mem/ft_memctz_asm.o\
 				build/mem/ft_memcpy_portable.o\
 				build/mem/ft_memcpy_avx256.o\
-				build/mem/ft_cpy.o\
-				build/mem/ft_set.o\
+				build/x86/ft_cpy.o\
+				build/x86/ft_set.o\
 				build/mem/ft_memcpy.o\
 				build/mem/ft_get512.o\
 				build/mem/ft_membroadcast.o\
