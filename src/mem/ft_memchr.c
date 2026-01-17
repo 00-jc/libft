@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 04:19:31 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 07:54:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static inline void	*__fix_last_w(const t_u64a *ptr, size_t diff, t_u64a msk)
 
 	if (diff == 0)
 		return (NULL);
-	w = (*ptr ^ msk);
-	w = (((w)-LONES_64) & (~w) & HIGHS_64);
+	w = __hasz64((*ptr ^ msk));
 	if (w)
 	{
 		w = ft_memctz_u64(w);
