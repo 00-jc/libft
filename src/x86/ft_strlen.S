@@ -21,14 +21,12 @@ ft_strlen:
 	prefetcht1	256(%rdi)
 .Lunaligned:
 	test			$63, %rsi
-	jz				.Laligned
+	jz				.Laligned_loop
 	movb			(%rsi), %al
 	test			%al, %al
 	jz				.Lret
 	inc				%rsi
 	jmp				.Lunaligned
-.Laligned:
-	vpxord			%zmm1,%zmm1,%zmm1
 .Laligned_loop:
 	vmovdqa64		(%rsi),		%zmm0
 	vpminub			64(%rsi),	%zmm0, %zmm1
@@ -36,40 +34,37 @@ ft_strlen:
 	vpminub			192(%rsi),	%zmm2, %zmm3
 	vptestnmb		%zmm1,%zmm1,%k0
 	vptestnmb		%zmm3,%zmm3,%k1
-	kmovq			%k0, %r9
-	test        	%r9, %r9
-	jnz				.Lfound2
-	kmovq			%k1, %r9
-	test        	%r9, %r9
-	jnz				.Lfound4
+	ktestq			%k0,%k0
+	jnz				.Lfound0				
+	ktestq			%k1,%k1
+	jnz				.Lfound1				
 	add				$256,	%rsi
 	jmp				.Laligned_loop
-.Lfound2:
-	vptestnmb		%zmm0,%zmm0,%k0
-	kmovq			%k0, %r8
-	test			%r8, %r8
-	jnz				.Lfound1
-	tzcnt			%r9, %r9
-	add				%r9, %rsi
-	add				$64, %rsi
-	jmp				.Lret
-.Lfound4:
-	vptestnmb		%zmm2,%zmm2,%k0
-	kmovq			%k0, %r8
-	test			%r8, %r8
-	jnz				.Lfound3		
-	tzcnt			%r9, %r9
-	add				%r9, %rsi
-	add				$192, %rsi
-	jmp				.Lret
+.Lfound0:
+    xor             %r15,%r15
+    mov             $64,%rax
+    vptestnmb       %zmm0,%zmm0,%k1
+    kmovq           %k1,%r9
+    kmovq           %k0,%r8
+    ktestq          %k1,%k1
+    cmovz           %rax,%r15
+    cmovz           %r8,%r9
+    tzcnt           %r9,%r9
+    add             %r9,%rsi
+    add             %r15,%rsi
+    jmp             .Lret
 .Lfound1:
-	tzcnt			%r8, %r8
-	add				%r8, %rsi
-	jmp				.Lret
-.Lfound3:
-	tzcnt			%r8, %r8
-	add				%r8, %rsi
-	add				$128, %rsi
+    mov             $128,%r15
+    mov             $192,%rax
+    vptestnmb       %zmm2,%zmm2,%k1
+    kmovq           %k1,%r9
+    kmovq           %k0,%r8
+    ktestq          %k1,%k1
+    cmovz           %rax,%r15
+    cmovz           %r8,%r9
+    tzcnt           %r9,%r9
+    add             %r9,%rsi
+    add             %r15,%rsi
 .Lret:
 	mov	%rsi, %rax
 	sub	%rdi, %rax
