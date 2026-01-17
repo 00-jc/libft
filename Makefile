@@ -8,8 +8,8 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wbounds-safety-counted-by-elt-type-unknown-size -Wstrict-aliasing -Wcast-function-type-strict \
 				-Wcast-function-type-mismatch -Wc99-compat -Wbool-conversions -Wbool-operation -Wbitwise-instead-of-logical \
 				-Wbitfield-enum-conversion -Warray-bounds-pointer-arithmetic -Wnull-pointer-arithmetic
-CFLAGS 		:=  -flto -O3 -march=native -ffunction-sections -fdata-sections -fvectorize -finline-functions $(WARNS)
-AR			:=	ar rcs
+CFLAGS 		:=  -O3 -flto -march=native -ffunction-sections -fdata-sections -fvectorize -finline-functions $(WARNS)
+AR			:=	llvm-ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/ctype/ft_isprint.c\
 				src/ctype/ft_isxdigit.c\
@@ -209,9 +209,9 @@ $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@ -Iinclude
 
-$(OBJDIR)/%.o: src/%.s
+$(OBJDIR)/%.o: src/%.S
 	@mkdir -p $(dir $@)
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^

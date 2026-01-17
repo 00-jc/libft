@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_str_extend.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 02:42:52 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/01/17 01:34:34 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/17 02:00:57 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cstr.h" 
+#include "str.h"
 
 __attribute__((__nonnull__(1)))
-size_t	ft_strlen(const char *restrict str)
+int	ft_str_extend(t_str *restrict str,
+		const t_u8 *restrict const data, size_t n)
 {
-	t_uptr						a;
-	t_u64a						w;
-	const t_u64a	*restrict	w_64;
+	size_t	newcap;
+	t_str	s;
 
-	if (*str == 0)
-		return (0);
-	a = (t_uptr)str;
-	while (*str && ((t_uptr)str & 7))
-		str++;
-	w_64 = (const t_u64a *)str;
-	while (1)
+	s = *str;
+	if (s.len + n + 1 == s.capacity)
 	{
-		w = *((t_blk64r)w_64);
-		w = (((w) - LONES_64) & (~w) & HIGHS_64);
-		if (w)
-		{
-			w = ft_memctz_u64(w);
-			return (((t_uptr)w_64 + (w >> 3)) - a);
-		}
-		++w_64;
+		newcap = __max_s(s.capacity << 1, s.capacity + n);
+		s.data = ft_recalloc(s.data, s.capacity, newcap);
+		if (s.data == NULL)
+			return (0);
+		s.capacity = newcap;
 	}
+	ft_memcpy(s.data + s.len, data, n + 1);
+	s.len += n + 1;
+	*str = s;
+	return (1);
 }

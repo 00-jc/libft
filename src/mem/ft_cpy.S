@@ -13,6 +13,7 @@
 #if	defined(__AVX512F__) && !defined(__LIBFT_SCALAR__)
 
 .global ft_cpy
+.type ft_cpy, @function
 .text
 ft_cpy:
     mov     %rsi, %r8
