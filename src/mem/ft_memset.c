@@ -6,20 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 04:12:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 07:49:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-#if !defined(__LIBFT_SCALAR__)
-
-/*
- *	like memcpy, this is for
- *	when we know the size of
- *	the buffer, if not use
- *	ft_set()
- */
+#if !defined(__LIBFT_SCALAR__) && !defined(__AVX512F__)
 
 __attribute__((__nonnull__(1)))
 void	ft_memset(void *__restrict__ dest,
@@ -37,7 +30,7 @@ void	ft_memset(void *__restrict__ dest,
 		ft_memset_naive(dest, b, n);
 }
 
-#else
+#elif defined(__LIBFT_SCALAR__)
 
 __attribute__((__nonnull__(1)))
 void	ft_memset(void *__restrict__ dest,

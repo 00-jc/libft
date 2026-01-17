@@ -16,8 +16,9 @@
 .type ft_strlen, @function
 .text
 ft_strlen:
-	mov		%rdi, %rsi
-	xor		%rax, %rax
+	mov			%rdi, %rsi
+	xor			%rax, %rax
+	prefetcht1	256(%rdi)
 .Lunaligned:
 	test			$63, %rsi
 	jz				.Laligned

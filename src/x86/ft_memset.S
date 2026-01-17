@@ -1,7 +1,7 @@
 # **************************************************************************** ;
 #                                                                              ;
 #                                                         :::      ::::::::    ;
-#    ft_set.s                                           :+:      :+:    :+:    ;
+#    ft_memset.s                                        :+:      :+:    :+:    ;
 #                                                     +:+ +:+         +:+      ;
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         ;
 #                                                 +#+#+#+#+#+   +#+            ;
@@ -12,10 +12,10 @@
 
 #if	defined(__AVX512F__) && !defined(__LIBFT_SCALAR__)
 
-.global ft_set
-.type ft_set, @function
+.global ft_memset
+.type ft_memset, @function
 .text
-ft_set:
+ft_memset:
 	xor		   	%rax, %rax
     mov     	%rdi, %r8
     neg     	%r8

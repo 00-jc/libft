@@ -1,7 +1,7 @@
 # **************************************************************************** ;
 #                                                                              ;
 #                                                         :::      ::::::::    ;
-#    ft_cpy.s                                           :+:      :+:    :+:    ;
+#    ft_memcpy.s                                        :+:      :+:    :+:    ;
 #                                                     +:+ +:+         +:+      ;
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         ;
 #                                                 +#+#+#+#+#+   +#+            ;
@@ -12,10 +12,10 @@
 
 #if	defined(__AVX512F__) && !defined(__LIBFT_SCALAR__)
 
-.global ft_cpy
-.type ft_cpy, @function
+.global ft_memcpy
+.type ft_memcpy, @function
 .text
-ft_cpy:
+ft_memcpy:
     mov     %rdi, %r8
     neg     %r8
     and     $63, %r8

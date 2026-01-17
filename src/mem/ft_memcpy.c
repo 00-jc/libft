@@ -6,20 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 22:55:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 04:12:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/17 07:49:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-/*
- *	like memset, this is for
- *	when we know the size of
- *	the copy, if not use
- *	ft_cpy()
- */
-
-#if !defined(__LIBFT_SCALAR__)
+#if !defined(__LIBFT_SCALAR__) && !defined(__AVX512F__)
 
 __attribute__((__nonnull__(1, 2)))
 void	ft_memcpy(void *__restrict__ dest,
@@ -37,7 +30,7 @@ void	ft_memcpy(void *__restrict__ dest,
 		ft_memcpy_naive(dest, src, n);
 }
 
-#else
+#elif defined(__LIBFT_SCALAR__)
 
 __attribute__((__nonnull__(1, 2)))
 void	ft_memcpy(void *__restrict__ dest,
