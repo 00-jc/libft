@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 08:04:04 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 03:05:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *restrict str)
 		return (0);
 	a = (t_uptr)str;
 	while (*str && ((t_uptr)str & 7))
-		str++;
+		++str;
 	w_64 = (const t_u64a *)str;
 	while (1)
 	{

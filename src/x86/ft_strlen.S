@@ -34,6 +34,7 @@ ft_strlen:
 	add    $64, %rsi
 	and    $-64, %rsi 
 .Laligned_loop:
+    prefetcht1     	256(%rdi)
 	vpcmpeqb		(%rsi),		%zmm15, %k0
 	vpcmpeqb		64(%rsi),	%zmm15, %k1
 	vpcmpeqb		128(%rsi),	%zmm15, %k3
