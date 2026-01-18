@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/18 03:44:18 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/18 08:53:18 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -261,9 +261,9 @@ analyze: all static_analysis
 		echo "ast2md not found, skipping coupling analysis"; \
 	fi
 	@echo "Running tests..."
-	@$(CC) $(CFLAGS) src/x86/test/strlen_test.c $(NAME) -Iinclude -o test_strlen && \
+	@$(CC) $(CFLAGS) src/x86/test/strlen_test.c -g $(NAME) -Iinclude -fsanitize=address -o test_strlen && \
 		./test_strlen && rm -f test_strlen
-	@$(CC) $(CFLAGS) src/x86/test/memchr_test.c $(NAME) -Iinclude -o test_memchr && \
+	@$(CC) $(CFLAGS) src/x86/test/memchr_test.c -g $(NAME) -Iinclude -fsanitize=address -o test_memchr && \
 		./test_memchr && rm -f test_memchr
 	@echo "All tests passed!"
 
