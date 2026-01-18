@@ -6,11 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:32:14 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 01:56:07 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 09:48:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec.h"
+#include "str.h"
 
 __attribute__((__nonnull__(1)))
 int	ft_str_push_back(t_str *restrict str, const t_u8 byte)

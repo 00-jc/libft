@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 09:55:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 10:25:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_memset(void *__restrict__ dest,
 		ft_memset_naive(dest, b, n);
 }
 
-#elif defined(__LIBFT_SCALAR__)
+#elif (!defined(__AVX512VL__) && !defined(__AVX2__)) || defined(__LIBFT_SCALAR__)
 
 __attribute__((__nonnull__(1)))
 void	ft_memset(void *__restrict__ dest,

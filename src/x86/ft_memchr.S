@@ -10,13 +10,14 @@
 #                                                                              ;
 # **************************************************************************** ;
 
-#if	defined(__AVX512VL__) && !defined(__LIBFT_SCALAR__)
+#if	defined(__AVX512VL__) && defined(__x86_64__) && !defined(__LIBFT_SCALAR__)
 
 .global ft_memchr
 .type ft_memchr, @function
 .text
 
 ft_memchr:
+	endbr64
 	prefetcht1	512(%rdi)
 	xor		%rax,	%rax
 .align_loop:

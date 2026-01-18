@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/18 08:53:18 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/18 10:08:15 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,12 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wgnu-union-cast -Wlanguage-extension-token -Wgnu-statement-expression-from-macro-expansion \
 				-Wbounds-safety-counted-by-elt-type-unknown-size -Wstrict-aliasing -Wcast-function-type-strict \
 				-Wcast-function-type-mismatch -Wc99-compat -Wbool-conversions -Wbool-operation -Wbitwise-instead-of-logical \
-				-Wbitfield-enum-conversion -Warray-bounds-pointer-arithmetic -Wnull-pointer-arithmetic
+				-Wbitfield-enum-conversion -Warray-bounds-pointer-arithmetic -Wnull-pointer-arithmetic\
+				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common -fvisibility=hidden\
+				-Wredundant-decls -Wstrict-prototypes -Wnull-dereference -Wundef -Wformat-security -Wformat=2\
+				-Wwrite-strings -Wold-style-definition -Wuninitialized -Wloop-analysis -Wpointer-arith\
+				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla\
+				-fstack-clash-protection
 CFLAGS 		:=  -O3 -flto -march=native -ffunction-sections -fdata-sections -fvectorize -finline-functions $(WARNS)
 AR			:=	llvm-ar rcs
 OBJDIR		:=	build
@@ -230,29 +235,36 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/str/ft_str_new.o\
 				build/str/ft_str_remove.o\
 				build/str/ft_str_push_back.o
+TOTAL 		:= $(words $(OBJS))
+CURRENT 	:= 0
+
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@ -Iinclude
+	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
+	@echo "[$(CURRENT)/$(TOTAL)] Compiling $<"
+	@$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
 
 $(OBJDIR)/%.o: src/%.S
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
+	@printf "[$(CURRENT)/$(TOTAL)] Building ASM object $<\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
 
 clean:
-	rm -rf $(OBJDIR)
+	@rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean full all
 
 static_analysis:
-	$(SCANNER) $(CC) $(WARNS) -Xclang -analyzer-output=text --analyze $(SRCS) -Iinclude
+	@$(SCANNER) $(CC) $(WARNS) -Xclang -analyzer-output=text --analyze $(SRCS) -Iinclude
 
 analyze: all static_analysis
 	@if command -v ast2md >/dev/null 2>&1; then \

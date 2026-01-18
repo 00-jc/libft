@@ -10,12 +10,13 @@
 #                                                                              ;
 # **************************************************************************** ;
 
-#if	defined(__AVX512VL__) && !defined(__LIBFT_SCALAR__)
+#if	defined(__AVX512VL__) && defined(__x86_64__) && !defined(__LIBFT_SCALAR__)
 
 .global ft_strlen
 .type ft_strlen, @function
 .text
 ft_strlen:
+	endbr64
     mov           	%rdi, %rsi
     xor            	%rax, %rax
     vpxorq          %zmm15,%zmm15,%zmm15

@@ -10,12 +10,13 @@
 #                                                                              ;
 # **************************************************************************** ;
 
-#if	defined(__AVX512VL__) && !defined(__LIBFT_SCALAR__)
+#if	defined(__AVX512VL__) && defined(__x86_64__) && !defined(__LIBFT_SCALAR__)
 
 .global ft_memcpy
 .type ft_memcpy, @function
 .text
 ft_memcpy:
+	endbr64
     mov     %rdi, %r8
     neg     %r8
     and     $63, %r8

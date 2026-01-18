@@ -10,12 +10,13 @@
 #                                                                              ;
 # **************************************************************************** ;
 
-#if	defined(__AVX512VL__) && !defined(__LIBFT_SCALAR__)
+#if	defined(__AVX512VL__) && defined(__x86_64__) && !defined(__LIBFT_SCALAR__)
 
 .global ft_memset
 .type ft_memset, @function
 .text
 ft_memset:
+	endbr64
 	xor		   	%rax, %rax
     mov     	%rdi, %r8
     neg     	%r8

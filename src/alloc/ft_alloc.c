@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 10:31:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 09:45:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*ft_alloc_align(size_t size, size_t align)
 		return (NULL);
 	cc = (t_uptr)tab + sizeof(void *);
 	ac = (void *)((cc + (align - 1)) & ~(align - 1));
-	return (((void **)ac)[-1] = tab, ac);
+	return ((void)(((void **)ac)[-1] = tab), ac);
 }
 
 void	*ft_alloc(size_t size)
