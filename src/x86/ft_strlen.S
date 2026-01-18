@@ -16,24 +16,28 @@
 .type ft_strlen, @function
 .text
 ft_strlen:
-	mov			%rdi, %rsi
-	xor			%rax, %rax
-	prefetcht1	256(%rdi)
-.Lunaligned:
-	test			$63, %rsi
+    mov           	%rdi, %rsi
+    xor            	%rax, %rax
+    vpxorq          %zmm15,%zmm15,%zmm15
+    prefetcht1     	256(%rdi)
+	test			$63, %rdi
+	jz				.Laligned_loop
+	vmovdqu64		(%rsi),	%zmm0
+	vpcmpeqb		%zmm0,	%zmm15, %k0
+	ktestq          %k0, %k0
 	jz				.Laligned_loop_setup
-	movb			(%rsi), %al
-	test			%al, %al
-	jz				.Lret
-	inc				%rsi
-	jmp				.Lunaligned
+	kmovq			%k0, %r8
+	tzcnt			%r8, %r8
+	add				%r8, %rsi
+	jmp				.Lret
 .Laligned_loop_setup:
-	vpxorq			%zmm15,%zmm15,%zmm15
+	add    $64, %rsi
+	and    $-64, %rsi 
 .Laligned_loop:
-	vptestnmb		(%rsi),		%zmm15, %k0
-	vptestnmb		64(%rsi),	%zmm15, %k1
-	vptestnmb		128(%rsi),	%zmm15, %k3
-	vptestnmb		192(%rsi),	%zmm15, %k4
+	vpcmpeqb		(%rsi),		%zmm15, %k0
+	vpcmpeqb		64(%rsi),	%zmm15, %k1
+	vpcmpeqb		128(%rsi),	%zmm15, %k3
+	vpcmpeqb	   	192(%rsi),	%zmm15, %k4
 	korq            %k0, %k1, %k2
 	ktestq          %k2, %k2
 	jnz				.Lfound1

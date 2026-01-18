@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 22:32:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 02:35:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static inline size_t	manage_l(int fd, const char *const c,
 				i += 2);
 	}
 	else
-		(putu(fd, va_arg(args, size_t)), i += 1);
+		(putu(fd, va_arg(args, size_t)), i += 2);
 	return (i);
 }
 
@@ -68,7 +68,7 @@ static inline size_t	manage(int fd, const char *const c,
 		(puti(fd, va_arg(args, ssize_t)), i += 2);
 	else if (_c == 'u')
 		(putu(fd, va_arg(args, size_t)), i += 2);
-	else if (_c == 'l' | _c == 'p')
+	else if (_c == 'l' || _c == 'p')
 		i += manage_l(fd, c, remaining, args);
 	else if (_c == 's')
 		(pputs(fd, va_arg(args, char *)), i += 2);
@@ -93,7 +93,7 @@ void	ft_fprintf(int fd, const char *restrict const fmt, ...)
 	maxptr = (t_uptr)fmt + len;
 	start = fmt;
 	subst = ft_memchr(fmt, '%', len);
-	while (subst && (t_uptr)subst + 1 < maxptr)
+	while (subst && (t_uptr)subst < maxptr)
 	{
 		(void)write(fd, start, (t_uptr)subst - (t_uptr)start);
 		len = maxptr - (t_uptr)subst;
@@ -122,9 +122,9 @@ void	ft_printf(const char *restrict const fmt, ...)
 	while (subst && (t_uptr)subst + 1 < maxptr)
 	{
 		(void)write(STDOUT_FILENO, start, (t_uptr)subst - (t_uptr)start);
-		len = maxptr - (t_uptr)subst;
-		subst += manage(STDOUT_FILENO, subst + 1, len, args);
+		subst += manage(STDOUT_FILENO, subst + 1, maxptr - (t_uptr)subst, args);
 		start = subst;
+		len = maxptr - (t_uptr)start;
 		subst = ft_memchr(start, '%', len);
 	}
 	(void)write(STDOUT_FILENO, start, maxptr - (t_uptr)start);
