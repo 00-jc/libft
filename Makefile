@@ -109,6 +109,7 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/io/ft_putstr_fd.c\
 				src/io/ft_printf.c\
 				src/io/ft_printf_helpers.c\
+				src/io/ft_printf_helpers2.c\
 				src/str/ft_str_extend.c\
 				src/str/ft_str_new.c\
 				src/str/ft_str_remove.c\
@@ -212,6 +213,7 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/io/ft_putstr_fd.o\
 				build/io/ft_printf.o\
 				build/io/ft_printf_helpers.o\
+				build/io/ft_printf_helpers2.o\
 				build/str/ft_str_extend.o\
 				build/str/ft_str_new.o\
 				build/str/ft_str_remove.o\

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 02:02:01 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 02:53:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,20 @@ inline void	puti(int fd, int n)
 }
 
 __attribute__((__always_inline__))
-inline void	pputs(int fd, const char *restrict const str)
+inline void	pflt(int fd, double d)
 {
-	if (!str)
-		(void)write(fd, "(nil)", 5);
-	else
-		(void)write(fd, str, ft_strlen(str));
+	char		buffer[32];
+	size_t		i;
+	double		frac;
+
+	putd(fd, (ssize_t)d);
+	(void)write(fd, ".", 1);
+	frac = (double)(d - (double)(size_t)d);
+	i = 0;
+	while (i < 6)
+	{
+		frac *= 10.0;
+		buffer[i++] = (char)((size_t)frac % 10) + '0';
+	}
+	(void)write(fd, buffer, 6);
 }

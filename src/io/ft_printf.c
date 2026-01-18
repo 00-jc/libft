@@ -6,30 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/18 02:35:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 02:51:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "io.h"
-
-__attribute__((__always_inline__))
-static inline void	pflt(int fd, double d)
-{
-	char		buffer[32];
-	size_t		i;
-	double		frac;
-
-	putd(fd, (ssize_t)d);
-	(void)write(fd, ".", 1);
-	frac = (double)(d - (double)(size_t)d);
-	i = 0;
-	while (i < 6)
-	{
-		frac *= 10.0;
-		buffer[i++] = (char)((size_t)frac % 10) + '0';
-	}
-	(void)write(fd, buffer, 6);
-}
 
 __attribute__((__nonnull__(2), __always_inline__))
 static inline size_t	manage_l(int fd, const char *const c,
@@ -80,15 +61,13 @@ static inline size_t	manage(int fd, const char *const c,
 }
 
 __attribute__((__nonnull__(2)))
-void	ft_fprintf(int fd, const char *restrict const fmt, ...)
+static void	ft_vfprintf(int fd, const char *restrict const fmt, va_list args)
 {
 	size_t					len;
 	size_t					maxptr;
 	const char	*restrict	subst;
 	const char	*restrict	start;
-	va_list					args;
 
-	va_start(args, fmt);
 	len = ft_strlen(fmt);
 	maxptr = (t_uptr)fmt + len;
 	start = fmt;
@@ -102,31 +81,22 @@ void	ft_fprintf(int fd, const char *restrict const fmt, ...)
 		subst = ft_memchr(start, '%', len);
 	}
 	(void)write(fd, start, maxptr - (t_uptr)start);
+}
+
+void	ft_fprintf(int fd, const char *restrict const fmt, ...)
+{
+	va_list	args;
+
+	va_start(args, fmt);
+	ft_vfprintf(fd, fmt, args);
 	va_end(args);
 }
 
-__attribute__((__nonnull__(1)))
 void	ft_printf(const char *restrict const fmt, ...)
 {
-	size_t					len;
-	size_t					maxptr;
-	const char	*restrict	subst;
-	const char	*restrict	start;
-	va_list					args;
+	va_list	args;
 
 	va_start(args, fmt);
-	len = ft_strlen(fmt);
-	maxptr = (t_uptr)fmt + len;
-	start = fmt;
-	subst = ft_memchr(fmt, '%', len);
-	while (subst && (t_uptr)subst + 1 < maxptr)
-	{
-		(void)write(STDOUT_FILENO, start, (t_uptr)subst - (t_uptr)start);
-		subst += manage(STDOUT_FILENO, subst + 1, maxptr - (t_uptr)subst, args);
-		start = subst;
-		len = maxptr - (t_uptr)start;
-		subst = ft_memchr(start, '%', len);
-	}
-	(void)write(STDOUT_FILENO, start, maxptr - (t_uptr)start);
+	ft_vfprintf(STDOUT_FILENO, fmt, args);
 	va_end(args);
 }
