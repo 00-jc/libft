@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/19 20:39:05 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/19 21:02:34 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,9 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wredundant-decls -Wstrict-prototypes -Wnull-dereference -Wundef -Wformat-security -Wformat=2\
 				-Wwrite-strings -Wold-style-definition -Wuninitialized -Wloop-analysis -Wpointer-arith\
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
-CFLAGS 		:=  -O3 -flto -march=native -ffunction-sections -fdata-sections -fvectorize -finline-functions\
+CFLAGS 		:=  -ffunction-sections -fdata-sections -fvectorize -finline-functions\
 				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common -fvisibility=hidden\
-				-fstack-clash-protection $(WARNS)
+				-fstack-clash-protection -O3 -march=native -flto $(WARNS)
 AR			:=	llvm-ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/ctype/ft_isprint.c\
@@ -273,4 +273,4 @@ analyze: all static_analysis
 
 bonus: all
 
-.PHONY: all clean fclean re bonus full static_analysis analyze
+.PHONY: all clean fclean re bonus full static_analysis analyze native
