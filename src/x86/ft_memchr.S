@@ -20,20 +20,29 @@ ft_memchr:
 	endbr64
 	prefetcht1	512(%rdi)
 	xor		%rax,	%rax
-.align_loop:
-	test	$63,%rdi
-	jz		.Lvec_setup
-	test	%rdx,%rdx
-	jz		.Lnotfound
-	movb	(%rdi), %al
-	cmp		%sil,	%al
-	je		.Lret
-	inc		%rdi
-	dec		%rdx
-	jmp		.align_loop
-.Lvec_setup:
+	cmp				$64, %rdx
+	jb				.Ltail
+	test			$63, %rdi
+	jz				.Laligned_loop_setup
 	vmovq			%rsi, %xmm0
 	vpbroadcastb	%xmm0, %zmm15
+	vmovdqu64		(%rdi),	%zmm0
+	vpcmpeqb		%zmm0,	%zmm15, %k0
+	ktestq          %k0, %k0
+	jz				.Laligned_loop_setup
+	kmovq			%k0, %r8
+	tzcnt			%r8, %r8
+	cmp				%rdx, %r8
+	jae				.Lnotfound
+	add				%r8, %rdi
+	jmp				.Lret
+.Laligned_loop_setup:
+	mov    %rdi, %r10
+	add    $64, %rdi
+	and    $-64, %rdi
+	sub    %r10, %rdi
+	sub    %rdi, %rdx
+	add    %r10, %rdi 
 .Lmain_loop:
 	cmp				$256,	%rdx
 	jb				.Ltail
