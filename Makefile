@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/19 05:06:20 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/19 18:05:04 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,15 +35,6 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/ctype/ft_isalnum.c\
 				src/ctype/ft_isascii.c\
 				src/ctype/ft_isalpha.c\
-				src/lst/ft_lstadd_back.c\
-				src/lst/ft_lstnew.c\
-				src/lst/ft_lstlast.c\
-				src/lst/ft_lstiter.c\
-				src/lst/ft_lstadd_front.c\
-				src/lst/ft_lstclear.c\
-				src/lst/ft_lstmap.c\
-				src/lst/ft_lstdelone.c\
-				src/lst/ft_lstsize.c\
 				src/cstr/ft_s_isblob.c\
 				src/cstr/ft_substr.c\
 				src/cstr/ft_toupper.c\
@@ -138,15 +129,6 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/ctype/ft_isalnum.o\
 				build/ctype/ft_isascii.o\
 				build/ctype/ft_isalpha.o\
-				build/lst/ft_lstadd_back.o\
-				build/lst/ft_lstnew.o\
-				build/lst/ft_lstlast.o\
-				build/lst/ft_lstiter.o\
-				build/lst/ft_lstadd_front.o\
-				build/lst/ft_lstclear.o\
-				build/lst/ft_lstmap.o\
-				build/lst/ft_lstdelone.o\
-				build/lst/ft_lstsize.o\
 				build/cstr/ft_s_isblob.o\
 				build/cstr/ft_substr.o\
 				build/cstr/ft_toupper.o\
