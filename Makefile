@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/19 18:05:04 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/19 20:39:05 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,8 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/conv/ft_itoa.c\
 				src/conv/ft_atoi_base.c\
 				src/mem/ft_bzero.c\
+				src/mem/ft_murmur3.c\
+				src/mem/ft_murmur_helpers.c\
 				src/mem/ft_memclone.c\
 				src/mem/ft_memformat.c\
 				src/mem/ft_memtake.c\
@@ -171,6 +173,8 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/conv/ft_itoa.o\
 				build/conv/ft_atoi_base.o\
 				build/mem/ft_bzero.o\
+				build/mem/ft_murmur3.o\
+				build/mem/ft_murmur_helpers.o\
 				build/mem/ft_memclone.o\
 				build/mem/ft_memformat.o\
 				build/mem/ft_memtake.o\

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 04:30:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:38:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ void			ft_memset_naive(void *__restrict__ dest,
 void			ft_memset_8x64(void *__restrict__ dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
+
+t_u64a			rotl(t_u64a x, size_t r)\
+					__attribute__((const, __always_inline__));
+
+t_u64a			fmix64(t_u64a k)\
+					__attribute__((const, __always_inline__));
 
 # ifndef __LIBFT_SCALAR__
 

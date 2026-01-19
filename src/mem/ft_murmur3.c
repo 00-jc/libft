@@ -1,0 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_murmur3.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/19 20:02:47 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/01/19 20:39:55 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lft.h"
+#include "mem.h"
+#include "lft_private.h"
+
+#define DEFAULT_SEED 0x9e3779b185ebca87ULL 
+#define C1 0x87c37b91114253d5ULL
+#define C2 0x4cf5ad432745937f
+
+__attribute__((__always_inline__, __nonnull__(1, 2, 3)))
+static inline void	runblock0(t_u64a *s, t_blk64r mem,
+		t_u64a *restrict k)
+{
+	*k = *mem * C1;
+	*k = rotl(*k, 31) * C2;
+	*s ^= *k;
+}
+
+__attribute__((__always_inline__, __nonnull__(1, 2, 3)))
+static inline void	runblock1(t_u64a *s, t_blk64r mem,
+		t_u64a *restrict k)
+{
+	*k = *mem * C2;
+	*k = rotl(*k, 33) * C1;
+	*s ^= *k;
+}
+
+__attribute__((__always_inline__, __nonnull__(1, 2, 3)))
+static inline void	ft_murmur3_tail(const t_u8 *restrict const tail,
+		t_u64a k[2], t_u64a s[2], size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < 7)
+	{
+		k[1] ^= ((len >= (15 - i)) & 1)
+			* ((t_u64a)tail[14 - i] << (48 - (i << 3)));
+		i++;
+	}
+	k[1] *= C2;
+	k[1] = rotl(k[1], 33);
+	k[1] *= C1;
+	s[1] ^= k[1] * ((len >= 9) & 1);
+	i = 0;
+	while (i < 8)
+	{
+		k[0] ^= ((len >= (8 - i)) & 1)
+			* ((t_u64a)tail[7 - i] << (56 - (i << 3)));
+		i++;
+	}
+	k[0] *= C1;
+	k[0] = rotl(k[0], 31);
+	k[0] *= C2;
+	s[0] ^= k[0] * ((len >= 1) & 1);
+}
+
+__attribute__((pure, __nonnull__(1)))
+t_u64a	ft_murmur3_with_seed(const t_u8 *restrict mem, t_u64a seed, size_t size)
+{
+	size_t	blk;
+	t_u64a	s[2];
+	t_u64a	k[2];
+
+	blk = size >> 4;
+	s[0] = seed;
+	s[1] = seed;
+	while (blk-- > 0)
+	{
+		runblock0(s, (t_blk64r)mem, k);
+		s[0] = (rotl(s[0], 27) + s[1]) * 5 + 0x52dce729;
+		runblock1(&s[1], (t_blk64r)(mem + 8), &k[1]);
+		s[1] = (rotl(s[1], 27) + s[0]) * 5 + 0x38495ab5;
+		mem += 16;
+	}
+	ft_memset(k, 0x00, sizeof(t_u64a) << 1);
+	ft_murmur3_tail(mem, k, s, size & 15);
+	s[0] ^= size;
+	s[1] ^= size;
+	s[0] = fmix64(s[0]);
+	s[1] = fmix64(s[1]);
+	s[0] += s[1];
+	s[1] += s[0];
+	return (s[0]);
+}
+
+__attribute__((pure, __nonnull__(1)))
+t_u64a	ft_murmur3(const t_u8 *restrict mem, size_t size)
+{
+	return (ft_murmur3_with_seed(mem, DEFAULT_SEED, size));
+}
