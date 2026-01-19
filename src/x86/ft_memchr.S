@@ -20,12 +20,12 @@ ft_memchr:
 	endbr64
 	prefetcht1	512(%rdi)
 	xor		%rax,	%rax
+	vmovq			%rsi, %xmm0
+	vpbroadcastb	%xmm0, %zmm15
 	cmp				$64, %rdx
 	jb				.Ltail
 	test			$63, %rdi
 	jz				.Laligned_loop_setup
-	vmovq			%rsi, %xmm0
-	vpbroadcastb	%xmm0, %zmm15
 	vmovdqu64		(%rdi),	%zmm0
 	vpcmpeqb		%zmm0,	%zmm15, %k0
 	ktestq          %k0, %k0
