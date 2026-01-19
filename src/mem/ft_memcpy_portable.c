@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 21:35:17 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:19:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "lft_private.h"
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
-inline void	ft_memcpy_8x64(void *__restrict__ dest,
-	const void	*__restrict__ const src, size_t n)
+inline void	ft_memcpy_8x64(void *restrict dest,
+	const void	*restrict const src, size_t n)
 {
 	size_t	i;
 	size_t	offst;
@@ -40,8 +40,8 @@ inline void	ft_memcpy_8x64(void *__restrict__ dest,
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
-inline void	ft_memcpy_tail(void *__restrict__ dest,
-	const void	*__restrict__ const src, size_t offst, size_t n)
+inline void	ft_memcpy_tail(void *restrict dest,
+	const void	*restrict const src, size_t offst, size_t n)
 {
 	n -= offst;
 	while (n-- > 0)
@@ -52,8 +52,8 @@ inline void	ft_memcpy_tail(void *__restrict__ dest,
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
-inline void	ft_memcpy_naive(void *__restrict__ dest,
-	const void	*__restrict__ const src, size_t n)
+inline void	ft_memcpy_naive(void *restrict dest,
+	const void	*restrict const src, size_t n)
 {
 	size_t	i;
 

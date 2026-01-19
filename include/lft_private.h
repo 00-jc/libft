@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 04:30:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 20:38:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:18:55 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,26 @@ typedef const t_u64 * restrict const __attribute__((aligned(1)))	t_blk64r;
 typedef t_u64a * restrict const										t_blk64wa;
 typedef const t_u64a * restrict const								t_blk64ra;
 
-void			ft_memcpy_tail(void *__restrict__ dest,
-					const void	*__restrict__ const src,
+void			ft_memcpy_tail(void *restrict dest,
+					const void	*restrict const src,
 					size_t offst, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
-void			ft_memcpy_naive(void *__restrict__ dest,
-					const void	*__restrict__ const src,
+void			ft_memcpy_naive(void *restrict dest,
+					const void	*restrict const src,
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
-void			ft_memcpy_8x64(void *__restrict__ dest,
-					const void	*__restrict__ const src,
+void			ft_memcpy_8x64(void *restrict dest,
+					const void	*restrict const src,
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			ft_memset_tail(void *__restrict__ dest,
+void			ft_memset_tail(void *restrict dest,
 					size_t offst, const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
-void			ft_memset_naive(void *__restrict__ dest,
+void			ft_memset_naive(void *restrict dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
-void			ft_memset_8x64(void *__restrict__ dest,
+void			ft_memset_8x64(void *restrict dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
 
@@ -56,26 +56,26 @@ t_u64a			fmix64(t_u64a k)\
 
 # ifndef __LIBFT_SCALAR__
 
-void			ft_memcpy_8x128(void *__restrict__ dest,
-					const void	*__restrict__ const src,
+void			ft_memcpy_8x128(void *restrict dest,
+					const void	*restrict const src,
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
-void			ft_memcpy_8x256(void *__restrict__ dest,
-					const void	*__restrict__ const src,
+void			ft_memcpy_8x256(void *restrict dest,
+					const void	*restrict const src,
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
-void			ft_memcpy_8x512(void *__restrict__ dest,
-					const void	*__restrict__ const src,
+void			ft_memcpy_8x512(void *restrict dest,
+					const void	*restrict const src,
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			ft_memset_8x128(void *__restrict__ dest,
+void			ft_memset_8x128(void *restrict dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
-void			ft_memset_8x256(void *__restrict__ dest,
+void			ft_memset_8x256(void *restrict dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
-void			ft_memset_8x512(void *__restrict__ dest,
+void			ft_memset_8x512(void *restrict dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
 

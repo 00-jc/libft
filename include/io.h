@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:18:55 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef IO_H
@@ -38,11 +38,11 @@ void			putd(int fd, ssize_t n)\
 					__attribute__((__always_inline__));
 void			puti(int fd, int n)\
 					__attribute__((__always_inline__));
-void			pputs(int fd, const char *__restrict__ const str)\
+void			pputs(int fd, const char *restrict const str)\
 					__attribute__((__always_inline__));
 void			pflt(int fd, double d)\
 					__attribute__((__always_inline__));
-void			ft_printf(const char *__restrict__ const fmt, ...)\
+void			ft_printf(const char *restrict const fmt, ...)\
 					__attribute__((__nonnull__(1)));
 void			ft_fprintf(int fd, const char *restrict const fmt, ...)\
 					__attribute__((__nonnull__(2)));

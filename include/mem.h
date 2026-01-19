@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 20:47:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:18:55 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,35 @@
 # define LONES_64 0x0101010101010101ULL
 # define HIGHS_64 0x8080808080808080ULL
 
-void			ft_bzero(void *__restrict__ ptr, size_t n)\
+void			ft_bzero(void *restrict ptr, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memset(void *__restrict__ s, const t_u8 c, size_t n)\
+void			ft_memset(void *restrict s, const t_u8 c, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memcpy(void *__restrict__ dest,
-					const void *__restrict__ src, size_t n)\
+void			ft_memcpy(void *restrict dest,
+					const void *restrict src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			ft_set(void *__restrict__ s, const t_u8 c, size_t n)\
+void			ft_set(void *restrict s, const t_u8 c, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memtake(void *__restrict__ dest,
-					void *__restrict__ src, size_t n)\
+void			ft_memtake(void *restrict dest,
+					void *restrict src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			*ft_memmove(void *__restrict__ dest,
-					const void *__restrict__ src, size_t n)\
+void			*ft_memmove(void *restrict dest,
+					const void *restrict src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			*ft_memchr(const void *__restrict__ ptr, int c, size_t n)\
+void			*ft_memchr(const void *restrict ptr, int c, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-ssize_t			ft_memcmp(const void *__restrict__ const dest,
-					const void *__restrict__ src, size_t n)\
+ssize_t			ft_memcmp(const void *restrict const dest,
+					const void *restrict src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			*ft_memclone(void *__restrict__ ptr, size_t size)\
+void			*ft_memclone(void *restrict ptr, size_t size)\
 					__attribute__((__nonnull__(1)));
 
 void			*ft_memformat(void *restrict const ptr, size_t size)\

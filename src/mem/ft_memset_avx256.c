@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 03:43:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:19:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #if !defined(__LIBFT_SCALAR__) && defined(__AVX512F__)
 
 __attribute__((__nonnull__(1), __always_inline__))
-inline void	ft_memset_8x512(void *__restrict__ dest,
+inline void	ft_memset_8x512(void *restrict dest,
 	const t_u8 b, size_t n)
 {
 	size_t	i;
@@ -45,7 +45,7 @@ inline void	ft_memset_8x512(void *__restrict__ dest,
 }
 
 __attribute__((__nonnull__(1), __always_inline__))
-inline void	ft_memset_8x256(void *__restrict__ dest,
+inline void	ft_memset_8x256(void *restrict dest,
 	const t_u8 b, size_t n)
 {
 	size_t	i;
@@ -74,7 +74,7 @@ inline void	ft_memset_8x256(void *__restrict__ dest,
 }
 
 __attribute__((__nonnull__(1), __always_inline__))
-inline void	ft_memset_8x128(void *__restrict__ dest,
+inline void	ft_memset_8x128(void *restrict dest,
 	const t_u8 b, size_t n)
 {
 	size_t	i;

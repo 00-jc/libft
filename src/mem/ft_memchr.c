@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:19:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static inline void	*__fix_last_w(const t_u64a *ptr, size_t diff, t_u64a msk)
 }
 
 __attribute__((__nonnull__ (1), __always_inline__, pure))
-void	*ft_memchr(const void *__restrict__ ptr, int c, size_t n)
+void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 {
 	t_u64a						msk;
 	t_u64a						w;

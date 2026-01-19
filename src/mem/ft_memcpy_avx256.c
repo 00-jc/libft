@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:19:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #if !defined(__LIBFT_SCALAR__) && !defined(__AVX512F__)
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
-inline void	ft_memcpy_8x512(void *__restrict__ dest,
-	const void	*__restrict__ const src, size_t n)
+inline void	ft_memcpy_8x512(void *restrict dest,
+	const void	*restrict const src, size_t n)
 {
 	size_t	i;
 	size_t	offst;
@@ -43,8 +43,8 @@ inline void	ft_memcpy_8x512(void *__restrict__ dest,
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
-inline void	ft_memcpy_8x256(void *__restrict__ dest,
-	const void	*__restrict__ const src, size_t n)
+inline void	ft_memcpy_8x256(void *restrict dest,
+	const void	*restrict const src, size_t n)
 {
 	size_t	i;
 	size_t	offst;
@@ -70,8 +70,8 @@ inline void	ft_memcpy_8x256(void *__restrict__ dest,
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
-inline void	ft_memcpy_8x128(void *__restrict__ dest,
-	const void	*__restrict__ const src, size_t n)
+inline void	ft_memcpy_8x128(void *restrict dest,
+	const void	*restrict const src, size_t n)
 {
 	size_t	i;
 	size_t	offst;

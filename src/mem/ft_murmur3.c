@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 20:02:47 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 21:15:51 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 21:19:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_u128a	ft_murmur3_with_seed(const t_u8 *restrict mem, t_u64a seed, size_t size)
 		s[1] = (rotl(s[1], 27) + s[0]) * 5 + 0x38495ab5;
 		mem += 16;
 	}
-	*((t_u128a *restrict const)k) = (t_u128a)0x00ULL;
+	*((t_u128a * restrict const)k) = (t_u128a)0x00ULL;
 	ft_murmur3_tail(mem, k, s, size & 15);
 	s[0] ^= size;
 	s[1] ^= size;
