@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 20:02:47 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 20:39:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:52:35 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static inline void	runblock1(t_u64a *s, t_blk64r mem,
 	*k = rotl(*k, 33) * C1;
 	*s ^= *k;
 }
+
+/* no safe duff's device since norminette forbids switches */
 
 __attribute__((__always_inline__, __nonnull__(1, 2, 3)))
 static inline void	ft_murmur3_tail(const t_u8 *restrict const tail,
@@ -67,7 +69,7 @@ static inline void	ft_murmur3_tail(const t_u8 *restrict const tail,
 }
 
 __attribute__((pure, __nonnull__(1)))
-t_u64a	ft_murmur3_with_seed(const t_u8 *restrict mem, t_u64a seed, size_t size)
+t_u128a	ft_murmur3_with_seed(const t_u8 *restrict mem, t_u64a seed, size_t size)
 {
 	size_t	blk;
 	t_u64a	s[2];
@@ -84,19 +86,18 @@ t_u64a	ft_murmur3_with_seed(const t_u8 *restrict mem, t_u64a seed, size_t size)
 		s[1] = (rotl(s[1], 27) + s[0]) * 5 + 0x38495ab5;
 		mem += 16;
 	}
-	ft_memset(k, 0x00, sizeof(t_u64a) << 1);
+	*((t_u128a *restrict const)k) = (t_u128a)0x00ULL;
 	ft_murmur3_tail(mem, k, s, size & 15);
 	s[0] ^= size;
 	s[1] ^= size;
 	s[0] = fmix64(s[0]);
 	s[1] = fmix64(s[1]);
 	s[0] += s[1];
-	s[1] += s[0];
-	return (s[0]);
+	return ((t_u128a)s[1] << 64 | s[0]);
 }
 
 __attribute__((pure, __nonnull__(1)))
-t_u64a	ft_murmur3(const t_u8 *restrict mem, size_t size)
+t_u128a	ft_murmur3(const t_u8 *restrict mem, size_t size)
 {
 	return (ft_murmur3_with_seed(mem, DEFAULT_SEED, size));
 }

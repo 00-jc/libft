@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 20:37:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:47:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_u32			__maxu32(t_u32 x, t_u32 y);
 t_u64			__maxu64(t_u64 x, t_u64 y);
 t_u128			__maxu128(t_u128 x, t_u128 y);
 
-t_u64a			ft_murmur3(const t_u8 *restrict mem, size_t size)\
+t_u128a			ft_murmur3(const t_u8 *restrict mem, size_t size)\
 					__attribute__((__nonnull__(1), pure));
-t_u64a			ft_murmur3_with_seed(const t_u8 *restrict mem, size_t seed,
+t_u128a			ft_murmur3_with_seed(const t_u8 *restrict mem, size_t seed,
 					size_t size) __attribute__((__nonnull__(1), pure));
 
 #endif

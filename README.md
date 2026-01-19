@@ -26,7 +26,7 @@ All public functions use the `ft_` prefix.
 | `ssize_t ft_memcmp(const void *dest, const void *src, size_t n)` | Compare memory |
 | `void *ft_memclone(void *ptr, size_t size)` | Clone memory block |
 | `void ft_membroadcast(void *dst, void *src, size_t chunks, size_t n)` | Broadcast pattern to memory |
-| `t_u64a ft_murmur3(t_u8 *mem, size_t size)` | murmur3 hashing |
+| `t_u128a ft_murmur3(t_u8 *mem, size_t size)` | murmur3 hashing |
 
 ### Memory Allocation (`alloc.h`)
 
