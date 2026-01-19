@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/18 10:08:15 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/18 11:07:19 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -243,17 +243,17 @@ all: $(NAME)
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
-	@echo "[$(CURRENT)/$(TOTAL)] Compiling $<"
-	@$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
+	@printf "[$(CURRENT)/$(TOTAL)] "
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
 
 $(OBJDIR)/%.o: src/%.S
 	@mkdir -p $(dir $@)
 	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
-	@printf "[$(CURRENT)/$(TOTAL)] Building ASM object $<\n"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf "[$(CURRENT)/$(TOTAL)] "
+	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(AR) $@ $^
+	$(AR) $@ $^
 
 clean:
 	@rm -rf $(OBJDIR)
@@ -264,7 +264,7 @@ fclean: clean
 re: fclean full all
 
 static_analysis:
-	@$(SCANNER) $(CC) $(WARNS) -Xclang -analyzer-output=text --analyze $(SRCS) -Iinclude
+	$(SCANNER) $(CC) $(WARNS) -Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
 
 analyze: all static_analysis
 	@if command -v ast2md >/dev/null 2>&1; then \
@@ -273,9 +273,9 @@ analyze: all static_analysis
 		echo "ast2md not found, skipping coupling analysis"; \
 	fi
 	@echo "Running tests..."
-	@$(CC) $(CFLAGS) src/x86/test/strlen_test.c -g $(NAME) -Iinclude -fsanitize=address -o test_strlen && \
+	@$(CC) $(CFLAGS) src/x86/test/strlen_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_strlen && \
 		./test_strlen && rm -f test_strlen
-	@$(CC) $(CFLAGS) src/x86/test/memchr_test.c -g $(NAME) -Iinclude -fsanitize=address -o test_memchr && \
+	@$(CC) $(CFLAGS) src/x86/test/memchr_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memchr && \
 		./test_memchr && rm -f test_memchr
 	@echo "All tests passed!"
 

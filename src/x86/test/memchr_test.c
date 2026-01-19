@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 03:39:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/18 09:26:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/18 11:01:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include "lft.h"
 #include <string.h>
 #include <assert.h>
+
+#define LONG "10000===00000000000000000000000000000000000000000000"\
+		"00000000000000000000000000000000900???????????????????????????"\
+		"?????????00000000000000000000000000000000000000000000000000000"\
+		"00000000ññññññññññññññññçççççççççççç0132432400===0fsdf0sf0^`\\``\
+		¿¿?¿?¿?¿````ñ´´´´´´´1!!ººººººººº::::̣̣̣̣ "
+
+void	check_misaligned(char *h, char *w, char *l);
+void	test_basic(char *h, char *w, char *z);
+void	test_edge_cases(char *h, char *w, char *l);
+void	test_long_string(char *l);
 
 void	check_misaligned(char *h, char *w, char *l)
 {
@@ -61,8 +72,8 @@ void	test_edge_cases(char *h, char *w, char *l)
 	assert(ft_memchr(h, '\0', 4) == memchr(h, '\0', 4));
 	assert(ft_memchr(h, 'x', 4) == memchr(h, 'x', 4));
 	assert(ft_memchr(l + 85, '\r', 1) == memchr(l + 85, '\r', 1));
-	assert(ft_memchr(h, 'h', 1000) == memchr(h, 'h', 1000));
-	assert(ft_memchr(w, 'd', 1000) == memchr(w, 'd', 1000));
+	assert(ft_memchr(h, 'h', 6) == memchr(h, 'h', 6));
+	assert(ft_memchr(w, 'd', 6) == memchr(w, 'd', 6));
 }
 
 void	test_long_string(char *l)
@@ -74,21 +85,19 @@ void	test_long_string(char *l)
 	assert(ft_memchr(l, '0', 240) == memchr(l, '0', 240));
 }
 
+#include <stdio.h>
+
 int	main(void)
 {
-	char __attribute__	((aligned(64)))	*h;
-	char __attribute__	((aligned(64)))	*w;
-	char __attribute__	((aligned(64)))	*z;
-	char __attribute__	((aligned(64)))	*l;
+	char __attribute__	((aligned(64)))	h[6];
+	char __attribute__	((aligned(64)))	w[6];
+	char __attribute__	((aligned(64)))	z[1];
+	char __attribute__	((aligned(64)))	l[sizeof(LONG)];
 
-	h = "hello";
-	w = "world";
-	z = "";
-	l = "1000===0000000000000000000000000000000000000\
-		 000000000000000000000000000000000000000\r00\
-		 ????????????????????????????????????000000\
-		 000000000000000000000000000000000000000000\
-		 00000000000000ññññññññññññññññçççççççççççç";
+	memcpy(h, "hello", 6);
+	memcpy(w, "world", 6);
+	memcpy(z, "\0\0", 1);
+	memcpy(l, LONG, sizeof(LONG));
 	test_basic(h, w, z);
 	test_long_string(l);
 	check_misaligned(h, w, l);
