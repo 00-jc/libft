@@ -118,27 +118,6 @@ All public functions use the `ft_` prefix.
 | `void ft_putendl_fd(const char *s, int fd)` | Write string + newline |
 | `void ft_putnbr_fd(int n, int fd)` | Write number to fd |
 
-### Linked List (`lst.h`)
-
-```c
-typedef struct s_list {
-    void            *content;
-    struct s_list   *next;
-} t_list;
-```
-
-| Function | Description |
-|----------|-------------|
-| `t_list *ft_lstnew(void *content)` | Create new node |
-| `void ft_lstadd_front(t_list **lst, t_list *new)` | Add to front |
-| `void ft_lstadd_back(t_list **lst, t_list *new)` | Add to back |
-| `int ft_lstsize(t_list *lst)` | List length |
-| `t_list *ft_lstlast(t_list *lst)` | Get last node |
-| `void ft_lstdelone(t_list *lst, void (*del)(void *))` | Delete one node |
-| `void ft_lstclear(t_list **lst, void (*del)(void *))` | Clear entire list |
-| `void ft_lstiter(t_list *lst, void (*f)(void *))` | Iterate over list |
-| `t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))` | Map function over list |
-
 ### Dynamic Vector (`vec.h`)
 
 ```c
