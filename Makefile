@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/18 11:07:19 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/19 04:29:03 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,6 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/mem/ft_bzero.c\
 				src/mem/ft_memclone.c\
 				src/mem/ft_memformat.c\
-				src/mem/ft_memswap.c\
 				src/mem/ft_memtake.c\
 				src/mem/ft_memset_portable.c\
 				src/mem/__max.c\
@@ -192,7 +191,6 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/mem/ft_bzero.o\
 				build/mem/ft_memclone.o\
 				build/mem/ft_memformat.o\
-				build/mem/ft_memswap.o\
 				build/mem/ft_memtake.o\
 				build/mem/ft_memset_portable.o\
 				build/mem/__max.o\
@@ -273,10 +271,18 @@ analyze: all static_analysis
 		echo "ast2md not found, skipping coupling analysis"; \
 	fi
 	@echo "Running tests..."
-	@$(CC) $(CFLAGS) src/x86/test/strlen_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_strlen && \
+	@$(CC) $(CFLAGS) tests/strlen_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_strlen && \
 		./test_strlen && rm -f test_strlen
-	@$(CC) $(CFLAGS) src/x86/test/memchr_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memchr && \
+	@$(CC) $(CFLAGS) tests/memchr_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memchr && \
 		./test_memchr && rm -f test_memchr
+	@$(CC) $(CFLAGS) tests/memcmp_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memcmp && \
+		./test_memcmp && rm -f test_memcmp
+	@$(CC) $(CFLAGS) tests/memmove_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memmove && \
+		./test_memmove && rm -f test_memmove
+	@$(CC) $(CFLAGS) tests/membroadcast_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_membroadcast && \
+		./test_membroadcast && rm -f test_membroadcast
+	@$(CC) $(CFLAGS) tests/memclone_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memclone && \
+		./test_memclone && rm -f test_memclone
 	@echo "All tests passed!"
 
 bonus: all

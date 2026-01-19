@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/18 10:26:26 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cstr.h" 
+#include "cstr.h"
+#include "lft_private.h"
 
 #if !defined(__AVX512VL__) || !defined(__x86_64__) || defined(__LIBFT_SCALAR__)
 

@@ -49,27 +49,27 @@ ft_strlen:
 	add				$256, %rsi
 	jmp				.Laligned_loop
 .Lfound1:
-	xor				%r15, %r15
+	xor				%r10, %r10
 	movq			$64, %rax
 	kmovq			%k0, %r8
 	kmovq			%k1, %r9
 	test			%r8, %r8
 	cmovz			%r9, %r8
-	cmovz			%rax, %r15
+	cmovz			%rax, %r10
 	tzcnt			%r8, %r8
-	add				%r15, %rsi
+	add				%r10, %rsi
 	add				%r8,  %rsi
 	jmp				.Lret
 .Lfound2:
-	movq			$128, %r15
+	movq			$128, %r10
 	movq			$192, %rax
 	kmovq			%k3, %r8
 	kmovq			%k4, %r9
 	test			%r8, %r8
 	cmovz			%r9, %r8
-	cmovz			%rax, %r15
+	cmovz			%rax, %r10
 	tzcnt			%r8, %r8
-	add				%r15, %rsi
+	add				%r10, %rsi
 	add				%r8,  %rsi
 .Lret:
 	mov	%rsi, %rax

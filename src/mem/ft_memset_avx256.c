@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 03:43:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/17 03:43:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
+#include "lft_private.h"
 
 #if !defined(__LIBFT_SCALAR__) && defined(__AVX512F__)
 

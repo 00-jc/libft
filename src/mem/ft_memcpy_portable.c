@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 21:35:17 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/15 08:21:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
+#include "lft_private.h"
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
 inline void	ft_memcpy_8x64(void *__restrict__ dest,
