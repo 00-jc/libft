@@ -228,8 +228,59 @@ make        # Build libft.a
 make clean  # Remove object files
 make fclean # Remove everything
 make re     # Rebuild
+make analyze # Run static analysis and tests
 ```
 
 Compiler flags: `-O3 -flto -march=native -std=c99`
 
 Disable SIMD: Define `__LIBFT_SCALAR__` for scalar-only builds.
+
+### `make analyze`
+
+Runs comprehensive code quality checks:
+
+1. **Static Analysis**: Uses `scan-build` (Clang Static Analyzer) to detect potential bugs
+2. **Coupling Analysis**: Runs `ast2md` (if installed) to analyze code coupling with a threshold of 0.40
+3. **Test Suite**: Compiles and runs tests with AddressSanitizer, UndefinedBehaviorSanitizer, and alignment checks for:
+   - `ft_strlen`
+   - `ft_memchr`
+   - `ft_memcmp`
+   - `ft_memmove`
+   - `ft_membroadcast`
+   - `ft_memclone`
+
+## Architecture-Specific Implementations
+
+The library uses conditional compilation to select optimal implementations based on CPU features.
+
+### x86_64 with AVX-512 (`src/x86/*.S`)
+
+When **all** of these conditions are met:
+- `__x86_64__` is defined (64-bit x86)
+- `__AVX512VL__` is defined (AVX-512 Vector Length Extensions)
+- `__LIBFT_SCALAR__` is **not** defined
+
+The following hand-optimized assembly implementations are used:
+
+| File | Function | Description |
+|------|----------|-------------|
+| `src/x86/ft_memcpy.S` | `ft_memcpy` | AVX-512 memory copy with non-temporal stores for large buffers |
+| `src/x86/ft_memset.S` | `ft_memset` | AVX-512 memory fill with tiered loop unrolling |
+| `src/x86/ft_strlen.S` | `ft_strlen` | AVX-512 string length using mask registers |
+| `src/x86/ft_memchr.S` | `ft_memchr` | AVX-512 byte search with 256-byte blocks |
+
+### Fallback Implementations (`src/mem/*.c`)
+
+When **any** of these conditions are true:
+- Not on x86_64 (`__x86_64__` not defined)
+- AVX-512VL not available (`__AVX512VL__` not defined)
+- Scalar mode forced (`__LIBFT_SCALAR__` defined)
+
+The C implementations in `src/mem/` are compiled instead:
+
+| Condition | Implementation |
+|-----------|----------------|
+| AVX2 only (no AVX-512) | Tiered SIMD using 128/256-bit intrinsics (`ft_memcpy_8x128`, `ft_memset_8x256`, etc.) |
+| No SIMD or `__LIBFT_SCALAR__` | 64-bit word-at-a-time portable implementations |
+
+The portable C versions use word-based techniques (`t_u64a` aligned 64-bit operations) with zero-byte detection (`__hasz64`) for `ft_memchr` and byte broadcasting (`__populate`) for efficient fills.

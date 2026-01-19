@@ -38,7 +38,8 @@ inline void	ft_memcpy_8x512(void *__restrict__ dest,
 		((t_blk512w)dest)[offst + 7] = ((t_blk512r)src)[offst + 7];
 		++i;
 	}
-	ft_memcpy_tail(dest, src, chunks << 9, n);
+	offst = chunks << 9;
+	ft_memcpy_8x256((t_u8 *)dest + offst, (const t_u8 *)src + offst, n - offst);
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
@@ -64,7 +65,8 @@ inline void	ft_memcpy_8x256(void *__restrict__ dest,
 		((t_blk256w)dest)[offst + 7] = ((t_blk256r)src)[offst + 7];
 		++i;
 	}
-	ft_memcpy_tail(dest, src, chunks << 8, n);
+	offst = chunks << 8;
+	ft_memcpy_8x128((t_u8 *)dest + offst, (const t_u8 *)src + offst, n - offst);
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
@@ -90,7 +92,8 @@ inline void	ft_memcpy_8x128(void *__restrict__ dest,
 		((t_blk128w)dest)[offst + 7] = ((t_blk128r)src)[offst + 7];
 		++i;
 	}
-	ft_memcpy_tail(dest, src, chunks << 7, n);
+	offst = chunks << 7;
+	ft_memcpy_8x64((t_u8 *)dest + offst, (const t_u8 *)src + offst, n - offst);
 }
 
 #endif

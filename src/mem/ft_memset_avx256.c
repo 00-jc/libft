@@ -40,7 +40,8 @@ inline void	ft_memset_8x512(void *__restrict__ dest,
 		((t_blk512w)dest)[offst + 7] = msk;
 		++i;
 	}
-	ft_memset_tail(dest, chunks << 9, b, n);
+	offst = chunks << 9;
+	ft_memset_8x256((t_u8 *)dest + offst, b, n - offst);
 }
 
 __attribute__((__nonnull__(1), __always_inline__))
@@ -68,7 +69,8 @@ inline void	ft_memset_8x256(void *__restrict__ dest,
 		((t_blk256w)dest)[offst + 7] = msk;
 		++i;
 	}
-	ft_memset_tail(dest, chunks << 8, b, n);
+	offst = chunks << 8;
+	ft_memset_8x128((t_u8 *)dest + offst, b, n - offst);
 }
 
 __attribute__((__nonnull__(1), __always_inline__))
@@ -96,7 +98,8 @@ inline void	ft_memset_8x128(void *__restrict__ dest,
 		((t_blk128w)dest)[offst + 7] = msk;
 		++i;
 	}
-	ft_memset_tail(dest, chunks << 7, b, n);
+	offst = chunks << 7;
+	ft_memset_8x64((t_u8 *)dest + offst, b, n - offst);
 }
 
 #endif
