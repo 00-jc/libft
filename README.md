@@ -26,7 +26,8 @@ All public functions use the `ft_` prefix.
 | `ssize_t ft_memcmp(const void *dest, const void *src, size_t n)` | Compare memory |
 | `void *ft_memclone(void *ptr, size_t size)` | Clone memory block |
 | `void ft_membroadcast(void *dst, void *src, size_t chunks, size_t n)` | Broadcast pattern to memory |
-| `t_u128a ft_murmur3(t_u8 *mem, size_t size)` | murmur3 hashing |
+| `t_u128a ft_murmur3(const t_u8 *mem, size_t size)` | MurmurHash3 128-bit hash |
+| `t_u128a ft_murmur3_with_seed(const t_u8 *mem, t_u64a seed, size_t size)` | MurmurHash3 with custom seed |
 
 ### Memory Allocation (`alloc.h`)
 
@@ -110,8 +111,17 @@ All public functions use the `ft_` prefix.
 
 ### I/O (`io.h`, `put.h`)
 
+```c
+typedef struct s_file {
+    size_t  size;
+    t_u8    *content;
+} t_file;
+```
+
 | Function | Description |
 |----------|-------------|
+| `t_file ft_read_file(const char *fname)` | Memory-map file for reading (returns `{0}` on error) |
+| `void ft_close_file(t_file *f)` | Unmap file opened with `ft_read_file` |
 | `void ft_printf(const char *fmt, ...)` | Formatted print to stdout |
 | `void ft_fprintf(int fd, const char *fmt, ...)` | Formatted print to fd |
 | `void ft_putchar_fd(char c, int fd)` | Write char to fd |

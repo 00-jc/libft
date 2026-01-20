@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/19 21:17:59 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/20 02:01:42 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,6 +119,7 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/io/ft_printf.c\
 				src/io/ft_printf_helpers.c\
 				src/io/ft_printf_helpers2.c\
+				src/io/ft_read_file.c\
 				src/str/ft_str_extend.c\
 				src/str/ft_str_new.c\
 				src/str/ft_str_remove.c\
@@ -215,6 +216,7 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/io/ft_printf.o\
 				build/io/ft_printf_helpers.o\
 				build/io/ft_printf_helpers2.o\
+				build/io/ft_read_file.o\
 				build/str/ft_str_extend.o\
 				build/str/ft_str_new.o\
 				build/str/ft_str_remove.o\
