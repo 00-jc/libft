@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 02:23:38 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 04:07:15 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/20 05:14:02 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_file	ft_read_file(const char *restrict const fname)
 	if (ret == -1)
 		return ((t_file){0});
 	ptr = ft_fmap((size_t)st.st_size, ret);
+	(void)close(ret);
 	return ((t_file){.content = ptr, .size = (size_t)st.st_size});
 }
 
