@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/01/20 04:19:02 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/01/20 06:01:26 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 CFLAGS 		:=  -ffunction-sections -fdata-sections -fvectorize -finline-functions\
 				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common -fvisibility=hidden\
-				-fstack-clash-protection -O3 -march=native -flto $(WARNS)
+				-fstack-clash-protection -O3 -march=native -flto -pipe $(WARNS)
 AR			:=	llvm-ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/ctype/ft_isprint.c\
