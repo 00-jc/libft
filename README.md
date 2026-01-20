@@ -274,3 +274,5 @@ The C implementations in `src/mem/` are compiled instead:
 | No SIMD or `__LIBFT_SCALAR__` | 64-bit word-at-a-time portable implementations |
 
 The portable C versions use word-based techniques (`t_u64a` aligned 64-bit operations) with zero-byte detection (`__hasz64`) for `ft_memchr` and byte broadcasting (`__populate`) for efficient fills.
+
+All functions are annotated __nonnull__ and __pure__, __const__ or __inline__ as deemed fit, following practices from: [glibc](https://sourceware.org/glibc/wiki/Development_Todo/Master#Code_Quality).
