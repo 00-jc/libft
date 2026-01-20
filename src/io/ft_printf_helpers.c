@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 04:14:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/20 04:56:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ inline void	putd(int fd, ssize_t n)
 __attribute__((__always_inline__))
 inline void	puti(int fd, int n)
 {
-	static char		buffer[32];
+	char			buffer[32];
 	t_u8			neg;
 	size_t			i;
 
