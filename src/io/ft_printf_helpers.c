@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/20 04:14:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ inline void	putx(int fd, size_t n, char or)
 	while (n)
 	{
 		h = (char)(n & 0x0F);
-		buffer[--i] = (char)((h + '0' + + ((h + 6) >> 4) * 7) | or);
+		buffer[--i] = (char)((h + '0' + ((h + 6) >> 4) * 7) | or);
 		n >>= 4;
 	}
 	(void)write(fd, buffer + i, 32 - i);
