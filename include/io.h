@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 02:34:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/20 04:40:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef IO_H
@@ -54,4 +54,5 @@ t_file			ft_read_file(const char *restrict const fname)\
 					__attribute__((__nonnull__(1)));
 void			ft_close_file(t_file *restrict const f)\
 					__attribute__((__nonnull__(1)));
+void			ft_putchar_fd(char c, int fd);
 #endif

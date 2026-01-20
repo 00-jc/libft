@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/20 04:39:55 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static inline size_t	manage(int fd, const char *const c,
 		(pflt(fd, va_arg(args, double)), i += 2);
 	else if (_c == '%')
 		((void)write(fd, "%", 1), i += 2);
+	else if (_c == 'c')
+		((void)ft_putchar_fd((char)va_arg(args, int), fd), i += 2);
 	return (i);
 }
 
