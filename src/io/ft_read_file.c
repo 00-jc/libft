@@ -6,11 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 02:23:38 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 02:44:24 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/20 04:07:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "io.h"
+
+#ifdef __x86_64__
 
 __attribute__((__always_inline__))
 static inline void	*ft_fmap(size_t size, int fd)
@@ -91,3 +93,5 @@ inline void	ft_close_file(t_file *restrict const f)
 		: "%rax", "%rdi", "%rsi", "memory"
 	);
 }
+
+#endif
