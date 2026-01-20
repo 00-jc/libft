@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 03:52:23 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 04:08:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/20 04:31:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_file	ft_read_file(const char *restrict const fname)
 		&& ft_vec_extend(&buffer, stack, sizeof(t_u8), FBUFFER_SIZE))
 		;
 	return ((t_file){.content = (t_u8 *)buffer.data,
-		.size = buffer.capacity});
+		.size = (t_uptr)buffer.head - (t_uptr)buffer.content});
 }
 
 __attribute__((__nonnull__(1)))
