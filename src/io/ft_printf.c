@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 04:39:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/01/21 08:51:26 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static inline size_t	manage_l(int fd, const char *const c,
 		else if (c[1] == 'u')
 			(putu(fd, va_arg(args, size_t)), i += 2);
 		else if ((c[1] | 32) == 'x')
-			(putx(fd, va_arg(args, size_t), (char)((c[1] == 'x') * 32)),
+			(putx(fd, va_arg(args, size_t), (char)((c[1] == 'x') << 5)),
 				i += 2);
 	}
 	else
