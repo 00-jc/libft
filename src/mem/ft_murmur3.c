@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 20:02:47 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 03:39:56 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/10 21:54:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ t_u128a	ft_murmur3_with_seed(const t_u8 *restrict mem, t_u64a seed, size_t size)
 	t_u64a	k[2];
 
 	blk = size >> 4;
-	k[0] = 0;
-	k[1] = 0;
+	ft_bzero(k, sizeof(t_u64a) << 1);
 	s[0] = seed;
 	s[1] = seed;
 	while (blk-- > 0)
@@ -89,9 +88,11 @@ t_u128a	ft_murmur3_with_seed(const t_u8 *restrict mem, t_u64a seed, size_t size)
 	ft_murmur3_tail(mem, k, s, size & 15);
 	s[0] ^= size;
 	s[1] ^= size;
+	s[0] += s[1];
+	s[1] += s[0];
 	s[0] = fmix64(s[0]);
 	s[1] = fmix64(s[1]);
-	return ((t_u128a)s[1] << 64 | s[0]);
+	return ((t_u128a)((s[1] << 1) + s[0]) << 64 | (s[0] + s[1]));
 }
 
 __attribute__((pure, __always_inline__, __nonnull__(1)))
