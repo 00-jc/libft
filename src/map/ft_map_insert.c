@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 02:53:03 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 04:55:45 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 05:22:57 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static inline size_t	ft__get_empty(const t_map *restrict const map,
 	while (1)
 	{
 		mask = ft_bitpack128(
-				(((t_blk128r)map->meta)[group] >= get_high128())
+				(((t_blk128ra)map->meta)[group] >= get_high128())
 				);
 		if (mask)
 			return ((group << 4) + ft_memctz_u16(mask));
