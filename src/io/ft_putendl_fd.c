@@ -6,11 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:07:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lft.h"
+#include "private/ft_p_io.h"
 
 void	ft_putendl_fd(const char *s, int fd)
 {

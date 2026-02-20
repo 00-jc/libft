@@ -6,12 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 20:02:47 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/10 21:54:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 04:34:51 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
-#include "lft_private.h"
+#include "private/ft_p_mem.h"
 
 #define DEFAULT_SEED 0x9e3779b185ebca87ULL 
 #define C1 0x87c37b91114253d5ULL

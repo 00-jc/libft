@@ -6,11 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 20:30:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "private/test.h"
 
 void	test_memcmp_basic(void);
 void	test_memcmp_binary(void);

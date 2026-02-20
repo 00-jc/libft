@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 21:19:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 03:45:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mem.h"
-#include "lft_private.h"
+#include "private/ft_p_mem.h"
 
-#if !defined(__AVX512VL__) || !defined(__x86_64__) || defined(__LIBFT_SCALAR__)
+#if !defined(__AVX512VL__) || !defined(__x86_64__) ||\
+	defined(__LIBFT_PORTABLE__)
 
 __attribute__ ((__nonnull__ (1), __always_inline__, pure))
 static inline void	*__fix_last_w(const t_u64a *ptr, size_t diff, t_u64a msk)
@@ -27,7 +27,7 @@ static inline void	*__fix_last_w(const t_u64a *ptr, size_t diff, t_u64a msk)
 	{
 		w = ft_memctz_u64(w);
 		w >>= 3;
-		return ((void *)((w <= diff) * ((t_uptr)ptr + w)));
+		return ((void *)((w < diff) * ((t_uptr)ptr + w)));
 	}
 	return (NULL);
 }
@@ -40,12 +40,13 @@ void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 	const t_u8		*restrict	bp;
 	const t_u64a	*restrict	w_64;
 
-	if (n == 0)
-		return (NULL);
 	bp = (t_u8 *)ptr;
 	msk = __populate ((t_u8)c);
-	while (n-- > 0 && *bp != c && ((t_uptr)bp & (sizeof (t_u64a) - 1)))
+	while (n > 0 && *bp != (t_u8)c && ((t_uptr)bp & 7))
+	{
 		++bp;
+		--n;
+	}
 	w_64 = (const t_u64a *)bp;
 	while (n >= sizeof (t_u64))
 	{

@@ -6,25 +6,23 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:31:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/**
- * @file vec.h
- * @brief Header file for dynamic vector operations.
- *
- * This file contains the declarations and documentation for functions
- * that operate on dynamic vectors (t_vec).
- */
 
 #ifndef VEC_H
 # define VEC_H
 
-# include "macros.h"
 # include "mem.h"
-# include "structs.h"
+# include "alloc.h"
 # include <stddef.h>
+
+typedef struct s_vec
+{
+	t_u8						*head;
+	size_t						capacity;
+	const t_u8	*restrict		data;
+}	t_vec;
 
 t_vec		ft_vec_new(size_t size, size_t type_size);
 

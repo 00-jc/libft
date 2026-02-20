@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:00:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,4 @@
 # define PUT_H
 # include <unistd.h>
 
-void			ft_putchar_fd(char c, int fd);
-void			ft_putstr_fd(const char *str, int fd);
-void			ft_putendl_fd(const char *str, int fd);
-void			ft_putnbr_fd(int n, int fd);
 #endif

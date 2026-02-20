@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "io.h"
+#include "private/ft_p_io.h"
 
 __attribute__((__always_inline__))
-inline void	pputs(int fd, const char *restrict const str)
+void	pputs(int fd, const char *restrict const str)
 {
 	if (!str)
 		(void)write(fd, "(nil)", 5);

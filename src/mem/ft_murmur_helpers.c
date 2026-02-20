@@ -6,12 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 20:35:18 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 20:35:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:25:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lft_private.h"
-#include "mem.h"
+#include "private/ft_p_mem.h"
 
 __attribute__((const, __always_inline__))
 inline t_u64a	rotl(t_u64a x, size_t r)

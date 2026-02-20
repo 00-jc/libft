@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:39:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int				ft_isascii(int c);
 int				ft_isxdigit(int c);
 int				ft_isprint(int c);
 int				ft_isspace(int c);
+int				ft_ispath(int c);
 
 #endif

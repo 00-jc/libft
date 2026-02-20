@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 01:17:48 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:02:59 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "mem.h"
 # include "alloc.h"
+
+typedef struct s_string
+{
+	size_t			len;
+	size_t			capacity;
+	t_u8			*data;
+}	t_str;
 
 t_str		ft_str_new(size_t n)\
 		__attribute__((warn_unused_result\

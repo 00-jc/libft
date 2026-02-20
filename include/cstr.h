@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 21:18:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:02:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <stdint.h>
-# include "structs.h"
 # include "ctype.h"
 # include "alloc.h"
 # include "mem.h"
@@ -74,7 +73,7 @@ char			**ft_split(const char *str, char set)\
 int				ft_strcmp(const char *a, const char *b)\
 					__attribute__((__nonnull__(1, 2)));
 
-t_u8			ft_isnumeric(const char *restrict s)\
+t_u8			ft_isunum(const char *restrict s, size_t size)\
 					__attribute__((__nonnull__(1)));
 
 int				ft_s_isblob(char *s)\

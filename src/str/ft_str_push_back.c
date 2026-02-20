@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:32:14 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/17 23:31:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_str_push_back(t_str *restrict str, const t_u8 byte)
 	t_str	s;
 
 	s = *str;
-	if (s.len + 1 == s.capacity)
+	if (s.len + 1 >= s.capacity)
 	{
 		newcap = s.capacity << 1;
 		s.data = ft_recalloc(s.data, s.capacity, newcap);

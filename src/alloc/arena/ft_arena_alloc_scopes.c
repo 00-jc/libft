@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_arena_alloc_scopes.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/02/19 18:13:34 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "private/ft_p_arena.h"
+
+__attribute__((__always_inline__))
+inline void	ft_arena_rewind(t_arena *restrict const arena,
+	t_arena_checkpoint checkpoint)
+{
+	arena->global = checkpoint.location;
+	arena->current = (t_slab *)arena->global->data;
+	arena->current->total = checkpoint.total;
+	arena->current->used = checkpoint.used;
+}
+
+void	ft_arena_rewind_clean(t_arena *restrict const arena,
+	t_arena_checkpoint checkpoint)
+{
+	ft_arena_rewind(arena, checkpoint);
+	ft_arena_clean_fwd(arena);
+}
+
+__attribute__((__nonnull__(1), pure, __always_inline__))
+inline t_arena_checkpoint	ft_arena_checkpoint(
+	const t_arena *restrict const arena)
+{
+	return ((t_arena_checkpoint)
+		{
+			.total = arena->current->total,
+			.used = arena->current->used,
+			.location = arena->global,
+		});
+}

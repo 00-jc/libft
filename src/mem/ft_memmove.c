@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/05 23:32:59 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 20:56:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 __attribute__((__nonnull__(1, 2)))
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	t_u8					*bd;
-	const t_u8	*restrict	bs;
+	t_u8		*bd;
+	const t_u8	*bs;
 
-	if ((dest == src) && n != 0)
-		return (NULL);
-	if ((t_uptr)src < (t_uptr)dest
-		&& (t_uptr)src + n >= (t_uptr)dest)
+	if (dest == src || n == 0)
+		return (dest);
+	bd = (t_u8 *)dest;
+	bs = (const t_u8 *)src;
+	if (bd > bs && bd < bs + n)
 	{
-		bd = (t_u8 *)dest + n;
-		bs = (t_u8 *)src + n;
+		bd += n;
+		bs += n;
 		while (n-- > 0)
 			*--bd = *--bs;
 	}

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 03:36:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int				ft_atoi_base(char *str, char *base, int base_len);
 char			*ft_itoa(int n);
 char			*ft_itoa_base(int n, char *base);
 char			*ft_utoa_base(size_t n, char *base);
-size_t			ft_atoul(const char *str);
+size_t			ft_atoul(const char *str)\
+					__attribute__((__nonnull__(1)));
 #endif

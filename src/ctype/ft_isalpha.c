@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:21:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 __attribute__((const, __always_inline__, hot))
 int	ft_isalpha(int c)
 {
-	return ((((c | 32) - 'a') < 26));
+	return ((unsigned)((c | 32) - 'a') < 26u);
 }

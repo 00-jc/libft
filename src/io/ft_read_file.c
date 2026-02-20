@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 02:23:38 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/10 21:56:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/17 18:02:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,23 @@
 __attribute__((__always_inline__))
 static inline void	*ft_fmap(size_t size, int fd)
 {
-	void	*ret;
+	void				*ret;
+	register long r10	__asm__("r10");
+	register long r8	__asm__("r8");
+	register long r9	__asm__("r9");
 
+	r10 = MAP_PRIVATE;
+	r8 = (long)fd;
+	r9 = 0;
 	__asm__ volatile (
-		"mov $0x09, %%rax\n\t"
-		"mov %1, %%rdi\n\t"
-		"mov %2, %%rsi\n\t"
-		"mov %3, %%rdx\n\t"
-		"mov %4, %%r10\n\t"
-		"mov %5, %%r8\n\t"
-		"mov $0, %%r9\n\t"
-		"syscall\n\t"
-		"mov %%rax, %0"
-		: "=r"(ret)
-		: "r"((long) NULL),
-		"r"((long)size),
-		"r"((long)PROT_READ),
-		"r"((long)MAP_PRIVATE),
-		"r"((long)fd)
-		: "%rax", "%rdi", "%rsi", "%rdx", "%r10", "%r8", "%r9", "memory"
+		"syscall"
+		: "=a"(ret)
+		: "0"(SYS_mmap),
+		"D"((long) NULL),
+		"S"((long) size),
+		"d"((long) PROT_READ),
+		"r"(r10), "r"(r8), "r"(r9)
+		: "rcx", "r11", "memory"
 	);
 	return (ret);
 }
@@ -46,15 +44,12 @@ static inline int	ft_stat(const char *restrict path, struct stat *statbuf)
 	int	ret;
 
 	__asm__ volatile (
-		"mov $0x04, %%rax\n\t"
-		"mov %1, %%rdi\n\t"
-		"mov %2, %%rsi\n\t"
-		"syscall\n\t"
-		"mov %%eax, %0"
-		: "=r"(ret)
-		: "r"(path),
-		"r"(statbuf)
-		: "%rax", "%rdi", "%rsi", "memory"
+		"syscall"
+		: "=a"(ret)
+		: "0"(4L),
+		"D"(path),
+		"S"(statbuf)
+		: "rcx", "r11", "memory"
 	);
 	return (ret);
 }
@@ -72,27 +67,23 @@ t_file	ft_read_file(const char *restrict const fname)
 	ret = open(fname, O_RDONLY);
 	if (ret == -1)
 		return ((t_file){0});
+	ft_lockf(ret);
 	ptr = ft_fmap((size_t)st.st_size, ret);
-	(void)close(ret);
-	return ((t_file){.content = ptr, .size = (size_t)st.st_size});
+	if (ptr == MAP_FAILED)
+		return ((void)close(ret), (t_file){0});
+	return ((t_file){.content = ptr,
+		.size = (size_t)st.st_size, .fd = (t_u32a)ret});
 }
 
 __attribute__((__nonnull__(1)))
 inline void	ft_close_file(t_file *restrict const f)
 {
-	int	ret;
+	int	fd;
 
-	__asm__ volatile (
-		"mov $0x0b, %%rax\n\t"
-		"mov %1, %%rdi\n\t"
-		"mov %2, %%rsi\n\t"
-		"syscall\n\t"
-		"mov %%eax, %0"
-		: "=r"(ret)
-		: "r"(f->content),
-		"r"(f->size)
-		: "%rax", "%rdi", "%rsi", "memory"
-	);
+	fd = (int)f->fd;
+	(void)ft_unlockf(fd);
+	ft_munmap(f->content, f->size);
+	(void)close(fd);
 }
 
 #endif

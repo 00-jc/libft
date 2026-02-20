@@ -6,17 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/17 23:40:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
-# define FT_DEFER_ARR
-# define FT_DEFER
-# define FT_INLINE
-# define FT_HOT
-# define FT_INLINE_HOT
 # define ANSI_RESET			"\033[0m"
 # define ANSI_BLACK			"\033[0;30m"
 # define ANSI_RED			"\033[0;31m"

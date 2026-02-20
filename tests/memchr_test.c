@@ -6,11 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 03:39:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 20:29:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "private/test.h"
 
 void	test_memchr_basic(void);
 void	test_memchr_edge(void);

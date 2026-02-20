@@ -6,31 +6,28 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 03:37:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lft.h"
 
-size_t	ft_atoul(const char *str)
+__attribute__((__nonnull__(1)))
+size_t	ft_atoul(const char *restrict const str)
 {
 	size_t		out;
-	int			neg;
 	size_t		i;
 
 	out = 0;
 	i = 0;
-	neg = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
+	while (ft_isspace(str[i]))
+		++i;
+	if (str[i] == '+')
+		++i;
+	while (str[i] && ft_isdigit(str[i]))
 	{
-		neg *= -1;
-		i++;
+		out = (out << 1) + (out << 3)
+			+ ((size_t)str[i++] - '0');
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
-		out = out * 10 + (str[i++] - '0');
-	return (out * neg);
+	return (out);
 }

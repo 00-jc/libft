@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_rehash.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/20 02:47:51 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/02/20 03:49:11 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "private/ft_p_map.h"
+
+__attribute__((__nonnull__(1)))
+t_u32a	ft_map_rehash(t_map *restrict const map)
+{
+	t_map	new;
+	size_t	i;
+
+	new = ft_map_with(map->table_size << 1);
+	if (!new.meta)
+		return (0);
+	i = 0;
+	while (i < map->table_size)
+	{
+		if (map->meta[i] <= MAP_H2_MASK)
+			ft_map_insert_unchecked(&new,
+				map->buckets[i].key,
+				map->buckets[i].key_len,
+				map->buckets[i].value);
+		++i;
+	}
+	ft_free((void **)&(void *){map->meta});
+	ft_free((void **)&(void *){map->buckets});
+	*map = new;
+	return (1);
+}

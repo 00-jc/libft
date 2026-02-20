@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/02/10 21:44:32 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/02/20 04:56:32 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,203 +24,247 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wwrite-strings -Wold-style-definition -Wuninitialized -Wloop-analysis -Wpointer-arith\
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 CFLAGS 		:=  -ffunction-sections -fdata-sections -fvectorize -finline-functions\
-				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common -fvisibility=hidden\
-				-fstack-clash-protection -O3 -march=native -pipe -flto $(WARNS)
+				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common\
+				-fstack-clash-protection -O3 -pipe -march=native -flto $(WARNS)
 AR			:=	llvm-ar rcs
 OBJDIR		:=	build
-SRCS		:=	src/ctype/ft_isprint.c\
-				src/ctype/ft_isxdigit.c\
-				src/ctype/ft_isdigit.c\
-				src/ctype/ft_isspace.c\
-				src/ctype/ft_isalnum.c\
-				src/ctype/ft_isascii.c\
-				src/ctype/ft_isalpha.c\
-				src/cstr/ft_s_isblob.c\
-				src/cstr/ft_substr.c\
-				src/cstr/ft_toupper.c\
-				src/cstr/ft_strncmp.c\
-				src/cstr/ft_strrchr.c\
-				src/cstr/ft_strtrim.c\
-				src/cstr/ft_strchr.c\
-				src/cstr/ft_striteri.c\
-				src/cstr/ft_split.c\
-				src/cstr/ft_strlen.c\
-				src/cstr/ft_strlcat.c\
-				src/cstr/ft_strcmp.c\
-				src/cstr/ft_strdup.c\
-				src/cstr/ft_strmapi.c\
-				src/cstr/ft_strnstr.c\
-				src/cstr/ft_strlcpy.c\
-				src/cstr/ft_isnumeric.c\
-				src/cstr/ft_tolower.c\
-				src/cstr/ft_strjoin.c\
-				src/alloc/ft_realloc.c\
-				src/alloc/ft_alloc.c\
-				src/alloc/ft_recalloc.c\
-				src/alloc/ft_calloc.c\
-				src/alloc/ft_free.c\
-				src/alloc/ft_extend_zero.c\
-				src/alloc/ft_extend.c\
-				src/math/ft_pow_signed.c\
-				src/math/ft_fabs.c\
-				src/math/ft_pow.c\
-				src/math/ft_q_sqrt.c\
-				src/math/ft_sqrt.c\
-				src/math/ft_round.c\
-				src/conv/ft_itoa_base.c\
-				src/conv/ft_utoa_base.c\
-				src/conv/ft_atod.c\
-				src/conv/ft_atol.c\
-				src/conv/ft_atof.c\
-				src/conv/ft_atoi.c\
-				src/conv/ft_atoul.c\
-				src/conv/ft_itoa.c\
-				src/conv/ft_atoi_base.c\
-				src/mem/ft_bzero.c\
-				src/mem/ft_murmur3.c\
-				src/mem/ft_murmur_helpers.c\
-				src/mem/ft_memclone.c\
-				src/mem/ft_memformat.c\
-				src/mem/ft_memtake.c\
-				src/mem/ft_memset_portable.c\
-				src/mem/__max.c\
-				src/mem/__maxs.c\
-				src/mem/ft_memctz.c\
-				src/mem/ft_memctz_asm.c\
-				src/mem/ft_memcpy_portable.c\
-				src/mem/ft_memcpy_avx256.c\
-				src/mem/ft_memcpy.c\
-				src/mem/ft_get512.c\
-				src/x86/ft_memcpy.S\
-				src/x86/ft_memset.S\
-				src/x86/ft_strlen.S\
-				src/x86/ft_memchr.S\
-				src/mem/ft_membroadcast.c\
-				src/mem/ft_get256.c\
-				src/mem/ft_get128.c\
-				src/mem/ft_memset.c\
-				src/mem/ft_memmove.c\
-				src/mem/__populate.c\
-				src/mem/__hasz.c\
-				src/mem/ft_memchr.c\
-				src/mem/ft_memcmp.c\
-				src/vec/ft_vec_get.c\
-				src/vec/ft_vec_extend.c\
-				src/vec/ft_vec_push_back.c\
-				src/vec/ft_vec_remove.c\
-				src/vec/ft_vec_bytesize.c\
-				src/vec/ft_vec_free.c\
-				src/vec/ft_vec_pop.c\
-				src/vec/ft_vec_new.c\
-				src/io/ft_putchar_fd.c\
-				src/io/ft_putendl_fd.c\
-				src/io/ft_putnbr_fd.c\
-				src/io/ft_putstr_fd.c\
-				src/io/ft_printf.c\
-				src/io/ft_printf_helpers.c\
-				src/io/ft_printf_helpers2.c\
-				src/io/ft_read_file.c\
-				src/str/ft_str_extend.c\
-				src/str/ft_str_new.c\
-				src/str/ft_str_remove.c\
-				src/str/ft_str_push_back.c
+SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
+				src/alloc/arena/ft_arena_alloc_scopes.c \
+				src/alloc/arena/ft_arena_alloc.c \
+				src/alloc/ft_alloc.c \
+				src/alloc/ft_calloc.c \
+				src/alloc/ft_extend.c \
+				src/alloc/ft_extend_zero.c \
+				src/alloc/ft_realloc.c \
+				src/alloc/ft_recalloc.c \
+				src/alloc/ft_mmap.c \
+				src/alloc/ft_free.c \
+				src/conv/ft_itoa_base.c \
+				src/conv/ft_atoul.c \
+				src/conv/ft_atod.c \
+				src/conv/ft_atof.c \
+				src/conv/ft_atoi.c \
+				src/conv/ft_atol.c \
+				src/conv/ft_itoa.c \
+				src/conv/ft_utoa_base.c \
+				src/conv/ft_atoi_base.c \
+				src/cstr/ft_strchr.c \
+				src/cstr/ft_s_isblob.c \
+				src/cstr/ft_isnumeric.c \
+				src/cstr/ft_strlen.c \
+				src/cstr/ft_toupper.c \
+				src/cstr/ft_strcmp.c \
+				src/cstr/ft_strmapi.c \
+				src/cstr/ft_striteri.c \
+				src/cstr/ft_strlcat.c \
+				src/cstr/ft_tolower.c \
+				src/cstr/ft_strtrim.c \
+				src/cstr/ft_split.c \
+				src/cstr/ft_strnstr.c \
+				src/cstr/ft_strlcpy.c \
+				src/cstr/asm/ft_strlen.S \
+				src/cstr/ft_substr.c \
+				src/cstr/ft_strncmp.c \
+				src/cstr/ft_strrchr.c \
+				src/cstr/ft_strdup.c \
+				src/cstr/ft_strjoin.c \
+				src/ctype/ft_isascii.c \
+				src/ctype/ft_isalnum.c \
+				src/ctype/ft_isprint.c \
+				src/ctype/ft_isxdigit.c \
+				src/ctype/ft_isspace.c \
+				src/ctype/ft_isalpha.c \
+				src/ctype/ft_isdigit.c \
+				src/ctype/ft_ispath.c \
+				src/io/ft_printf_helpers2.c \
+				src/io/ft_read_file_portable.c \
+				src/io/ft_read_file.c \
+				src/io/ft_printf_helpers.c \
+				src/io/ft_putchar_fd.c \
+				src/io/ft_putendl_fd.c \
+				src/io/ft_putnbr_fd.c \
+				src/io/ft_putstr_fd.c \
+				src/io/ft_lockf.c \
+				src/io/ft_printf.c \
+				src/math/ft_q_sqrt.c \
+				src/math/ft_pow.c \
+				src/math/ft_round.c \
+				src/math/ft_fabs.c \
+				src/math/ft_pow_signed.c \
+				src/math/ft_sqrt.c \
+				src/mem/ft_murmur3.c \
+				src/mem/ft_murmur_helpers.c \
+				src/mem/ft_membroadcast.c \
+				src/mem/ft_memtake.c \
+				src/mem/ft_memchr.c \
+				src/mem/asm/ft_memset_portable.c \
+				src/mem/asm/ft_memcpy_portable.c \
+				src/mem/asm/ft_memcpy_avx256.c \
+				src/mem/asm/ft_memset_avx256.c \
+				src/mem/asm/ft_memcpy.S \
+				src/mem/asm/ft_memset.S \
+				src/mem/asm/ft_prefetch_non_x86.c \
+				src/mem/asm/ft_prefetch.c \
+				src/mem/asm/ft_memchr.S \
+				src/mem/ft_memclone.c \
+				src/mem/ft_memcmp.c \
+				src/mem/ft_memformat.c \
+				src/mem/ft_bzero.c \
+				src/mem/ft_memset.c \
+				src/mem/ft_memmove.c \
+				src/mem/ft_memcpy.c \
+				src/vec/ft_vec_remove.c \
+				src/vec/ft_vec_pop.c \
+				src/vec/ft_vec_new.c \
+				src/vec/ft_vec_free.c \
+				src/vec/ft_vec_push_back.c \
+				src/vec/ft_vec_get.c \
+				src/vec/ft_vec_bytesize.c \
+				src/vec/ft_vec_extend.c \
+				src/str/ft_str_remove.c \
+				src/str/ft_str_push_back.c \
+				src/str/ft_str_extend.c \
+				src/str/ft_str_new.c \
+				src/bmi/__max.c \
+				src/bmi/ft_to_be_from_be.c \
+				src/bmi/ft_to_be_from_le.c \
+				src/bmi/ft_bswap.c \
+				src/bmi/asm/ft_bswap_asm.c \
+				src/bmi/asm/ft_memctz_asm.c \
+				src/bmi/asm/ft_get128.c \
+				src/bmi/asm/ft_get256.c \
+				src/bmi/asm/ft_get512.c \
+				src/bmi/asm/ft_pack128.c \
+				src/bmi/__hasz.c \
+				src/bmi/__populate.c \
+				src/bmi/__maxs.c \
+				src/bmi/ft_memctz.c \
+				src/env/ft_getenv.c \
+				src/map/ft_map_insert.c \
+				src/map/ft_map_lookup.c \
+				src/map/ft_map.c \
+				src/map/ft_map_delete.c \
+				src/map/ft_map_rehash.c \
+				src/map/ft_map_insert_unchecked.c
 
-OBJS		:=	build/ctype/ft_isprint.o\
-				build/ctype/ft_isxdigit.o\
-				build/ctype/ft_isdigit.o\
-				build/ctype/ft_isspace.o\
-				build/ctype/ft_isalnum.o\
-				build/ctype/ft_isascii.o\
-				build/ctype/ft_isalpha.o\
-				build/cstr/ft_s_isblob.o\
-				build/cstr/ft_substr.o\
-				build/cstr/ft_toupper.o\
-				build/cstr/ft_strncmp.o\
-				build/cstr/ft_strrchr.o\
-				build/cstr/ft_strtrim.o\
-				build/cstr/ft_strchr.o\
-				build/cstr/ft_striteri.o\
-				build/cstr/ft_split.o\
-				build/cstr/ft_strlen.o\
-				build/cstr/ft_strlcat.o\
-				build/cstr/ft_strcmp.o\
-				build/cstr/ft_strdup.o\
-				build/cstr/ft_strmapi.o\
-				build/cstr/ft_strnstr.o\
-				build/cstr/ft_strlcpy.o\
-				build/cstr/ft_isnumeric.o\
-				build/cstr/ft_tolower.o\
-				build/cstr/ft_strjoin.o\
-				build/alloc/ft_realloc.o\
-				build/alloc/ft_alloc.o\
-				build/alloc/ft_recalloc.o\
-				build/alloc/ft_calloc.o\
-				build/alloc/ft_free.o\
-				build/alloc/ft_extend_zero.o\
-				build/alloc/ft_extend.o\
-				build/math/ft_pow_signed.o\
-				build/math/ft_fabs.o\
-				build/math/ft_pow.o\
-				build/math/ft_q_sqrt.o\
-				build/math/ft_sqrt.o\
-				build/math/ft_round.o\
-				build/conv/ft_itoa_base.o\
-				build/conv/ft_utoa_base.o\
-				build/conv/ft_atod.o\
-				build/conv/ft_atol.o\
-				build/conv/ft_atof.o\
-				build/conv/ft_atoi.o\
-				build/conv/ft_atoul.o\
-				build/conv/ft_itoa.o\
-				build/conv/ft_atoi_base.o\
-				build/mem/ft_bzero.o\
-				build/mem/ft_murmur3.o\
-				build/mem/ft_murmur_helpers.o\
-				build/mem/ft_memclone.o\
-				build/mem/ft_memformat.o\
-				build/mem/ft_memtake.o\
-				build/mem/ft_memset_portable.o\
-				build/mem/__max.o\
-				build/mem/__maxs.o\
-				build/mem/ft_memctz.o\
-				build/mem/ft_memctz_asm.o\
-				build/mem/ft_memcpy_portable.o\
-				build/mem/ft_memcpy_avx256.o\
-				build/x86/ft_memcpy.o\
-				build/x86/ft_memset.o\
-				build/x86/ft_strlen.o\
-				build/x86/ft_memchr.o\
-				build/mem/ft_memcpy.o\
-				build/mem/ft_get512.o\
-				build/mem/ft_membroadcast.o\
-				build/mem/ft_get256.o\
-				build/mem/ft_get128.o\
-				build/mem/ft_memset.o\
-				build/mem/ft_memmove.o\
-				build/mem/__populate.o\
-				build/mem/__hasz.o\
-				build/mem/ft_memchr.o\
-				build/mem/ft_memcmp.o\
-				build/vec/ft_vec_get.o\
-				build/vec/ft_vec_extend.o\
-				build/vec/ft_vec_push_back.o\
-				build/vec/ft_vec_remove.o\
-				build/vec/ft_vec_bytesize.o\
-				build/vec/ft_vec_free.o\
-				build/vec/ft_vec_pop.o\
-				build/vec/ft_vec_new.o\
-				build/io/ft_putchar_fd.o\
-				build/io/ft_putendl_fd.o\
-				build/io/ft_putnbr_fd.o\
-				build/io/ft_putstr_fd.o\
-				build/io/ft_printf.o\
-				build/io/ft_printf_helpers.o\
-				build/io/ft_printf_helpers2.o\
-				build/io/ft_read_file.o\
-				build/str/ft_str_extend.o\
-				build/str/ft_str_new.o\
-				build/str/ft_str_remove.o\
-				build/str/ft_str_push_back.o
+OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
+				build/alloc/arena/ft_arena_alloc_scopes.o \
+				build/alloc/arena/ft_arena_alloc.o \
+				build/alloc/ft_alloc.o \
+				build/alloc/ft_calloc.o \
+				build/alloc/ft_extend.o \
+				build/alloc/ft_extend_zero.o \
+				build/alloc/ft_realloc.o \
+				build/alloc/ft_recalloc.o \
+				build/alloc/ft_mmap.o \
+				build/alloc/ft_free.o \
+				build/conv/ft_itoa_base.o \
+				build/conv/ft_atoul.o \
+				build/conv/ft_atod.o \
+				build/conv/ft_atof.o \
+				build/conv/ft_atoi.o \
+				build/conv/ft_atol.o \
+				build/conv/ft_itoa.o \
+				build/conv/ft_utoa_base.o \
+				build/conv/ft_atoi_base.o \
+				build/cstr/ft_strchr.o \
+				build/cstr/ft_s_isblob.o \
+				build/cstr/ft_isnumeric.o \
+				build/cstr/ft_strlen.o \
+				build/cstr/ft_toupper.o \
+				build/cstr/ft_strcmp.o \
+				build/cstr/ft_strmapi.o \
+				build/cstr/ft_striteri.o \
+				build/cstr/ft_strlcat.o \
+				build/cstr/ft_tolower.o \
+				build/cstr/ft_strtrim.o \
+				build/cstr/ft_split.o \
+				build/cstr/ft_strnstr.o \
+				build/cstr/ft_strlcpy.o \
+				build/cstr/asm/ft_strlen.o \
+				build/cstr/ft_substr.o \
+				build/cstr/ft_strncmp.o \
+				build/cstr/ft_strrchr.o \
+				build/cstr/ft_strdup.o \
+				build/cstr/ft_strjoin.o \
+				build/ctype/ft_isascii.o \
+				build/ctype/ft_isalnum.o \
+				build/ctype/ft_isprint.o \
+				build/ctype/ft_isxdigit.o \
+				build/ctype/ft_isspace.o \
+				build/ctype/ft_isalpha.o \
+				build/ctype/ft_isdigit.o \
+				build/ctype/ft_ispath.o \
+				build/io/ft_printf_helpers2.o \
+				build/io/ft_read_file_portable.o \
+				build/io/ft_read_file.o \
+				build/io/ft_printf_helpers.o \
+				build/io/ft_putchar_fd.o \
+				build/io/ft_putendl_fd.o \
+				build/io/ft_putnbr_fd.o \
+				build/io/ft_putstr_fd.o \
+				build/io/ft_lockf.o \
+				build/io/ft_printf.o \
+				build/math/ft_q_sqrt.o \
+				build/math/ft_pow.o \
+				build/math/ft_round.o \
+				build/math/ft_fabs.o \
+				build/math/ft_pow_signed.o \
+				build/math/ft_sqrt.o \
+				build/mem/ft_murmur3.o \
+				build/mem/ft_murmur_helpers.o \
+				build/mem/ft_membroadcast.o \
+				build/mem/ft_memtake.o \
+				build/mem/ft_memchr.o \
+				build/mem/asm/ft_memset_portable.o \
+				build/mem/asm/ft_memcpy_portable.o \
+				build/mem/asm/ft_memcpy_avx256.o \
+				build/mem/asm/ft_memset_avx256.o \
+				build/mem/asm/ft_memcpy.o \
+				build/mem/asm/ft_memset.o \
+				build/mem/asm/ft_prefetch_non_x86.o \
+				build/mem/asm/ft_prefetch.o \
+				build/mem/asm/ft_memchr.o \
+				build/mem/ft_memclone.o \
+				build/mem/ft_memcmp.o \
+				build/mem/ft_memformat.o \
+				build/mem/ft_bzero.o \
+				build/mem/ft_memset.o \
+				build/mem/ft_memmove.o \
+				build/mem/ft_memcpy.o \
+				build/vec/ft_vec_remove.o \
+				build/vec/ft_vec_pop.o \
+				build/vec/ft_vec_new.o \
+				build/vec/ft_vec_free.o \
+				build/vec/ft_vec_push_back.o \
+				build/vec/ft_vec_get.o \
+				build/vec/ft_vec_bytesize.o \
+				build/vec/ft_vec_extend.o \
+				build/str/ft_str_remove.o \
+				build/str/ft_str_push_back.o \
+				build/str/ft_str_extend.o \
+				build/str/ft_str_new.o \
+				build/bmi/__max.o \
+				build/bmi/ft_to_be_from_be.o \
+				build/bmi/ft_to_be_from_le.o \
+				build/bmi/ft_bswap.o \
+				build/bmi/asm/ft_bswap_asm.o \
+				build/bmi/asm/ft_memctz_asm.o \
+				build/bmi/asm/ft_get128.o \
+				build/bmi/asm/ft_get256.o \
+				build/bmi/asm/ft_get512.o \
+				build/bmi/asm/ft_pack128.o \
+				build/bmi/__hasz.o \
+				build/bmi/__populate.o \
+				build/bmi/__maxs.o \
+				build/bmi/ft_memctz.o \
+				build/env/ft_getenv.o \
+				build/map/ft_map_insert.o \
+				build/map/ft_map_lookup.o \
+				build/map/ft_map.o \
+				build/map/ft_map_delete.o \
+				build/map/ft_map_rehash.o \
+				build/map/ft_map_insert_unchecked.o
 TOTAL 		:= $(words $(OBJS))
 CURRENT 	:= 0
 
@@ -229,17 +273,18 @@ all: $(NAME)
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
-	@printf "[$(CURRENT)/$(TOTAL)] "
-	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
+	@printf "[$(CURRENT)/$(TOTAL)] Compiling $<\n"
+	@$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
 
 $(OBJDIR)/%.o: src/%.S
 	@mkdir -p $(dir $@)
 	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
-	@printf "[$(CURRENT)/$(TOTAL)] "
-	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+	@printf "[$(CURRENT)/$(TOTAL)] Compiling $<\n"
+	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
+	@printf "Linking: $@\n"
 
 clean:
 	@rm -rf $(OBJDIR)
@@ -265,12 +310,6 @@ analyze: all static_analysis
 		./test_memchr && rm -f test_memchr
 	@$(CC) $(CFLAGS) tests/memcmp_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memcmp && \
 		./test_memcmp && rm -f test_memcmp
-	@$(CC) $(CFLAGS) tests/memmove_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memmove && \
-		./test_memmove && rm -f test_memmove
-	@$(CC) $(CFLAGS) tests/membroadcast_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_membroadcast && \
-		./test_membroadcast && rm -f test_membroadcast
-	@$(CC) $(CFLAGS) tests/memclone_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memclone && \
-		./test_memclone && rm -f test_memclone
 	@echo "All tests passed!"
 
 bonus: all

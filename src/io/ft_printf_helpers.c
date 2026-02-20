@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/20 04:56:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:52:02 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "io.h"
+#include "private/ft_p_io.h"
 
 __attribute__((__always_inline__))
-inline void	putu(int fd, size_t n)
+void	putu(int fd, size_t n)
 {
 	char			buffer[32];
 	size_t			i;
@@ -24,13 +24,13 @@ inline void	putu(int fd, size_t n)
 	while (n)
 	{
 		buffer[--i] = (char)((n % 10) + '0');
-		n = n * 0xCCCCCCCDULL >> 35;
+		n = (t_u128a)n * 0xCCCCCCCCCCCCCCCDULL >> 67;
 	}
 	(void)write(fd, buffer + i, 32 - i);
 }
 
 __attribute__((__always_inline__))
-inline void	putx(int fd, size_t n, char or)
+void	putx(int fd, size_t n, char or)
 {
 	char			buffer[32];
 	size_t			i;
@@ -49,7 +49,7 @@ inline void	putx(int fd, size_t n, char or)
 }
 
 __attribute__((__always_inline__))
-inline void	putd(int fd, ssize_t n)
+void	putd(int fd, ssize_t n)
 {
 	char			buffer[32];
 	t_u8			neg;
@@ -75,7 +75,7 @@ inline void	putd(int fd, ssize_t n)
 }
 
 __attribute__((__always_inline__))
-inline void	puti(int fd, int n)
+void	puti(int fd, int n)
 {
 	char			buffer[32];
 	t_u8			neg;
@@ -104,7 +104,7 @@ inline void	puti(int fd, int n)
 }
 
 __attribute__((__always_inline__))
-inline void	pflt(int fd, double d)
+void	pflt(int fd, double d)
 {
 	char		buffer[32];
 	size_t		i;

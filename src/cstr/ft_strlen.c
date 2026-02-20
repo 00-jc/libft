@@ -6,14 +6,15 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 05:59:20 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 21:02:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "private/ft_p_asm.h"
 #include "cstr.h"
-#include "lft_private.h"
 
-#if !defined(__AVX512VL__) || !defined(__x86_64__) || defined(__LIBFT_SCALAR__)
+#if !defined(__AVX512VL__) || !defined(__x86_64__) ||\
+	defined(__LIBFT_PORTABLE__)
 
 __attribute__((__nonnull__(1)))
 size_t	ft_strlen(const char *restrict str)

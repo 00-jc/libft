@@ -6,11 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/21 08:51:26 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:06:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "io.h"
+#include "private/ft_p_io.h"
 
 __attribute__((__nonnull__(2), __always_inline__))
 static inline size_t	manage_l(int fd, const char *const c,

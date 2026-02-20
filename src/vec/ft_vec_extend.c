@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:32:14 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:57:24 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ inline int	ft_vec_reserve(t_vec *restrict const vec,
 	size_t		nn;
 	size_t		old_size;
 	size_t		old_cap_bytes;
-	size_t		bytes_2append;
+	size_t		bytes_to_append;
 	t_vec		v;
 
 	v = *vec;
 	old_size = ft_vec_bytesize(vec);
 	old_cap_bytes = v.capacity * type_size;
-	bytes_2append = n * type_size;
-	if (old_size + bytes_2append >= old_cap_bytes)
+	bytes_to_append = n * type_size;
+	if (old_size + bytes_to_append >= old_cap_bytes)
 	{
-		nn = __maxu64(old_cap_bytes << 1, old_size + bytes_2append);
+		nn = __maxu64(old_cap_bytes << 1, old_size + bytes_to_append);
 		v.data = ft_recalloc((void *)v.data, old_cap_bytes, nn);
 		if (v.data == NULL)
 			return (0);

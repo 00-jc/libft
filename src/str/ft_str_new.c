@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 01:17:24 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:10:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "str.h"
 
-__attribute__((warn_unused_result("Allocation occurs at vec initialization")))
+__attribute__((warn_unused_result("Allocation occurs at str initialization")))
 t_str	ft_str_new(size_t n)
 {
 	return ((t_str)
