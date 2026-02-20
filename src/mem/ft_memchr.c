@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 03:45:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:08:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_mem.h"
 
-#if !defined(__AVX512VL__) || !defined(__x86_64__) ||\
-	defined(__LIBFT_PORTABLE__)
+#if (!defined(__AVX512VL__) || !defined(__x86_64__) ||\
+	defined(__LIBFT_PORTABLE__)) && !defined(__AVX2__)
 
 __attribute__ ((__nonnull__ (1), __always_inline__, pure))
 static inline void	*__fix_last_w(const t_u64a *ptr, size_t diff, t_u64a msk)

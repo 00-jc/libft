@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:23:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 21:00:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:20:51 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_P_MEM_H
 
 # include "mem.h"
-# include "ft_p_asm.h"
+# include "private/ft_p_bmi.h"
 
 void			ft_memcpy_tail(void *restrict dest,
 					const void	*restrict const src,

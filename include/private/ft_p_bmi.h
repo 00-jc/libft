@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   __hasz.c                                           :+:      :+:    :+:   */
+/*   ft_p_bmi.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 04:05:57 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 15:36:27 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/02/20 15:05:59 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/02/20 16:28:59 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mem.h"
-#include "private/ft_p_asm.h"
+#ifndef FT_P_BMI
+# define FT_P_BMI
 
-__attribute__((__always_inline__))
-inline t_u64	__hasz64(t_u64 x)
-{
-	return (((x)-LONES_64) & (~x) & HIGHS_64);
-}
+# include "private/ft_p_asm.h"
 
-__attribute__((__always_inline__))
-inline t_u128	__hasz128(t_u128 x)
-{
-	t_u64	low_part;
-	t_u64	high_part;
+t_vu256a	__hasz256(t_vu256a x)\
+				__attribute__((__always_inline__));
 
-	high_part = (t_u64)(x >> 64);
-	low_part = (t_u64)x;
-	return (__hasz64 (low_part)
-		| ((t_u128)__hasz64 (high_part) << 64));
-}
+t_vu512a	__hasz512(t_vu512a x)\
+				__attribute__((__always_inline__));
+
+t_u32a		ft_bitpack256(t_vu256a vec)\
+				__attribute__((const, __always_inline__));
+
+#endif

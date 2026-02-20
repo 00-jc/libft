@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pack128.c                                       :+:      :+:    :+:   */
+/*   ft_bitpack.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 03:17:51 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 04:25:56 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:49:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "private/ft_p_asm.h"
+#include "private/ft_p_bmi.h"
 
 __attribute__((const, __always_inline__))
-t_u16a	ft_bitpack128(t_vu128a vec)
+inline t_u16a	ft_bitpack128(t_vu128a vec)
 {
 	return ((t_u16a)(
 		(vec[0] & 1) | ((vec[1] & 1) << 1)
@@ -26,3 +26,19 @@ t_u16a	ft_bitpack128(t_vu128a vec)
 		| ((vec[14] & 1) << 14) | ((vec[15] & 1) << 15)
 	));
 }
+
+#ifdef __AVX2__
+
+__attribute__((const, __always_inline__))
+inline t_u32a	ft_bitpack256(t_vu256a vec)
+{
+	t_vu128a	hi;
+	t_vu128a	lo;
+
+	lo = ((t_blk128ra) & vec)[0];
+	hi = ((t_blk128ra) & vec)[1];
+	return ((ft_bitpack128(lo)
+			| (((t_u32a)ft_bitpack128(hi)) << 16)));
+}
+
+#endif

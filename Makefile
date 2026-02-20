@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/02/20 05:25:25 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/02/20 16:48:39 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 CFLAGS 		:=  -ffunction-sections -fdata-sections -fvectorize -finline-functions -fvisibility=hidden \
 				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common\
-				-fstack-clash-protection -O3 -pipe -march=native -flto $(WARNS)
-AR			:=	llvm-ar rcs
+				-fstack-clash-protection -O3 -pipe -march=native -D__LIBFT_PORTABLE__ -flto $(WARNS)
+AR			:=	ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/alloc/arena/ft_arena_alloc_scopes.c \
@@ -106,6 +106,7 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/mem/asm/ft_prefetch_non_x86.c \
 				src/mem/asm/ft_prefetch.c \
 				src/mem/asm/ft_memchr.S \
+				src/mem/asm/ft_memchr_avx256.c \
 				src/mem/ft_memclone.c \
 				src/mem/ft_memcmp.c \
 				src/mem/ft_memformat.c \
@@ -134,7 +135,8 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/bmi/asm/ft_get128.c \
 				src/bmi/asm/ft_get256.c \
 				src/bmi/asm/ft_get512.c \
-				src/bmi/asm/ft_pack128.c \
+				src/bmi/asm/ft_bitpack.c \
+				src/bmi/asm/__hasz_asm.c \
 				src/bmi/__hasz.c \
 				src/bmi/__populate.c \
 				src/bmi/__maxs.c \
@@ -225,6 +227,7 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/mem/asm/ft_prefetch_non_x86.o \
 				build/mem/asm/ft_prefetch.o \
 				build/mem/asm/ft_memchr.o \
+				build/mem/asm/ft_memchr_avx256.o \
 				build/mem/ft_memclone.o \
 				build/mem/ft_memcmp.o \
 				build/mem/ft_memformat.o \
@@ -253,7 +256,8 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/bmi/asm/ft_get128.o \
 				build/bmi/asm/ft_get256.o \
 				build/bmi/asm/ft_get512.o \
-				build/bmi/asm/ft_pack128.o \
+				build/bmi/asm/ft_bitpack.o \
+				build/bmi/asm/__hasz_asm.o \
 				build/bmi/__hasz.o \
 				build/bmi/__populate.o \
 				build/bmi/__maxs.o \
@@ -265,26 +269,20 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/map/ft_map_delete.o \
 				build/map/ft_map_rehash.o \
 				build/map/ft_map_insert_unchecked.o
-TOTAL 		:= $(words $(OBJS))
 CURRENT 	:= 0
 
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
-	@printf "[$(CURRENT)/$(TOTAL)] Compiling $<\n"
-	@$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
 
 $(OBJDIR)/%.o: src/%.S
 	@mkdir -p $(dir $@)
-	@$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
-	@printf "[$(CURRENT)/$(TOTAL)] Compiling $<\n"
-	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(AR) $@ $^
-	@printf "Linking: $@\n"
+	$(AR) $@ $^
 
 clean:
 	@rm -rf $(OBJDIR)
