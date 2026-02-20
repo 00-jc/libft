@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 19:41:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 19:50:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_strlen(const char *restrict str)
 	t_vu128a					mask;
 
 	a = (t_uptr)str;
-	while (*str && ((t_uptr)str & 7))
+	while (*str && ((t_uptr)str & 15))
 		++str;
 	if (!*str)
 		return ((t_uptr)str - (t_uptr)a);
