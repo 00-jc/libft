@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/02/20 16:48:39 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/02/20 19:27:47 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 CFLAGS 		:=  -ffunction-sections -fdata-sections -fvectorize -finline-functions -fvisibility=hidden \
 				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common\
-				-fstack-clash-protection -O3 -pipe -march=native -D__LIBFT_PORTABLE__ -flto $(WARNS)
+				-fstack-clash-protection -O3 -pipe -march=native -D__LIBFT_PORTABLE__ -g -flto $(WARNS)
 AR			:=	ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
@@ -302,7 +302,7 @@ analyze: all static_analysis
 		echo "ast2md not found, skipping coupling analysis"; \
 	fi
 	@echo "Running tests..."
-	@$(CC) $(CFLAGS) tests/strlen_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_strlen && \
+	@$(CC) $(CFLAGS) tests/strlen_test.c -g $(NAME) -Iinclude  -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_strlen && \
 		./test_strlen && rm -f test_strlen
 	@$(CC) $(CFLAGS) tests/memchr_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memchr && \
 		./test_memchr && rm -f test_memchr

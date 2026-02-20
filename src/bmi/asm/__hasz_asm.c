@@ -6,13 +6,19 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:36:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 16:28:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 19:38:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_bmi.h"
 
 #ifdef __AVX2__
+
+__attribute__((__always_inline__))
+t_vu128	__hasz128(t_vu128 x)
+{
+	return ((x - get_lones128()) & ~x & get_high128());
+}
 
 __attribute__((__always_inline__))
 t_vu256a	__hasz256(t_vu256a x)

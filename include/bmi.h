@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:02:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 03:41:41 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 19:23:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "types.h"
 
-t_u128			__hasz128(t_u128 x);
 t_u64			__hasz64(t_u64 x);
 t_u64			__populate(t_u8 y);
 
