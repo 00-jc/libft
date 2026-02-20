@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 03:52:23 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/17 16:11:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/20 05:52:46 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_file	ft_read_file(const char *restrict const fname)
 }
 
 __attribute__((__nonnull__(1)))
-inline void	ft_close_file2(t_file *restrict const f)
+inline void	ft_close_file(t_file *restrict const f)
 {
 	(void)close((int)f->fd);
 	ft_free((void **)&f->content);
