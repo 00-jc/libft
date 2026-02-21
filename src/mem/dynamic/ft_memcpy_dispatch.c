@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/21 00:52:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:53:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ inline void	ft_memcpy_8x512(void *restrict dest,
 	while (i < chunks)
 	{
 		offst = i << 3;
+		ft_prefetchnta(dest, sizeof(t_vu512a) << 6);
+		ft_prefetchnta(src, sizeof(t_vu512a) << 6);
 		((t_blk512w)dest)[offst + 0] = ((t_blk512r)src)[offst + 0];
 		((t_blk512w)dest)[offst + 1] = ((t_blk512r)src)[offst + 1];
 		((t_blk512w)dest)[offst + 2] = ((t_blk512r)src)[offst + 2];
@@ -58,6 +60,8 @@ inline void	ft_memcpy_8x256(void *restrict dest,
 	while (i < chunks)
 	{
 		offst = i << 3;
+		ft_prefetchnta(dest, sizeof(t_vu256a) << 6);
+		ft_prefetchnta(src, sizeof(t_vu256a) << 6);
 		((t_blk256w)dest)[offst + 0] = ((t_blk256r)src)[offst + 0];
 		((t_blk256w)dest)[offst + 1] = ((t_blk256r)src)[offst + 1];
 		((t_blk256w)dest)[offst + 2] = ((t_blk256r)src)[offst + 2];
@@ -87,6 +91,8 @@ inline void	ft_memcpy_8x128(void *restrict dest,
 	while (i < chunks)
 	{
 		offst = i << 3;
+		ft_prefetchnta(dest, sizeof(t_vu128a) << 6);
+		ft_prefetchnta(src, sizeof(t_vu128a) << 6);
 		((t_blk128w)dest)[offst + 0] = ((t_blk128r)src)[offst + 0];
 		((t_blk128w)dest)[offst + 1] = ((t_blk128r)src)[offst + 1];
 		((t_blk128w)dest)[offst + 2] = ((t_blk128r)src)[offst + 2];

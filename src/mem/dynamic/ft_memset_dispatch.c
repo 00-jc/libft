@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 03:43:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/21 00:52:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:53:01 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ inline void	ft_memset_8x512(void *restrict dest,
 	while (i < chunks)
 	{
 		offst = i << 3;
+		ft_prefetchnta(dest, sizeof(t_vu512a) << 6);
 		((t_blk512w)dest)[offst + 0] = msk;
 		((t_blk512w)dest)[offst + 1] = msk;
 		((t_blk512w)dest)[offst + 2] = msk;
@@ -62,6 +63,7 @@ inline void	ft_memset_8x256(void *restrict dest,
 	while (i < chunks)
 	{
 		offst = i << 3;
+		ft_prefetchnta(dest, sizeof(t_vu256a) << 6);
 		((t_blk256w)dest)[offst + 0] = msk;
 		((t_blk256w)dest)[offst + 1] = msk;
 		((t_blk256w)dest)[offst + 2] = msk;
@@ -93,6 +95,7 @@ inline void	ft_memset_8x128(void *restrict dest,
 	while (i < chunks)
 	{
 		offst = i << 3;
+		ft_prefetchnta(dest, sizeof(t_vu128a) << 6);
 		((t_blk128w)dest)[offst + 0] = msk;
 		((t_blk128w)dest)[offst + 1] = msk;
 		((t_blk128w)dest)[offst + 2] = msk;

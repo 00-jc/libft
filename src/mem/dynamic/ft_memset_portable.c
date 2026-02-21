@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 21:35:17 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 18:27:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:54:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ inline void	ft_memset_8x64(void *restrict dest,
 	while (i < chunks)
 	{
 		offst = i << 3;
+		ft_prefetchnta(dest, sizeof(t_u8) << 6);
 		((t_blk64w)dest)[offst + 0] = msk;
 		((t_blk64w)dest)[offst + 1] = msk;
 		((t_blk64w)dest)[offst + 2] = msk;
