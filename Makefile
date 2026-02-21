@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/02/20 19:46:10 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/02/21 01:22:43 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 CFLAGS 		:=  -ffunction-sections -fdata-sections -fvectorize -finline-functions -fvisibility=hidden \
 				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common\
-				-fstack-clash-protection -O3 -pipe -D__LIBFT_PORTABLE__ -g -flto $(WARNS)
+				-fstack-clash-protection -O3 -march=native -pipe -flto $(WARNS)
 AR			:=	ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
@@ -51,7 +51,6 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/cstr/ft_strchr.c \
 				src/cstr/ft_s_isblob.c \
 				src/cstr/ft_isnumeric.c \
-				src/cstr/ft_strlen.c \
 				src/cstr/ft_toupper.c \
 				src/cstr/ft_strcmp.c \
 				src/cstr/ft_strmapi.c \
@@ -62,7 +61,7 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/cstr/ft_split.c \
 				src/cstr/ft_strnstr.c \
 				src/cstr/ft_strlcpy.c \
-				src/cstr/asm/ft_strlen.S \
+				src/cstr/ft_strlen.c \
 				src/cstr/ft_substr.c \
 				src/cstr/ft_strncmp.c \
 				src/cstr/ft_strrchr.c \
@@ -92,28 +91,28 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/math/ft_fabs.c \
 				src/math/ft_pow_signed.c \
 				src/math/ft_sqrt.c \
-				src/mem/ft_murmur3.c \
-				src/mem/ft_murmur_helpers.c \
 				src/mem/ft_membroadcast.c \
 				src/mem/ft_memtake.c \
-				src/mem/ft_memchr.c \
-				src/mem/asm/ft_memset_portable.c \
-				src/mem/asm/ft_memcpy_portable.c \
-				src/mem/asm/ft_memcpy_avx256.c \
-				src/mem/asm/ft_memset_avx256.c \
-				src/mem/asm/ft_memcpy.S \
-				src/mem/asm/ft_memset.S \
-				src/mem/asm/ft_prefetch_non_x86.c \
-				src/mem/asm/ft_prefetch.c \
-				src/mem/asm/ft_memchr.S \
-				src/mem/asm/ft_memchr_avx256.c \
 				src/mem/ft_memclone.c \
-				src/mem/ft_memcmp.c \
+				src/mem/dynamic/ft_memcpy_portable.c \
+				src/mem/dynamic/ft_memset_portable.c \
+				src/mem/dynamic/ft_memcpy_dispatch.c \
+				src/mem/dynamic/ft_memset_dispatch.c \
+				src/mem/dynamic/ft_memcpy.c \
+				src/mem/dynamic/ft_memset.c \
+				src/mem/hash/ft_murmur3.c \
+				src/mem/hash/ft_murmur_helpers.c \
 				src/mem/ft_memformat.c \
 				src/mem/ft_bzero.c \
-				src/mem/ft_memset.c \
+				src/mem/sse/ft_memcmp.c \
+				src/mem/sse/ft_memchr.c \
+				src/mem/ft_prefetch_noop.c \
+				src/mem/avx512/ft_memcmp_avx512.c \
+				src/mem/avx512/ft_memchr_avx512.c \
 				src/mem/ft_memmove.c \
-				src/mem/ft_memcpy.c \
+				src/mem/avx256/ft_memcmp_avx256.c \
+				src/mem/avx256/ft_memchr_avx256.c \
+				src/mem/ft_prefetch_intrin.c \
 				src/vec/ft_vec_remove.c \
 				src/vec/ft_vec_pop.c \
 				src/vec/ft_vec_new.c \
@@ -126,28 +125,28 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/str/ft_str_push_back.c \
 				src/str/ft_str_extend.c \
 				src/str/ft_str_new.c \
-				src/bmi/__max.c \
-				src/bmi/ft_to_be_from_be.c \
-				src/bmi/ft_to_be_from_le.c \
+				src/bmi/__populate.c \
 				src/bmi/ft_bswap.c \
 				src/bmi/asm/ft_bswap_asm.c \
 				src/bmi/asm/ft_memctz_asm.c \
 				src/bmi/asm/ft_get128.c \
 				src/bmi/asm/ft_get256.c \
 				src/bmi/asm/ft_get512.c \
-				src/bmi/asm/ft_bitpack.c \
 				src/bmi/asm/__hasz_asm.c \
-				src/bmi/__hasz.c \
-				src/bmi/__populate.c \
-				src/bmi/__maxs.c \
+				src/bmi/asm/ft_bitpack.c \
+				src/bmi/ft_to_be_from_be.c \
+				src/bmi/ft_to_be_from_le.c \
 				src/bmi/ft_memctz.c \
+				src/bmi/__maxs.c \
+				src/bmi/__max.c \
+				src/bmi/__hasz.c \
 				src/env/ft_getenv.c \
-				src/map/ft_map_insert.c \
-				src/map/ft_map_lookup.c \
-				src/map/ft_map.c \
-				src/map/ft_map_delete.c \
-				src/map/ft_map_rehash.c \
-				src/map/ft_map_insert_unchecked.c
+				src/swissmap/ft_map_insert.c \
+				src/swissmap/ft_map_lookup.c \
+				src/swissmap/ft_map_delete.c \
+				src/swissmap/ft_map_rehash.c \
+				src/swissmap/ft_map_insert_unchecked.c \
+				src/swissmap/ft_map.c
 
 OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/alloc/arena/ft_arena_alloc_scopes.o \
@@ -172,7 +171,6 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/cstr/ft_strchr.o \
 				build/cstr/ft_s_isblob.o \
 				build/cstr/ft_isnumeric.o \
-				build/cstr/ft_strlen.o \
 				build/cstr/ft_toupper.o \
 				build/cstr/ft_strcmp.o \
 				build/cstr/ft_strmapi.o \
@@ -183,7 +181,7 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/cstr/ft_split.o \
 				build/cstr/ft_strnstr.o \
 				build/cstr/ft_strlcpy.o \
-				build/cstr/asm/ft_strlen.o \
+				build/cstr/ft_strlen.o \
 				build/cstr/ft_substr.o \
 				build/cstr/ft_strncmp.o \
 				build/cstr/ft_strrchr.o \
@@ -213,28 +211,28 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/math/ft_fabs.o \
 				build/math/ft_pow_signed.o \
 				build/math/ft_sqrt.o \
-				build/mem/ft_murmur3.o \
-				build/mem/ft_murmur_helpers.o \
 				build/mem/ft_membroadcast.o \
 				build/mem/ft_memtake.o \
-				build/mem/ft_memchr.o \
-				build/mem/asm/ft_memset_portable.o \
-				build/mem/asm/ft_memcpy_portable.o \
-				build/mem/asm/ft_memcpy_avx256.o \
-				build/mem/asm/ft_memset_avx256.o \
-				build/mem/asm/ft_memcpy.o \
-				build/mem/asm/ft_memset.o \
-				build/mem/asm/ft_prefetch_non_x86.o \
-				build/mem/asm/ft_prefetch.o \
-				build/mem/asm/ft_memchr.o \
-				build/mem/asm/ft_memchr_avx256.o \
 				build/mem/ft_memclone.o \
-				build/mem/ft_memcmp.o \
+				build/mem/dynamic/ft_memcpy_portable.o \
+				build/mem/dynamic/ft_memset_portable.o \
+				build/mem/dynamic/ft_memcpy_dispatch.o \
+				build/mem/dynamic/ft_memset_dispatch.o \
+				build/mem/dynamic/ft_memcpy.o \
+				build/mem/dynamic/ft_memset.o \
+				build/mem/hash/ft_murmur3.o \
+				build/mem/hash/ft_murmur_helpers.o \
 				build/mem/ft_memformat.o \
 				build/mem/ft_bzero.o \
-				build/mem/ft_memset.o \
+				build/mem/sse/ft_memcmp.o \
+				build/mem/sse/ft_memchr.o \
+				build/mem/ft_prefetch_noop.o \
+				build/mem/avx512/ft_memcmp_avx512.o \
+				build/mem/avx512/ft_memchr_avx512.o \
 				build/mem/ft_memmove.o \
-				build/mem/ft_memcpy.o \
+				build/mem/avx256/ft_memcmp_avx256.o \
+				build/mem/avx256/ft_memchr_avx256.o \
+				build/mem/ft_prefetch_intrin.o \
 				build/vec/ft_vec_remove.o \
 				build/vec/ft_vec_pop.o \
 				build/vec/ft_vec_new.o \
@@ -247,39 +245,33 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/str/ft_str_push_back.o \
 				build/str/ft_str_extend.o \
 				build/str/ft_str_new.o \
-				build/bmi/__max.o \
-				build/bmi/ft_to_be_from_be.o \
-				build/bmi/ft_to_be_from_le.o \
+				build/bmi/__populate.o \
 				build/bmi/ft_bswap.o \
 				build/bmi/asm/ft_bswap_asm.o \
 				build/bmi/asm/ft_memctz_asm.o \
 				build/bmi/asm/ft_get128.o \
 				build/bmi/asm/ft_get256.o \
 				build/bmi/asm/ft_get512.o \
-				build/bmi/asm/ft_bitpack.o \
 				build/bmi/asm/__hasz_asm.o \
-				build/bmi/__hasz.o \
-				build/bmi/__populate.o \
-				build/bmi/__maxs.o \
+				build/bmi/asm/ft_bitpack.o \
+				build/bmi/ft_to_be_from_be.o \
+				build/bmi/ft_to_be_from_le.o \
 				build/bmi/ft_memctz.o \
+				build/bmi/__maxs.o \
+				build/bmi/__max.o \
+				build/bmi/__hasz.o \
 				build/env/ft_getenv.o \
-				build/map/ft_map_insert.o \
-				build/map/ft_map_lookup.o \
-				build/map/ft_map.o \
-				build/map/ft_map_delete.o \
-				build/map/ft_map_rehash.o \
-				build/map/ft_map_insert_unchecked.o
-CURRENT 	:= 0
-
+				build/swissmap/ft_map_insert.o \
+				build/swissmap/ft_map_lookup.o \
+				build/swissmap/ft_map_delete.o \
+				build/swissmap/ft_map_rehash.o \
+				build/swissmap/ft_map_insert_unchecked.o \
+				build/swissmap/ft_map.o
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
-
-$(OBJDIR)/%.o: src/%.S
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^

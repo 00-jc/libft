@@ -6,19 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 20:17:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 01:11:57 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_mem.h"
 
-#if defined(__x86_64__) && defined(__AVX512VL__) && !defined(__LIBFT_PORTABLE__)
-
-/*
- * see: ft_memset.S
- */
-
-#elif defined(__AVX512VL__)
+#if defined(__AVX512VL__)
 
 __attribute__((__nonnull__(1)))
 void	ft_memset(void *restrict dest,

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 03:17:51 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 16:49:15 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 01:04:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,22 @@ inline t_u32a	ft_bitpack256(t_vu256a vec)
 	hi = ((t_blk128ra) & vec)[1];
 	return ((ft_bitpack128(lo)
 			| (((t_u32a)ft_bitpack128(hi)) << 16)));
+}
+
+#endif
+
+#ifdef __AVX512F__
+
+__attribute__((const, __always_inline__))
+inline t_u64a	ft_bitpack512(t_vu512a vec)
+{
+	t_vu256a	hi;
+	t_vu256a	lo;
+
+	lo = ((t_blk256ra) & vec)[0];
+	hi = ((t_blk256ra) & vec)[1];
+	return ((ft_bitpack256(lo)
+			| (((t_u64a)ft_bitpack256(hi)) << 32)));
 }
 
 #endif

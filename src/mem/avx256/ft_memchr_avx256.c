@@ -6,30 +6,44 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:59:18 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 16:46:18 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 01:16:54 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_mem.h"
 
-#if (!defined(__AVX512F__) || !defined(__x86_64__)\
-	|| defined(__LIBFT_PORTABLE__)) && defined(__AVX2__)
+#if !defined(__AVX512F__) && defined(__AVX2__)
 
 __attribute__ ((__nonnull__ (1), __always_inline__, pure))
-static inline void	*__fix_last_w(const t_vu256 *ptr, size_t diff, t_vu256a msk)
+static inline void	*ft__fix_last_w(const t_u8 *restrict const ptr,
+	size_t n, t_vu256a msk)
 {
 	t_vu256a		w;
+	t_vu256			*adjusted;
 	t_u32a			packed;
-	size_t			offst;
 
-	if (diff == 0)
+	if (n == 0)
 		return (NULL);
-	w = __hasz256((*ptr ^ msk)) == get_high256();
-	packed = ft_bitpack256(w);
+	adjusted = (t_vu256 *)(ptr + n - sizeof(msk));
+	w = __hasz256(*(t_blk256r)adjusted ^ msk) == get_high256();
+	packed = ft_bitpack256(w) & (0xFFFFFFFF << (sizeof(msk) - n));
 	if (packed)
+		return ((void *)((t_u8 *)adjusted + ft_memctz_u32(packed)));
+	return (NULL);
+}
+
+__attribute__((__nonnull__(1), __always_inline__))
+static inline void	*ft_memchr_minimal(const void *restrict const ptr,
+	t_u8 c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
 	{
-		offst = ft_memctz_u32(packed);
-		return ((void *)((offst < diff) * ((t_uptr)ptr + offst)));
+		if (((t_blk8r)ptr)[i] == c)
+			return ((void *)((t_u8 *)ptr + i));
+		++i;
 	}
 	return (NULL);
 }
@@ -43,6 +57,8 @@ void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 	const t_u8		*restrict	bp;
 	t_vu256						*wptr;
 
+	if (n < sizeof(t_vu256))
+		return (ft_memchr_minimal(ptr, (t_u8)c, n));
 	bp = (t_u8 *)ptr;
 	msk = get_mask256((t_u8)c);
 	wptr = (t_vu256a *)bp;
@@ -52,11 +68,11 @@ void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 		hasz = ft_bitpack256(w == get_high256());
 		if (hasz)
 			return ((void)(hasz = (t_u32a)ft_memctz_u32(hasz)),
-			(void *)((t_uptr)wptr + hasz));
+			(void *)((t_u8 *)wptr + hasz));
 		wptr++;
 		n -= sizeof (t_vu256);
 	}
-	return (__fix_last_w (wptr, n, msk));
+	return (ft__fix_last_w ((t_u8 *)wptr, n, msk));
 }
 
 #endif

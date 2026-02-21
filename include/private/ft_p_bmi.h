@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:05:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 19:40:04 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 01:04:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ t_vu256a	__hasz256(t_vu256a x)\
 
 t_vu512a	__hasz512(t_vu512a x)\
 				__attribute__((__always_inline__));
+
+t_u64a		ft_bitpack512(t_vu512a vec)\
+				__attribute__((const, __always_inline__));
 
 t_u32a		ft_bitpack256(t_vu256a vec)\
 				__attribute__((const, __always_inline__));

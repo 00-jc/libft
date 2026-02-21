@@ -6,15 +6,74 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 19:50:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 01:19:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_bmi.h"
 #include "cstr.h"
 
-#if !defined(__AVX512VL__) || !defined(__x86_64__) ||\
-	defined(__LIBFT_PORTABLE__)
+#ifdef __AVX512F__
+
+__attribute__((__nonnull__(1)))
+size_t	ft_strlen(const char *restrict str)
+{
+	t_uptr						a;
+	t_u64a						w;
+	size_t						offst;
+	const t_vu512a	*restrict	wp;
+	t_vu512a					mask;
+
+	a = (t_uptr)str;
+	while (*str && ((t_uptr)str & (sizeof(t_vu512a) - 1)))
+		++str;
+	if (!*str)
+		return ((t_uptr)str - (t_uptr)a);
+	wp = (t_blk512r)str;
+	while (1)
+	{
+		mask = __hasz512(((t_blk512ra)wp)[0]) == get_high512();
+		w = ft_bitpack512(mask);
+		if (w)
+		{
+			offst = ft_memctz_u64(w);
+			return (((t_uptr)wp + offst) - a);
+		}
+		++wp;
+	}
+}
+
+#elif defined(__AVX2__)
+
+__attribute__((__nonnull__(1)))
+size_t	ft_strlen(const char *restrict str)
+{
+	t_uptr						a;
+	t_u32a						w;
+	size_t						offst;
+	const t_vu256a	*restrict	wp;
+	t_vu256a					mask;
+
+	a = (t_uptr)str;
+	while (*str && ((t_uptr)str & (sizeof(t_vu256a) - 1)))
+		++str;
+	if (!*str)
+		return ((t_uptr)str - (t_uptr)a);
+	wp = (t_blk256r)str;
+	while (1)
+	{
+		mask = __hasz256(((t_blk256ra)wp)[0]) == get_high256();
+		w = ft_bitpack256(mask);
+		if (w)
+		{
+			offst = ft_memctz_u32(w);
+			return (((t_uptr)wp + offst) - a);
+		}
+		++wp;
+	}
+}
+
+#else
 
 __attribute__((__nonnull__(1)))
 size_t	ft_strlen(const char *restrict str)
@@ -26,7 +85,7 @@ size_t	ft_strlen(const char *restrict str)
 	t_vu128a					mask;
 
 	a = (t_uptr)str;
-	while (*str && ((t_uptr)str & 15))
+	while (*str && ((t_uptr)str & (sizeof(t_vu128a) - 1)))
 		++str;
 	if (!*str)
 		return ((t_uptr)str - (t_uptr)a);

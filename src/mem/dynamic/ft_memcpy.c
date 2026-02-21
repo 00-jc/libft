@@ -6,19 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 22:55:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 21:01:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 01:11:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_mem.h"
 
-#if defined(__x86_64__) && defined(__AVX512VL__) && !defined(__LIBFT_PORTABLE__)
-
-/*
- * see: ft_memcpy.S
- */
-
-#elif defined(__AVX512VL__)
+#if defined(__AVX512VL__)
 
 __attribute__((__nonnull__(1, 2)))
 void	ft_memcpy(void *restrict dest,
