@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/02/21 01:22:43 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/02/21 03:26:52 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 CFLAGS 		:=  -ffunction-sections -fdata-sections -fvectorize -finline-functions -fvisibility=hidden \
 				-fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero -fno-common\
-				-fstack-clash-protection -O3 -march=native -pipe -flto $(WARNS)
+				-fstack-clash-protection -march=native -O3 -flto -pipe $(WARNS)
 AR			:=	ar rcs
 OBJDIR		:=	build
 SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
@@ -134,6 +134,7 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/bmi/asm/ft_get512.c \
 				src/bmi/asm/__hasz_asm.c \
 				src/bmi/asm/ft_bitpack.c \
+				src/bmi/asm/ft_bitpack_intrin.c \
 				src/bmi/ft_to_be_from_be.c \
 				src/bmi/ft_to_be_from_le.c \
 				src/bmi/ft_memctz.c \
@@ -254,6 +255,7 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/bmi/asm/ft_get512.o \
 				build/bmi/asm/__hasz_asm.o \
 				build/bmi/asm/ft_bitpack.o \
+				build/bmi/asm/ft_bitpack_intrin.o \
 				build/bmi/ft_to_be_from_be.o \
 				build/bmi/ft_to_be_from_le.o \
 				build/bmi/ft_memctz.o \

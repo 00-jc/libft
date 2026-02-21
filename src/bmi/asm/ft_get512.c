@@ -6,12 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 00:10:36 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 03:25:36 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 02:15:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mem.h"
-#include "private/ft_p_asm.h"
+#include "private/ft_p_mem.h"
 
 #ifndef __LIBFT_SCALAR__
 
