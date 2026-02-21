@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:23:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 16:20:51 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 04:48:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include "mem.h"
 # include "private/ft_p_bmi.h"
+
+# define XXH_PRIME64_1  0x9E3779B185EBCA87ULL
+# define XXH_PRIME64_2  0xC2B2AE3D27D4EB4FULL
+# define XXH_PRIME64_3  0x165667B19E3779F9ULL
+# define XXH_PRIME64_4  0x85EBCA77C2B2AE63ULL
+# define XXH_PRIME64_5  0x27D4EB2F165667C5ULL  
 
 void			ft_memcpy_tail(void *restrict dest,
 					const void	*restrict const src,

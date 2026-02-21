@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:59:18 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/21 03:36:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:42:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline void	*ft__fix_last_w(const t_u8 *restrict const ptr,
 	if (n == 0)
 		return (NULL);
 	adjusted = (t_vu512 *)(ptr + n - sizeof(msk));
-	w = __hasz512(*(t_blk512r)adjusted ^ msk) == get_high512();
+	w = (*(t_blk512r)adjusted ^ msk) == get_z512();
 	packed = ft_bitpack512(w) & (0xFFFFFFFFFFFFFFFF << (sizeof(msk) - n));
 	if (packed)
 		return ((void *)((t_u8 *)adjusted + ft_memctz_u64(packed)));
@@ -64,8 +64,9 @@ void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 	wptr = (t_vu512a *)bp;
 	while (n >= sizeof (t_vu512a))
 	{
-		w = __hasz512(*((t_blk512r)wptr) ^ msk);
-		hasz = ft_bitpack512(w == get_high512());
+		ft_prefetch0(wptr, sizeof(t_vu512a) << 1);
+		w = (*((t_blk512r)wptr) ^ msk) == get_z512();
+		hasz = ft_bitpack512(w);
 		if (hasz)
 			return ((void)(hasz = ft_memctz_u64(hasz)),
 			(void *)((t_u8 *)wptr + hasz));

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/21 01:19:56 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:44:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t	ft_strlen(const char *restrict str)
 	wp = (t_blk512r)str;
 	while (1)
 	{
-		mask = __hasz512(((t_blk512ra)wp)[0]) == get_high512();
+		mask = ((t_blk512ra)wp)[0] == get_z512();
 		w = ft_bitpack512(mask);
 		if (w)
 		{
@@ -62,7 +62,7 @@ size_t	ft_strlen(const char *restrict str)
 	wp = (t_blk256r)str;
 	while (1)
 	{
-		mask = __hasz256(((t_blk256ra)wp)[0]) == get_high256();
+		mask = ((t_blk256ra)wp)[0] == get_z256();
 		w = ft_bitpack256(mask);
 		if (w)
 		{
@@ -92,7 +92,7 @@ size_t	ft_strlen(const char *restrict str)
 	wp = (t_blk128r)str;
 	while (1)
 	{
-		mask = __hasz128(((t_blk128ra)wp)[0]) == get_high128();
+		mask = ((t_blk128ra)wp)[0] == get_z128();
 		w = ft_bitpack128(mask);
 		if (w)
 		{

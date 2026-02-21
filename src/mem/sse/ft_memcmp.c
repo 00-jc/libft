@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/21 01:07:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 03:42:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ ssize_t	ft_memcmp(const void *restrict const ptr1,
 		return (ft_memcmp_minimal(ptr1, ptr2, offst, n));
 	while (n >= sizeof(t_vu128))
 	{
+		ft_prefetch0(ptr1, sizeof(t_vu128a) << 1);
+		ft_prefetch0(ptr2, sizeof(t_vu128a) << 1);
 		load0 = ((t_blk128r)ptr1)[offst];
 		load1 = ((t_blk128r)ptr2)[offst];
 		mask = ft_bitpack128(load1 != load0);

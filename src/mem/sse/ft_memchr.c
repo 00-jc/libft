@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/21 01:17:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:39:59 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline void	*ft__fix_last_w(const t_u8 *restrict const ptr,
 	if (n == 0)
 		return (NULL);
 	adjusted = (t_vu128 *)(ptr + n - sizeof(msk));
-	w = __hasz128(*(t_blk128r)adjusted ^ msk) == get_high128();
+	w = (*(t_blk128r)adjusted ^ msk) == get_z128();
 	packed = ft_bitpack128(w) & (0xFFFF << (sizeof(msk) - n));
 	if (packed)
 		return ((void *)((t_u8 *)adjusted + ft_memctz_u16(packed)));
@@ -64,8 +64,9 @@ void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 	wptr = (t_vu128a *)bp;
 	while (n >= sizeof (t_vu128a))
 	{
-		w = __hasz128(*((t_blk128r)wptr) ^ msk);
-		hasz = ft_bitpack128(w == get_high128());
+		ft_prefetch0(wptr, sizeof(t_vu128a) << 1);
+		w = (*((t_blk128r)wptr) ^ msk) == get_z128();
+		hasz = ft_bitpack128(w);
 		if (hasz)
 			return ((void)(hasz = (t_u16a)ft_memctz_u16(hasz)),
 			(void *)((t_u8 *)wptr + hasz));
