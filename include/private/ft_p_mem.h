@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:23:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/21 04:48:19 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/02/22 17:37:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,25 @@ t_u64a			rotl(t_u64a x, size_t r)\
 
 t_u64a			fmix64(t_u64a k)\
 					__attribute__((const, __always_inline__));
+
+void			*ft_memchr_minimal(const void *ptr,
+					t_u8 c, size_t n)\
+					__attribute__((__nonnull__(1),\
+					__always_inline__));
+
+void			*ft_memchr_sse(const void *ptr,
+					int c, size_t n)\
+					__attribute__((__nonnull__(1),\
+					__always_inline__));
+
+void			*ft_memchr_avx256(const void *ptr,
+					int c, size_t n)\
+					__attribute__((__nonnull__(1),\
+					__always_inline__));
+
+void			*ft_memchr_avx512(const void *ptr,
+					int c, size_t n)\
+					__attribute__((__nonnull__(1),\
+					__always_inline__));
 
 #endif

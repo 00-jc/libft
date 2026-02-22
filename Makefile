@@ -6,10 +6,9 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/02/21 03:57:36 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/02/22 20:15:05 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME		:=	libft.a
 THRESHOLD	:=  0.40
 CC			:=	cc
@@ -67,6 +66,13 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/cstr/ft_strrchr.c \
 				src/cstr/ft_strdup.c \
 				src/cstr/ft_strjoin.c \
+				src/ctype/asm/ft_isalnum.c \
+				src/ctype/asm/ft_isalpha.c \
+				src/ctype/asm/ft_isascii.c \
+				src/ctype/asm/ft_isdigit.c \
+				src/ctype/asm/ft_isprint.c \
+				src/ctype/asm/ft_isxdigit.c \
+				src/ctype/asm/ft_isspace.c \
 				src/ctype/ft_isascii.c \
 				src/ctype/ft_isalnum.c \
 				src/ctype/ft_isprint.c \
@@ -74,7 +80,6 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/ctype/ft_isspace.c \
 				src/ctype/ft_isalpha.c \
 				src/ctype/ft_isdigit.c \
-				src/ctype/ft_ispath.c \
 				src/io/ft_printf_helpers2.c \
 				src/io/ft_read_file_portable.c \
 				src/io/ft_read_file.c \
@@ -100,6 +105,7 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/mem/dynamic/ft_memset_dispatch.c \
 				src/mem/dynamic/ft_memcpy.c \
 				src/mem/dynamic/ft_memset.c \
+				src/mem/dynamic/ft_memchr.c \
 				src/mem/hash/ft_murmur3.c \
 				src/mem/hash/ft_murmur_helpers.c \
 				src/mem/ft_memformat.c \
@@ -147,7 +153,15 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/swissmap/ft_map_delete.c \
 				src/swissmap/ft_map_rehash.c \
 				src/swissmap/ft_map_insert_unchecked.c \
-				src/swissmap/ft_map.c
+				src/swissmap/ft_map.c \
+				src/tokenizer/ft_eat_u128.c \
+				src/tokenizer/ft_eat_u256.c \
+				src/tokenizer/ft_eat_u512.c \
+				src/tokenizer/ft_eat_until.c \
+				src/tokenizer/ft_eat_u8.c \
+				src/tokenizer/ft_sets.c \
+				src/tokenizer/ft_tokenizer.c \
+				src/tokenizer/ft_eat_while.c
 
 OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/alloc/arena/ft_arena_alloc_scopes.o \
@@ -188,6 +202,13 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/cstr/ft_strrchr.o \
 				build/cstr/ft_strdup.o \
 				build/cstr/ft_strjoin.o \
+				build/ctype/asm/ft_isalnum.o \
+				build/ctype/asm/ft_isalpha.o \
+				build/ctype/asm/ft_isascii.o \
+				build/ctype/asm/ft_isdigit.o \
+				build/ctype/asm/ft_isprint.o \
+				build/ctype/asm/ft_isxdigit.o \
+				build/ctype/asm/ft_isspace.o \
 				build/ctype/ft_isascii.o \
 				build/ctype/ft_isalnum.o \
 				build/ctype/ft_isprint.o \
@@ -195,7 +216,6 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/ctype/ft_isspace.o \
 				build/ctype/ft_isalpha.o \
 				build/ctype/ft_isdigit.o \
-				build/ctype/ft_ispath.o \
 				build/io/ft_printf_helpers2.o \
 				build/io/ft_read_file_portable.o \
 				build/io/ft_read_file.o \
@@ -220,6 +240,7 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/mem/dynamic/ft_memcpy_dispatch.o \
 				build/mem/dynamic/ft_memset_dispatch.o \
 				build/mem/dynamic/ft_memcpy.o \
+				build/mem/dynamic/ft_memchr.o \
 				build/mem/dynamic/ft_memset.o \
 				build/mem/hash/ft_murmur3.o \
 				build/mem/hash/ft_murmur_helpers.o \
@@ -268,7 +289,15 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/swissmap/ft_map_delete.o \
 				build/swissmap/ft_map_rehash.o \
 				build/swissmap/ft_map_insert_unchecked.o \
-				build/swissmap/ft_map.o
+				build/swissmap/ft_map.o \
+				build/tokenizer/ft_eat_u128.o \
+				build/tokenizer/ft_eat_u256.o \
+				build/tokenizer/ft_eat_u512.o \
+				build/tokenizer/ft_eat_until.o \
+				build/tokenizer/ft_eat_u8.o \
+				build/tokenizer/ft_sets.o \
+				build/tokenizer/ft_tokenizer.o \
+				build/tokenizer/ft_eat_while.o
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
