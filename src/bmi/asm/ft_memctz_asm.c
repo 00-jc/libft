@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/26 01:49:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 17:25:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ __attribute__((hot, const, __always_inline__))
 inline size_t	ft_memctz_u32(t_u32 x)
 {
 	__asm__("tzcnt %1, %0" : "=r"(x) : "r"(x));
-	return ((t_u8)x);
+	return (x);
 }
 
 __attribute__((hot, const, __always_inline__))
 inline size_t	ft_memctz_u64(t_u64 x)
 {
 	__asm__("tzcnt %1, %0" : "=r"(x) : "r"(x));
-	return ((t_u8)x);
+	return (x);
 }
 
 __attribute__((hot, const, __always_inline__))
