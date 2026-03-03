@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:51:01 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:24:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@
 # include "alloc.h"
 # include <stddef.h>
 
+/* this is optimized for insertion speed, so
+ * we don't have a 'size', couting by capacity
+ * is basically erroneous, but it's _better_
+ * than telling nothing to the compiler */
+
 typedef struct s_vec
 {
-	t_u8						*head;
-	size_t						capacity;
-	const t_u8	*restrict		data;
+	t_u8															*head;
+	size_t															capacity;
+	const t_u8 __attribute__	((counted_by(capacity))) *restrict	data;
 }	t_vec;
 
 t_vec			ft_vec_new(size_t size, size_t type_size);

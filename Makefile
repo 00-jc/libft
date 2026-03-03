@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/02/27 15:43:03 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/03 17:18:42 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -135,6 +135,7 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/bmi/ft_bswap.c \
 				src/bmi/asm/ft_bswap_asm.c \
 				src/bmi/asm/ft_memctz_asm.c \
+				src/bmi/asm/ft_memclz_asm.c \
 				src/bmi/asm/ft_get128.c \
 				src/bmi/asm/ft_get256.c \
 				src/bmi/asm/ft_get512.c \
@@ -143,6 +144,7 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/bmi/ft_to_be_from_be.c \
 				src/bmi/ft_to_be_from_le.c \
 				src/bmi/ft_memctz.c \
+				src/bmi/ft_memclz.c \
 				src/bmi/__maxs.c \
 				src/bmi/__max.c \
 				src/bmi/__hasz.c \
@@ -270,6 +272,7 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/bmi/ft_bswap.o \
 				build/bmi/asm/ft_bswap_asm.o \
 				build/bmi/asm/ft_memctz_asm.o \
+				build/bmi/asm/ft_memclz_asm.o \
 				build/bmi/asm/ft_get128.o \
 				build/bmi/asm/ft_get256.o \
 				build/bmi/asm/ft_get512.o \
@@ -278,6 +281,7 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/bmi/ft_to_be_from_be.o \
 				build/bmi/ft_to_be_from_le.o \
 				build/bmi/ft_memctz.o \
+				build/bmi/ft_memclz.o \
 				build/bmi/__maxs.o \
 				build/bmi/__max.o \
 				build/bmi/__hasz.o \

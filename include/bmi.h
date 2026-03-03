@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:02:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:48:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 17:18:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ size_t			ft_memctz_u32(t_u32 x)\
 size_t			ft_memctz_u64(t_u64 x)\
 					__attribute__((const));
 size_t			ft_memctz_u128(t_u128 x)\
+					__attribute__((const));
+
+size_t			ft_memclz_u16(t_u16 x)\
+					__attribute__((const));
+size_t			ft_memclz_u32(t_u32 x)\
+					__attribute__((const));
+size_t			ft_memclz_u64(t_u64 x)\
+					__attribute__((const));
+size_t			ft_memclz_u128(t_u128 x)\
 					__attribute__((const));
 
 size_t			__max_s(size_t x, size_t y)\
