@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 01:17:48 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 18:02:59 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 22:48:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,25 @@
 # include "mem.h"
 # include "alloc.h"
 
+# ifdef __clang__
+
+typedef struct s_string
+{
+	size_t									len;
+	size_t									capacity;
+	t_u8 __attribute__	((counted_by(len)))	*data;
+}	t_str;
+
+# else
+
 typedef struct s_string
 {
 	size_t			len;
 	size_t			capacity;
 	t_u8			*data;
 }	t_str;
+
+# endif
 
 t_str		ft_str_new(size_t n);
 

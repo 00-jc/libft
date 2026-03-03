@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:35:20 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 16:19:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 22:50:10 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define GROUP	2
 # define SIZE	3
 
+# ifdef __clang__
+
 typedef struct s_bucket
 {
 	size_t										key_len;
@@ -44,6 +46,24 @@ typedef struct s_map
 	t_u8												*meta;
 }	t_map;
 
+#else
+
+typedef struct s_bucket
+{
+	size_t		key_len;
+	t_u8		*key;
+	t_u8		*value;
+}	t_bucket;
+
+typedef struct s_map
+{
+	size_t		table_size;
+	size_t		count;
+	t_bucket	*buckets;
+	t_u8		*meta;
+}	t_map;
+
+#endif
 t_map		ft_map_with(size_t capacity);
 t_map		ft_map_new(void);
 void		*ft_map_lookup(const t_map *restrict const map,

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 16:24:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 22:53:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,25 @@
  * is basically erroneous, but it's _better_
  * than telling nothing to the compiler */
 
+# ifdef __clang__
+
 typedef struct s_vec
 {
 	t_u8															*head;
 	size_t															capacity;
 	const t_u8 __attribute__	((counted_by(capacity))) *restrict	data;
 }	t_vec;
+
+# else
+
+typedef struct s_vec
+{
+	t_u8						*head;
+	size_t						capacity;
+	const t_u8					*data;
+}	t_vec;
+
+# endif
 
 t_vec			ft_vec_new(size_t size, size_t type_size);
 

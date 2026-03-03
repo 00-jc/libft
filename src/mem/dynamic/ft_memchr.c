@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 17:21:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/22 17:36:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 22:51:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 
 #elif defined(__AVX2__)
 
-__attribute__((__nonnull__ (1), __always_inline__, pure))
+__attribute__((__nonnull__ (1), pure))
 void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 {
 	if (n >= sizeof(t_vu256a))
@@ -42,7 +42,7 @@ void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 
 #else
 
-__attribute__((__nonnull__ (1), __always_inline__, pure))
+__attribute__((__nonnull__ (1), pure))
 void	*ft_memchr(const void *restrict ptr, int c, size_t n)
 {
 	if (n >= sizeof(t_vu128a))

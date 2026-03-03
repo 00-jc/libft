@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 00:10:36 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 03:24:41 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 22:42:03 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_asm.h"
 
-#ifndef __LIBFT_SCALAR__
+#ifdef __AVX2__
 
 __attribute__((const, __always_inline__))
 inline t_vu256	get_high256(void)

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 03:36:25 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 16:27:25 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 22:48:01 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,23 @@ typedef __uint128_t __attribute__((__may_alias__, __aligned__(16)))		t_u128a;
 
 typedef uintptr_t __attribute__((__may_alias__))						t_uptr;
 
+# ifdef __clang__
+
 typedef struct s_buffer
 {
 	size_t										size;
 	t_u8 __attribute__	((counted_by(size)))	*mem;
 }	t_buffer;
+
+# else
+
+typedef struct s_buffer
+{
+	size_t		size;
+	t_u8		*mem;
+}	t_buffer;
+
+# endif
 
 typedef struct s_span
 {

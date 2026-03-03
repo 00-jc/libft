@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:23:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 20:53:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 22:41:28 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,18 @@ void			*ft_memchr_avx512(const void *ptr,
 ssize_t			ft_memcmp_minimal(const void *restrict const ptr1,
 					const void	*restrict const ptr2, size_t offst,\
 					size_t n)\
-					__attribute__((__nonnull__(1, 2), __always_inline__));
+					__attribute__((__nonnull__(1, 2)));
 
 ssize_t			ft_memcmp_sse(const void *restrict const ptr1,
 					const void	*restrict const ptr2, size_t n)\
-					__attribute__((__nonnull__(1, 2), __always_inline__));
+					__attribute__((__nonnull__(1, 2)));
 
 ssize_t			ft_memcmp_avx256(const void *restrict const ptr1,
 					const void	*restrict const ptr2, size_t n)\
-					__attribute__((__nonnull__(1, 2), __always_inline__));
+					__attribute__((__nonnull__(1, 2)));
 
 ssize_t			ft_memcmp_avx512(const void *restrict const ptr1,
 					const void	*restrict const ptr2, size_t n)\
-					__attribute__((__nonnull__(1, 2), __always_inline__));
+					__attribute__((__nonnull__(1, 2)));
 
 #endif
