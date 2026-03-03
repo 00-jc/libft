@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 20:30:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 18:51:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	test_memcmp_basic(void)
 	memcpy(b, "hello", 6);
 	memcpy(c, "hellp", 6);
 	memcpy(d, "hellm", 6);
-	assert(ft_memcmp(a, b, 5) == memcmp(a, b, 5));
-	assert((ft_memcmp(a, c, 5) < 0) == (memcmp(a, c, 5) < 0));
-	assert((ft_memcmp(a, d, 5) > 0) == (memcmp(a, d, 5) > 0));
-	assert(ft_memcmp(a, b, 0) == memcmp(a, b, 0));
-	assert(ft_memcmp(a, c, 4) == memcmp(a, c, 4));
+	ft_pin_invariant(ft_memcmp(a, b, 5) == memcmp(a, b, 5));
+	ft_pin_invariant((ft_memcmp(a, c, 5) < 0) == (memcmp(a, c, 5) < 0));
+	ft_pin_invariant((ft_memcmp(a, d, 5) > 0) == (memcmp(a, d, 5) > 0));
+	ft_pin_invariant(ft_memcmp(a, b, 0) == memcmp(a, b, 0));
+	ft_pin_invariant(ft_memcmp(a, c, 4) == memcmp(a, c, 4));
 }
 
 void	test_memcmp_binary(void)
@@ -52,9 +52,9 @@ void	test_memcmp_binary(void)
 	memcpy(d, a, 5);
 	c[2] = 0x81;
 	d[1] = 0xFE;
-	assert(ft_memcmp(a, b, 5) == 0);
-	assert((ft_memcmp(a, c, 5) < 0) == (memcmp(a, c, 5) < 0));
-	assert((ft_memcmp(a, d, 5) > 0) == (memcmp(a, d, 5) > 0));
+	ft_pin_invariant(ft_memcmp(a, b, 5) == 0);
+	ft_pin_invariant((ft_memcmp(a, c, 5) < 0) == (memcmp(a, c, 5) < 0));
+	ft_pin_invariant((ft_memcmp(a, d, 5) > 0) == (memcmp(a, d, 5) > 0));
 }
 
 void	test_memcmp_long(void)
@@ -73,8 +73,8 @@ void	test_memcmp_long(void)
 		i++;
 	}
 	c[150] = 'X';
-	assert(ft_memcmp(a, b, 256) == 0);
-	assert((ft_memcmp(a, c, 256) != 0) == (memcmp(a, c, 256) != 0));
+	ft_pin_invariant(ft_memcmp(a, b, 256) == 0);
+	ft_pin_invariant((ft_memcmp(a, c, 256) != 0) == (memcmp(a, c, 256) != 0));
 }
 
 void	test_memcmp_misaligned(void)
@@ -84,21 +84,23 @@ void	test_memcmp_misaligned(void)
 
 	memset(buf, 'A', 128);
 	memset(ref, 'A', 128);
-	assert(ft_memcmp(buf + 1, ref + 1, 50) == memcmp(buf + 1, ref + 1, 50));
-	assert(ft_memcmp(buf + 3, ref + 7, 30) == memcmp(buf + 3, ref + 7, 30));
+	ft_pin_invariant(ft_memcmp(buf + 1, ref + 1, 50)
+		== memcmp(buf + 1, ref + 1, 50));
+	ft_pin_invariant(ft_memcmp(buf + 3, ref + 7, 30)
+		== memcmp(buf + 3, ref + 7, 30));
 	buf[10] = 'B';
 	ref[10] = 'C';
-	assert((ft_memcmp(buf + 1, ref + 1, 20) > 0)
+	ft_pin_invariant((ft_memcmp(buf + 1, ref + 1, 20) > 0)
 		== (memcmp(buf + 1, ref + 1, 20) > 0));
 }
 
 int	main(void)
 {
-	printf("Testing ft_memcmp...\n");
+	ft_printf("Testing ft_memcmp...\n");
 	test_memcmp_basic();
 	test_memcmp_binary();
 	test_memcmp_long();
 	test_memcmp_misaligned();
-	printf("  ft_memcmp: OK\n");
+	ft_printf("  ft_memcmp: OK\n");
 	return (0);
 }

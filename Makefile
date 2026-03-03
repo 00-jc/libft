@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/03 18:20:45 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/03 18:59:53 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -304,6 +304,8 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/tokenizer/ft_sets.o \
 				build/tokenizer/ft_tokenizer.o \
 				build/tokenizer/ft_eat_while.o
+SANITIZE	:= 	-fsanitize=address,alignment,undefined -fsanitize-recover=null
+TEST_SRCS	:=	memchr strlen memcmp memcpy memset vec str map murmur bmi
 all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
@@ -326,17 +328,15 @@ static_analysis:
 
 analyze: all static_analysis
 	@if command -v ast2md >/dev/null 2>&1; then \
-		AST2MD_THREADS=$$(nproc) ast2md -L c -i $$(find . -name "*.c") -o stats -t $(THRESHOLD) -- -I include; \
+		AST2MD_THREADS=$$(nproc) ast2md -L c -i $$(find . -name "*.c") \
+		-o stats -t $(THRESHOLD) -- -I include; \
 	else \
 		echo "ast2md not found, skipping coupling analysis"; \
 	fi
 	@echo "Running tests..."
-	@$(CC) $(CFLAGS) tests/memchr_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memchr && \
-		./test_memchr && rm -f test_memchr
-	@$(CC) $(CFLAGS) tests/strlen_test.c -g $(NAME) -Iinclude  -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_strlen && \
-		./test_strlen && rm -f test_strlen
-	@$(CC) $(CFLAGS) tests/memcmp_test.c -g $(NAME) -Iinclude -fsanitize=address,alignment,undefined -fsanitize-recover=null -o test_memcmp && \
-		./test_memcmp && rm -f test_memcmp
+	@$(foreach test,$(TEST_SRCS), \
+		$(CC) $(CFLAGS) tests/$(test)_test.c -O3 -g3 $(NAME) -Iinclude $(SANITIZE) \
+		-o test_$(test) && ./test_$(test) && rm -f test_$(test);)
 	@echo "All tests passed!"
 
 bonus: all

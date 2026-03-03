@@ -14,9 +14,9 @@
 # define TEST_H
 
 # include "lft.h"
+# include "str.h"
+# include "hint.h"
 # include <string.h>
-# include <assert.h>
-# include <stdio.h>
 
 # define LONG_S "10000===0000000000000000000000000000000000000000000000000000"
 # define LONG_M "0000000000000000900???????????????????????????????"

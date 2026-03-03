@@ -25,11 +25,11 @@ void	test_strlen_basic(void)
 	memcpy(h, "hello", 6);
 	memcpy(w, "world", 6);
 	memcpy(z, "\0\0", 1);
-	assert(ft_strlen(h) == strlen(h));
-	assert(ft_strlen(w) == strlen(w));
-	assert(ft_strlen(z) == strlen(z));
-	assert(ft_strlen("") == strlen(""));
-	assert(ft_strlen("a") == strlen("a"));
+	ft_pin_invariant(ft_strlen(h) == strlen(h));
+	ft_pin_invariant(ft_strlen(w) == strlen(w));
+	ft_pin_invariant(ft_strlen(z) == strlen(z));
+	ft_pin_invariant(ft_strlen("") == strlen(""));
+	ft_pin_invariant(ft_strlen("a") == strlen("a"));
 }
 
 void	test_strlen_misaligned(void)
@@ -39,10 +39,10 @@ void	test_strlen_misaligned(void)
 
 	memcpy(h, "hello", 6);
 	memcpy(w, "world", 6);
-	assert(ft_strlen(h + 1) == strlen(h + 1));
-	assert(ft_strlen(w + 2) == strlen(w + 2));
-	assert(ft_strlen(h + 3) == strlen(h + 3));
-	assert(ft_strlen(w + 1) == strlen(w + 1));
+	ft_pin_invariant(ft_strlen(h + 1) == strlen(h + 1));
+	ft_pin_invariant(ft_strlen(w + 2) == strlen(w + 2));
+	ft_pin_invariant(ft_strlen(h + 3) == strlen(h + 3));
+	ft_pin_invariant(ft_strlen(w + 1) == strlen(w + 1));
 }
 
 void	test_strlen_long(void)
@@ -57,18 +57,18 @@ void	test_strlen_long(void)
 		i++;
 	}
 	buf[255] = '\0';
-	assert(ft_strlen(buf) == strlen(buf));
-	assert(ft_strlen(buf + 1) == strlen(buf + 1));
-	assert(ft_strlen(buf + 10) == strlen(buf + 10));
-	assert(ft_strlen(buf + 63) == strlen(buf + 63));
+	ft_pin_invariant(ft_strlen(buf) == strlen(buf));
+	ft_pin_invariant(ft_strlen(buf + 1) == strlen(buf + 1));
+	ft_pin_invariant(ft_strlen(buf + 10) == strlen(buf + 10));
+	ft_pin_invariant(ft_strlen(buf + 63) == strlen(buf + 63));
 }
 
 int	main(void)
 {
-	printf("Testing ft_strlen...\n");
+	ft_printf("Testing ft_strlen...\n");
 	test_strlen_basic();
 	test_strlen_misaligned();
 	test_strlen_long();
-	printf("  ft_strlen: OK\n");
+	ft_printf("  ft_strlen: OK\n");
 	return (0);
 }
