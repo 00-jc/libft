@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:35:20 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 22:50:10 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 23:03:02 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_map
 	t_u8												*meta;
 }	t_map;
 
-#else
+# else
 
 typedef struct s_bucket
 {
@@ -63,7 +63,8 @@ typedef struct s_map
 	t_u8		*meta;
 }	t_map;
 
-#endif
+# endif
+
 t_map		ft_map_with(size_t capacity);
 t_map		ft_map_new(void);
 void		*ft_map_lookup(const t_map *restrict const map,
