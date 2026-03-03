@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 17:16:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 18:21:48 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ inline size_t	ft_memclz_u128(t_u128 x)
 	t_u128	t;
 	size_t	r;
 
-	t = (t_u128)((x & 0xFFFFFFFFFFFFFFFF0000000000000000) == 0) << 6;
+	t = (t_u128)((x & ~0x0000000000000000FFFFFFFFFFFFFFFF) == 0) << 6;
 	x >>= 64 - t;
 	r = t;
 	t = (t_u128)((x & 0xFFFFFFFF00000000) == 0) << 5;

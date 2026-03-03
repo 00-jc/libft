@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/03 17:18:42 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/03 18:20:45 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -155,6 +155,8 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/swissmap/ft_map_rehash.c \
 				src/swissmap/ft_map_insert_unchecked.c \
 				src/swissmap/ft_map.c \
+				src/hint/ft_pin_invariant.c \
+				src/hint/ft_hardcrash.c \
 				src/tokenizer/ft_eat_u128.c \
 				src/tokenizer/ft_eat_u256.c \
 				src/tokenizer/ft_eat_u512.c \
@@ -292,6 +294,8 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/swissmap/ft_map_rehash.o \
 				build/swissmap/ft_map_insert_unchecked.o \
 				build/swissmap/ft_map.o \
+				build/hint/ft_pin_invariant.o \
+				build/hint/ft_hardcrash.o \
 				build/tokenizer/ft_eat_u128.o \
 				build/tokenizer/ft_eat_u256.o \
 				build/tokenizer/ft_eat_u512.o \

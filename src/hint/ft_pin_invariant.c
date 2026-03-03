@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_helpers2.c                               :+:      :+:    :+:   */
+/*   ft_pin_invariant.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/18 02:52:15 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 18:23:12 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/03/03 18:10:00 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/03/03 18:14:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "private/ft_p_io.h"
+#include "private/ft_p_hint.h"
 
 __attribute__((__always_inline__))
-inline void	pputs(int fd, const char *restrict const str)
+inline void	ft_pin_invariant(int res)
 {
-	ssize_t		unused;
+	if (!res)
+		ft_hardcrash();
+}
 
-	if (!str)
-		unused = write(fd, "(nil)", 5);
-	else
-		unused = write(fd, str, ft_strlen(str));
-	(void)(unused == 0);
+__attribute__((__always_inline__, __nonnull__(2)))
+inline void	ft_pin_invariant_msg(int res, char *msg)
+{
+	if (!res)
+		ft_hardcrash_with_message(msg);
 }

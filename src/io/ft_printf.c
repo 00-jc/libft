@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:59:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 18:25:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ __attribute__((__nonnull__(2), __always_inline__))
 static inline size_t	manage(int fd, const char *const c,
 		size_t remaining, va_list args)
 {
-	char	_c;
-	size_t	i;
-	ssize_t	unused;
+	char								_c;
+	size_t								i;
+	ssize_t __attribute__	((unused))	unused;
 
 	i = 0;
 	_c = *c;
@@ -72,11 +72,11 @@ static inline size_t	manage(int fd, const char *const c,
 __attribute__((__nonnull__(2)))
 static void	ft_vfprintf(int fd, const char *restrict const fmt, va_list args)
 {
-	size_t					len;
-	size_t					maxptr;
-	const char	*restrict	subst;
-	const char	*restrict	start;
-	ssize_t					unused;
+	size_t								len;
+	size_t								maxptr;
+	const char	*restrict				subst;
+	const char	*restrict				start;
+	ssize_t __attribute__	((unused))	unused;
 
 	len = ft_strlen(fmt);
 	maxptr = (t_uptr)fmt + len;

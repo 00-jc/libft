@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:26:49 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 18:24:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ inline void	puti(int fd, int n)
 __attribute__((__always_inline__))
 inline void	pflt(int fd, double d)
 {
-	char		buffer[32];
-	ssize_t		unused;
-	size_t		i;
-	double		frac;
+	char								buffer[32];
+	ssize_t __attribute__	((unused))	unused;
+	size_t								i;
+	double								frac;
 
 	putd(fd, (ssize_t)d);
 	unused = write(fd, ".", 1);
@@ -125,5 +125,4 @@ inline void	pflt(int fd, double d)
 		buffer[i++] = (char)((size_t)frac % 10) + '0';
 	}
 	unused = write(fd, buffer, 6);
-	(void)unused;
 }
