@@ -6,11 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 17:06:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 17:38:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mem.h"
+#include "bmi.h"
 
 #if !defined(__BMI__) || !defined(__x86_64__)
 
