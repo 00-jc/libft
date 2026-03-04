@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/04 01:00:13 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/04 02:57:14 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -325,13 +325,13 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
+	@$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
 
 base:
-	$(MAKE) fclean all CFLAGS="$(CFLAGS_BASE_NOOPT) $(WARNS_CLANG)"
+	@$(MAKE) fclean all CFLAGS="$(CFLAGS_BASE_NOOPT) $(WARNS_CLANG)"
 
 clean:
 	@rm -rf $(OBJDIR)
@@ -342,8 +342,14 @@ fclean: clean
 re: fclean full all
 
 static_analysis:
-	$(SCANNER) $(CC) $(WARNS_CLANG) -Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
-	$(CC_GCC) $(WARNS_GCC) -fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
+	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_CLANG) $(MARCH) \
+		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
+	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_BASE_CLANG)\
+		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_GCC) $(MARCH)\
+		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
+		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
 
 analyze: all static_analysis
 	@if command -v ast2md >/dev/null 2>&1; then \

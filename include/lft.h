@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 01:46:31 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/04 15:02:43 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 # include "map.h"
 # include "macros.h"
 # include "tokenizer.h"
+# include "hint.h"
 
 #endif
