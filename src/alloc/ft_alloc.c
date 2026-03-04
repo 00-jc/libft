@@ -6,11 +6,16 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 18:05:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/04 00:23:10 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "alloc.h"
+
+#if defined(__GNUC__) && !defined(__clang__)
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wanalyzer-malloc-leak"
+#endif
 
 void	*ft_alloc_align(size_t size, size_t align)
 {
@@ -43,3 +48,7 @@ void	*ft_alloc(size_t size)
 		return (NULL);
 	return (new_alloc);
 }
+
+#if defined(__GNUC__) && !defined(__clang__)
+# pragma GCC diagnostic pop
+#endif

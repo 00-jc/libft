@@ -6,14 +6,17 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/03 23:00:49 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/04 01:00:13 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
 THRESHOLD	:=  0.40
-CC			:=	cc
 SCANNER		:=	scan-build
-WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedantic -std=c99 \
+AR			:=	ar rcs
+OBJDIR		:=	build
+CC_CLANG	:=	clang
+CC_GCC		:=	gcc
+WARNS_CLANG	:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedantic -std=c99 \
 				-Waddress -Wambiguous-ellipsis -Wambiguous-macro -Wassume -Wpessimizing-move -Wgnu-union-cast \
 				-Wgnu-union-cast -Wlanguage-extension-token -Wgnu-statement-expression-from-macro-expansion \
 				-Wbounds-safety-counted-by-elt-type-unknown-size -Wstrict-aliasing -Wcast-function-type-strict \
@@ -22,11 +25,23 @@ WARNS		:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 				-Wredundant-decls -Wstrict-prototypes -Wnull-dereference -Wundef -Wformat-security -Wformat=2\
 				-Wwrite-strings -Wold-style-definition -Wuninitialized -Wloop-analysis -Wpointer-arith\
 				-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
-CFLAGS 		:=  -march=native -flto -O3 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions\
-				-fvisibility=hidden  -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
-				-fno-common -fstack-clash-protection $(WARNS)
-AR			:=	ar rcs
-OBJDIR		:=	build
+WARNS_GCC	:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedantic -std=c99 \
+				-Waddress -Wstrict-aliasing -Wcast-function-type -Wlogical-op \
+				-Wredundant-decls -Wstrict-prototypes -Wnull-dereference -Wundef -Wformat-security -Wformat=2 \
+				-Wwrite-strings -Wold-style-definition -Wuninitialized -Wpointer-arith \
+				-Wmissing-prototypes -Wunused -Wtautological-compare -Wduplicated-cond -Wvla
+MARCH		:=	-march=native
+CFLAGS_BASE_CLANG := -flto -O3 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
+				-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
+				-fno-common -fstack-clash-protection
+CFLAGS_BASE_GCC   := -flto -O3 -pipe -ffunction-sections -fdata-sections -ftree-vectorize -finline-functions \
+				-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
+				-fno-common -fstack-clash-protection
+CFLAGS_BASE_NOOPT := -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
+				-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
+				-fno-common -fstack-clash-protection
+CC			:=	$(CC_CLANG)
+CFLAGS		:=	$(MARCH) $(CFLAGS_BASE_CLANG) $(WARNS_CLANG)
 SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/alloc/arena/ft_arena_alloc_scopes.c \
 				src/alloc/arena/ft_arena_alloc.c \
@@ -315,6 +330,9 @@ $(OBJDIR)/%.o: src/%.c
 $(NAME): $(OBJS)
 	$(AR) $@ $^
 
+base:
+	$(MAKE) fclean all CFLAGS="$(CFLAGS_BASE_NOOPT) $(WARNS_CLANG)"
+
 clean:
 	@rm -rf $(OBJDIR)
 
@@ -324,7 +342,8 @@ fclean: clean
 re: fclean full all
 
 static_analysis:
-	$(SCANNER) $(CC) $(WARNS) -Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
+	$(SCANNER) $(CC) $(WARNS_CLANG) -Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
+	$(CC_GCC) $(WARNS_GCC) -fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
 
 analyze: all static_analysis
 	@if command -v ast2md >/dev/null 2>&1; then \
@@ -341,4 +360,45 @@ analyze: all static_analysis
 
 bonus: all
 
-.PHONY: all clean fclean re bonus full static_analysis analyze
+test: test_clang test_clang_no_march
+
+test_clang:
+	$(MAKE) _test_impl _TCFG=clang_march
+
+test_clang_no_march:
+	$(MAKE) _test_impl _TCFG=clang
+
+ifdef _TCFG
+ifeq ($(_TCFG),clang_march)
+  _TCC    := $(CC_CLANG)
+  _TFLAGS := $(MARCH) $(CFLAGS_BASE_CLANG) $(WARNS_CLANG)
+  _TBDIR  := build_tc_march
+  _TAR    := llvm-ar rcs
+else ifeq ($(_TCFG),clang)
+  _TCC    := $(CC_CLANG)
+  _TFLAGS := $(CFLAGS_BASE_CLANG) $(WARNS_CLANG)
+  _TBDIR  := build_tc
+  _TAR    := llvm-ar rcs
+endif
+
+_TAR ?= $(AR)
+
+TOBJS := $(patsubst src/%.c,$(_TBDIR)/%.o,$(SRCS))
+TLIB  := libft_test_tmp.a
+
+$(_TBDIR)/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(_TCC) $(_TFLAGS) -c $< -o $@ -Iinclude
+
+_test_impl: $(TOBJS)
+	$(_TAR) $(TLIB) $(TOBJS)
+	@echo "Testing [$(_TCC)$(if $(findstring march,$(_TFLAGS)), +march,)]..."
+	@$(foreach test,$(TEST_SRCS), \
+		$(_TCC) $(_TFLAGS) tests/$(test)_test.c -O3 -g3 $(TLIB) -Iinclude $(SANITIZE) \
+		-o test_$(test) && ./test_$(test) && rm -f test_$(test);)
+	@rm -f $(TLIB)
+	@rm -rf $(_TBDIR)
+	@echo "All tests passed!"
+endif
+
+.PHONY: all base clean fclean re bonus full static_analysis analyze test test_clang test_clang_no_march _test_impl

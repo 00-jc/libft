@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:57:48 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 01:53:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/03 23:58:51 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ typedef struct s_token
 
 typedef enum e_eater_select
 {
-	set_blank,
-	set_alpha,
-	set_digit,
-	set_xdigit,
+	set_blank = 0,
+	set_alpha = 1,
+	set_digit = 2,
+	set_xdigit = 3,
 }	t_eater_select;
 
 t_token		ft_eat_while(t_tokenizer *tk, t_eater_select select);
