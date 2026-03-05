@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:57:48 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 23:58:51 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:49:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ typedef enum e_eater_select
 	set_xdigit = 3,
 }	t_eater_select;
 
-t_token		ft_eat_while(t_tokenizer *tk, t_eater_select select);
-t_token		ft_eat_until(t_tokenizer *tk, t_eater_select select);
+t_token		ft_eat_while(t_tokenizer *tk, t_eater_select select)\
+				__attribute__((__nonnull__(1), __noinline__, __used__));
+t_token		ft_eat_until(t_tokenizer *tk, t_eater_select select)\
+				__attribute__((__nonnull__(1), __noinline__, __used__));
 t_u32a		ft_tokenizer_goto(t_tokenizer *tk, t_u8 byte)\
 				__attribute__((__nonnull__(1)));
 void		ft_skip_whitespace(t_tokenizer *tk)\

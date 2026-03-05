@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/04 18:19:23 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/05 13:32:49 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -33,13 +33,13 @@ WARNS_GCC	:=  -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpe
 MARCH		:=	-march=native
 CFLAGS_BASE_CLANG := -flto -O3 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
 				-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
-				-fno-common -fstack-clash-protection
+				-fno-common -fstack-clash-protection -g3
 CFLAGS_BASE_GCC   := -flto -O3 -pipe -ffunction-sections -fdata-sections -ftree-vectorize -finline-functions \
 				-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
-				-fno-common -fstack-clash-protection
+				-fno-common -fstack-clash-protection -g3
 CFLAGS_BASE_NOOPT := -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
 				-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
-				-fno-common -fstack-clash-protection
+				-fno-common -fstack-clash-protection -g3
 CC			:=	$(CC_CLANG)
 CFLAGS		:=	$(MARCH) $(CFLAGS_BASE_CLANG) $(WARNS_CLANG)
 SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \

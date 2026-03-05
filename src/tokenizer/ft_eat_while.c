@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:08:18 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/22 20:13:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:51:41 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #ifdef __AVX512F__
 
+__attribute__((__nonnull__(1), __noinline__, __used__))
 t_token	ft_eat_while(t_tokenizer *tk, t_eater_select select)
 {
 	t_eaterset	set;
@@ -33,6 +34,7 @@ t_token	ft_eat_while(t_tokenizer *tk, t_eater_select select)
 
 #elif defined(__AVX2__)
 
+__attribute__((__nonnull__(1), __noinline__, __used__))
 t_token	ft_eat_while(t_tokenizer *tk, t_eater_select select)
 {
 	t_eaterset	set;
@@ -50,6 +52,7 @@ t_token	ft_eat_while(t_tokenizer *tk, t_eater_select select)
 
 #else
 
+__attribute__((__nonnull__(1), __noinline__, __used__))
 t_token	ft_eat_while(t_tokenizer *tk, t_eater_select select)
 {
 	t_eaterset	set;

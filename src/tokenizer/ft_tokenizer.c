@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 01:53:36 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:50:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_u32a	ft_tokenizer_goto(t_tokenizer *tk, t_u8 byte)
 	return (1);
 }
 
-__attribute__((__nonnull__(1)))
-void	ft_skip_whitespace(t_tokenizer *tk)
+__attribute__((__nonnull__(1), __always_inline__))
+inline void	ft_skip_whitespace(t_tokenizer *tk)
 {
 	(void)ft_eat_while(tk, set_blank);
 }
