@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/04 02:57:14 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/04 18:19:23 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -325,13 +325,13 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
-	@$(AR) $@ $^
+	$(AR) $@ $^
 
 base:
-	@$(MAKE) fclean all CFLAGS="$(CFLAGS_BASE_NOOPT) $(WARNS_CLANG)"
+	$(MAKE) fclean all CFLAGS="$(CFLAGS_BASE_NOOPT) $(WARNS_CLANG)"
 
 clean:
 	@rm -rf $(OBJDIR)
@@ -342,27 +342,14 @@ fclean: clean
 re: fclean full all
 
 static_analysis:
-	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_CLANG) $(MARCH) \
+	$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_CLANG) $(MARCH) \
 		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
-	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_BASE_CLANG)\
+	$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_BASE_CLANG)\
 		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
-	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_GCC) $(MARCH)\
+	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_GCC) $(MARCH)\
 		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
-	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
+	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
 		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
-
-analyze: all static_analysis
-	@if command -v ast2md >/dev/null 2>&1; then \
-		AST2MD_THREADS=$$(nproc) ast2md -L c -i $$(find . -name "*.c") \
-		-o stats -t $(THRESHOLD) -- -I include; \
-	else \
-		echo "ast2md not found, skipping coupling analysis"; \
-	fi
-	@echo "Running tests..."
-	@$(foreach test,$(TEST_SRCS), \
-		$(CC) $(CFLAGS) tests/$(test)_test.c -O3 -g3 $(NAME) -Iinclude $(SANITIZE) \
-		-o test_$(test) && ./test_$(test) && rm -f test_$(test);)
-	@echo "All tests passed!"
 
 bonus: all
 
@@ -406,5 +393,13 @@ _test_impl: $(TOBJS)
 	@rm -rf $(_TBDIR)
 	@echo "All tests passed!"
 endif
+
+analyze: all static_analysis test
+	@if command -v ast2md >/dev/null 2>&1; then \
+		AST2MD_THREADS=$$(nproc) ast2md -L c -i $$(find . -name "*.c") \
+		-o stats -t $(THRESHOLD) -- -I include; \
+	else \
+		echo "ast2md not found, skipping coupling analysis"; \
+	fi
 
 .PHONY: all base clean fclean re bonus full static_analysis analyze test test_clang test_clang_no_march _test_impl

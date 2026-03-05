@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:10:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 21:16:35 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:29:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #ifdef __x86_64__
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, const))
 inline t_u16a	ft_bswap16(t_u16a x)
 {
 	t_u16a	new;
@@ -27,7 +27,7 @@ inline t_u16a	ft_bswap16(t_u16a x)
 	return (new);
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, const))
 inline t_u32a	ft_bswap32(t_u32a x)
 {
 	t_u32a	new;
@@ -40,7 +40,7 @@ inline t_u32a	ft_bswap32(t_u32a x)
 	return (new);
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, const))
 inline t_u64a	ft_bswap64(t_u64a x)
 {
 	t_u64a	new;
