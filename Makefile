@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/06 18:17:11 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/06 22:21:22 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -354,6 +354,7 @@ static_analysis:
 		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
 	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
 		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
+	@norminette
 
 bonus: all
 
