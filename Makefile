@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/06 03:05:22 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/06 18:17:11 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -346,13 +346,13 @@ fclean: clean
 re: fclean full all
 
 static_analysis:
-	$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_CLANG) $(MARCH) \
+	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_CLANG) $(MARCH) \
 		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
-	$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_BASE_CLANG)\
+	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_BASE_CLANG)\
 		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) -Iinclude
-	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_GCC) $(MARCH)\
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_GCC) $(MARCH)\
 		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
-	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
 		-fanalyzer $(filter %.c,$(SRCS)) -Iinclude -c && rm *.o
 
 bonus: all
@@ -399,11 +399,5 @@ _test_impl: $(TOBJS)
 endif
 
 analyze: all static_analysis test
-	@if command -v ast2md >/dev/null 2>&1; then \
-		AST2MD_THREADS=$$(nproc) ast2md -L c -i $$(find . -name "*.c") \
-		-o stats -t $(THRESHOLD) -- -I include; \
-	else \
-		echo "ast2md not found, skipping coupling analysis"; \
-	fi
 
 .PHONY: all base clean fclean re bonus full static_analysis analyze test test_clang test_clang_no_march _test_impl
