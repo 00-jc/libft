@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/06 15:59:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/06 18:23:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef IO_H
@@ -53,6 +53,5 @@ void			ft_close_file(t_file *restrict const f)\
 					__attribute__((__nonnull__(1)));
 t_u32a			ft_lockf(int fd);
 t_u32a			ft_unlockf(int fd);
-
 
 #endif
