@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 03:36:52 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/06 02:55:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,8 @@ char			*ft_itoa_base(int n, char *base);
 char			*ft_utoa_base(size_t n, char *base);
 size_t			ft_atoul(const char *str)\
 					__attribute__((__nonnull__(1)));
+double			ft_atod_bounded(const char *s, size_t n)\
+					__attribute__((__nonnull__(1)));
+size_t			ft_atoul_bounded(const char *restrict const str,\
+					size_t n) __attribute__((__nonnull__(1)));
 #endif

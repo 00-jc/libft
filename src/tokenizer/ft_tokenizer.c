@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/05 14:50:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/06 02:08:03 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ __attribute__((__nonnull__(1), __always_inline__))
 inline void	ft_skip_whitespace(t_tokenizer *tk)
 {
 	(void)ft_eat_while(tk, set_blank);
+}
+
+__attribute__((__nonnull__(1), __always_inline__))
+inline t_u32a	ft_match_next(t_tokenizer *tk, t_u8 expected)
+{
+	if (tk->cc + 1 > tk->max || tk->mem[tk->cc] != expected)
+		return (0);
+	++tk->cc;
+	return (1);
 }

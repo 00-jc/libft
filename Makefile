@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/05 19:28:00 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/06 03:05:22 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -55,7 +55,9 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/alloc/ft_free.c \
 				src/conv/ft_itoa_base.c \
 				src/conv/ft_atoul.c \
+				src/conv/ft_atoul_bounded.c \
 				src/conv/ft_atod.c \
+				src/conv/ft_atod_bounded.c \
 				src/conv/ft_atof.c \
 				src/conv/ft_atoi.c \
 				src/conv/ft_atol.c \
@@ -194,7 +196,9 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/alloc/ft_free.o \
 				build/conv/ft_itoa_base.o \
 				build/conv/ft_atoul.o \
+				build/conv/ft_atoul_bounded.o \
 				build/conv/ft_atod.o \
+				build/conv/ft_atod_bounded.o \
 				build/conv/ft_atof.o \
 				build/conv/ft_atoi.o \
 				build/conv/ft_atol.o \

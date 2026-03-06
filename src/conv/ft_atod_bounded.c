@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atod_bounded.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/03/06 02:46:05 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "conv.h"
+#include "ctype.h"
+
+static inline double	__eat_decimal(const char *s, size_t n)
+{
+	double	c;
+	double	out;
+
+	c = 0.1f;
+	out = 0;
+	while (*s && ft_isdigit(*s) && n--)
+	{
+		out += c * (*s++ - '0');
+		c *= 0.1f;
+	}
+	return (out);
+}
+
+__attribute__((__nonnull__(1)))
+double	ft_atod_bounded(const char *s, size_t n)
+{
+	int		neg;
+	double	out;
+
+	out = 0;
+	neg = 1;
+	if (*s == '-')
+	{
+		neg = -1;
+		++s;
+		--n;
+	}
+	else if (*s == '+')
+	{
+		++s;
+		--n;
+	}
+	while (*s && *s != '.' && ft_isdigit(*s) && n--)
+		out = (out * 10) + (*s++ - '0');
+	if (*s == '.')
+	{
+		++s;
+		--n;
+	}
+	out += __eat_decimal(s, n);
+	return (out * neg);
+}
