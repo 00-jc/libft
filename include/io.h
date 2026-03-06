@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 17:58:54 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:59:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef IO_H
@@ -45,11 +45,14 @@ void			ft_printf(const char *restrict const fmt, ...)\
 					__attribute__((__nonnull__(1)));
 void			ft_fprintf(int fd, const char *restrict const fmt, ...)\
 					__attribute__((__nonnull__(2)));
+void			ft_vfprintf(int fd, const char *fmt, va_list args)\
+					__attribute__((__nonnull__(2), used));
 t_file			ft_read_file(const char *restrict const fname)\
 					__attribute__((__nonnull__(1)));
 void			ft_close_file(t_file *restrict const f)\
 					__attribute__((__nonnull__(1)));
 t_u32a			ft_lockf(int fd);
 t_u32a			ft_unlockf(int fd);
+
 
 #endif

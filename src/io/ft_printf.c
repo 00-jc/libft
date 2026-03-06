@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 23:57:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:59:02 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static inline size_t	manage(int fd, const char *const c,
 	return ((void)unused, i);
 }
 
-__attribute__((__nonnull__(2)))
-static void	ft_vfprintf(int fd, const char *restrict const fmt, va_list args)
+__attribute__((__nonnull__(2), __always_inline__, used))
+void	ft_vfprintf(int fd, const char *restrict const fmt, va_list args)
 {
 	size_t								len;
 	size_t								maxptr;
