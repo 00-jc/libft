@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/06 02:46:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 01:33:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static inline double	__eat_decimal(const char *s, size_t n)
 	double	c;
 	double	out;
 
-	c = 0.1f;
+	c = 0.1;
 	out = 0;
 	while (*s && ft_isdigit(*s) && n--)
 	{
 		out += c * (*s++ - '0');
-		c *= 0.1f;
+		c *= 0.1;
 	}
 	return (out);
 }
