@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 18:24:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 19:46:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_io.h"
+#include "math.h"
 
 __attribute__((__always_inline__))
 inline void	putu(int fd, size_t n)
@@ -110,19 +111,24 @@ inline void	puti(int fd, int n)
 __attribute__((__always_inline__))
 inline void	pflt(int fd, double d)
 {
-	char								buffer[32];
-	ssize_t __attribute__	((unused))	unused;
-	size_t								i;
-	double								frac;
+	char									buffer[32];
+	size_t									i;
+	ssize_t	__attribute__	((__unused__))	unused;
+	long long								frac;
+	int										p;
 
-	putd(fd, (ssize_t)d);
-	unused = write(fd, ".", 1);
-	frac = (double)(d - (double)(size_t)d);
-	i = 0;
-	while (i < 6)
+	if (d < 0)
+		unused = write(fd, "-", 1);
+	putu(fd, (ssize_t)d);
+	d = ft_fabs(d);
+	frac = (long long)((d - (double)(ssize_t)d) * 1000000 + 0.5);
+	i = 32;
+	p = 6;
+	while (p--)
 	{
-		frac *= 10.0;
-		buffer[i++] = (char)((size_t)frac % 10) + '0';
+		buffer[--i] = (char)((frac % 10) + '0');
+		frac /= 10;
 	}
-	unused = write(fd, buffer, 6);
+	buffer[--i] = '.';
+	unused = write(fd, buffer + i, 32 - i);
 }
