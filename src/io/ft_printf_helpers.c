@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 19:46:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 19:54:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ inline void	pflt(int fd, double d)
 {
 	char									buffer[32];
 	size_t									i;
-	ssize_t	__attribute__	((__unused__))	unused;
+	ssize_t __attribute__	((__unused__))	unused;
 	long long								frac;
 	int										p;
 
