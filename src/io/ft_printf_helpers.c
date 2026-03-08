@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:54:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 19:54:36 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/08 03:10:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ inline void	pflt(int fd, double d)
 
 	if (d < 0)
 		unused = write(fd, "-", 1);
-	putu(fd, (ssize_t)d);
 	d = ft_fabs(d);
+	putu(fd, (size_t)d);
 	frac = (long long)((d - (double)(ssize_t)d) * 1000000 + 0.5);
 	i = 32;
 	p = 6;
