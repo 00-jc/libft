@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/05 21:32:30 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 16:38:43 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_8packd
 	double	c;
 	double	d;
 } __attribute__((aligned(64), packed))	t_8packd;
+
+typedef t_4packd	t_3DCoords;
 
 float			ft_q_sqrt(float x)\
 					__attribute__((const));
@@ -101,4 +103,8 @@ t_4packd		ft_drsqrt_x4(t_4packd d1)\
 					__attribute__ ((const));
 t_8packd		ft_dsqrt_x8(t_8packd d1)\
 					__attribute__ ((const));
+t_3DCoords		ft_3dsub(t_3DCoords a, t_3DCoords b)\
+					__attribute__((const));
+t_3DCoords		ft_3dadd(t_3DCoords a, t_3DCoords b)\
+					__attribute__((const));
 #endif
