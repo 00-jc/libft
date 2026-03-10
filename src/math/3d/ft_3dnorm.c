@@ -1,0 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_3dnorm.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/11 00:06:31 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/03/11 00:13:02 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "private/ft_p_math.h"
+#include "math.h"
+
+__attribute__((__always_inline__, const))
+inline double	ft_3dnorm(t_3dcoords c)
+{
+	t_v4da	vec;
+
+	vec = *(const t_v4da * restrict const) & c;
+	vec *= vec;
+	return (ft_dsqrt(vec[0] + vec[1] + vec[2]));
+}

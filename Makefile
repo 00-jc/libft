@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/10 16:39:29 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/11 00:13:42 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		:=	libft.a
@@ -105,6 +105,7 @@ SRCS		:=	src/alloc/arena/ft_arena_alloc_utils.c \
 				src/io/ft_printf.c \
 				src/math/3d/ft_3dadd.c \
 				src/math/3d/ft_3dsub.c \
+				src/math/3d/ft_3dnorm.c \
 				src/math/ft_pow.c \
 				src/math/ft_round.c \
 				src/math/ft_fabs.c \
@@ -248,6 +249,7 @@ OBJS		:=	build/alloc/arena/ft_arena_alloc_utils.o \
 				build/io/ft_printf.o \
 				build/math/3d/ft_3dadd.o \
 				build/math/3d/ft_3dsub.o \
+				build/math/3d/ft_3dnorm.o \
 				build/math/ft_pow.o \
 				build/math/ft_round.o \
 				build/math/ft_fabs.o \
