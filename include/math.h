@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 16:44:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 16:56:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ typedef struct s_4packd
 {
 	double	x;
 	double	y;
-	double	w;
 	double	z;
+	double	w;
 } __attribute__((aligned(32), packed))	t_4packd;
 
 typedef struct s_8packd
 {
 	double	x;
 	double	y;
-	double	w;
 	double	z;
+	double	w;
 	double	a;
 	double	b;
 	double	c;
