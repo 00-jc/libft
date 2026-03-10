@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 16:42:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 16:44:03 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ t_4packd		ft_drsqrt_x4(t_4packd d1)\
 					__attribute__ ((const));
 t_8packd		ft_dsqrt_x8(t_8packd d1)\
 					__attribute__ ((const));
-t_3DCoords		ft_3dsub(t_3DCoords a, t_3DCoords b)\
+t_3dcoords		ft_3dsub(t_3dcoords a, t_3dcoords b)\
 					__attribute__((const));
-t_3DCoords		ft_3dadd(t_3DCoords a, t_3DCoords b)\
+t_3dcoords		ft_3dadd(t_3dcoords a, t_3dcoords b)\
 					__attribute__((const));
 #endif

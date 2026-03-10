@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:33:17 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 16:37:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 16:44:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "math.h"
 
 __attribute__((__always_inline__, const))
-inline t_3DCoords	ft_3dadd(t_3DCoords a, t_3DCoords b)
+inline t_3dcoords	ft_3dadd(t_3dcoords a, t_3dcoords b)
 {
 	t_v4da	vec;
 
