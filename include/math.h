@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 01:30:31 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:36:41 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@ t_3dcoords		ft_3dunit(t_3dcoords c)\
 t_3dcoords		ft_3dmul(t_3dcoords a, t_3dcoords b)\
 					__attribute__((const));
 t_3dcoords		ft_3ddiv(t_3dcoords a, t_3dcoords b)\
+					__attribute__((const));
+t_3dcoords		ft_3dcross(t_3dcoords a, t_3dcoords b)\
 					__attribute__((const));
 #endif

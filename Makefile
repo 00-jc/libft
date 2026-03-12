@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/11 01:30:43 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/12 12:38:32 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -137,6 +137,7 @@ SRCS_MATH := \
 	src/math/3d/ft_3dmul.c \
 	src/math/3d/ft_3ddiv.c \
 	src/math/3d/ft_3ddot.c \
+	src/math/3d/ft_3dcross.c \
 	src/math/ft_pow.c \
 	src/math/ft_round.c \
 	src/math/ft_fabs.c \
