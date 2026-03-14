@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 12:36:41 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:33:43 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,17 @@ typedef struct s_8packd
 } __attribute__((aligned(64), packed))	t_8packd;
 
 typedef t_4packd	t_3dcoords;
+typedef struct s_3dcoordsx8
+{
+	t_3dcoords	a;
+	t_3dcoords	b;
+	t_3dcoords	c;
+	t_3dcoords	d;
+	t_3dcoords	e;
+	t_3dcoords	f;
+	t_3dcoords	g;
+	t_3dcoords	h;
+} __attribute__((aligned(64), packed))	t_3dcoordsx8;
 
 float			ft_q_sqrt(float x)\
 					__attribute__((const));
@@ -118,5 +129,19 @@ t_3dcoords		ft_3dmul(t_3dcoords a, t_3dcoords b)\
 t_3dcoords		ft_3ddiv(t_3dcoords a, t_3dcoords b)\
 					__attribute__((const));
 t_3dcoords		ft_3dcross(t_3dcoords a, t_3dcoords b)\
+					__attribute__((const));
+t_3dcoordsx8	ft_3dadd8(t_3dcoordsx8 a, t_3dcoordsx8 b)\
+					__attribute__((const));
+t_3dcoordsx8	ft_3dsub8(t_3dcoordsx8 a, t_3dcoordsx8 b)\
+					__attribute__((const));
+t_3dcoordsx8	ft_3dmul8(t_3dcoordsx8 a, t_3dcoordsx8 b)\
+					__attribute__((const));
+t_3dcoordsx8	ft_3ddiv8(t_3dcoordsx8 a, t_3dcoordsx8 b)\
+					__attribute__((const));
+t_3dcoordsx8	ft_3dunit8(t_3dcoordsx8 c)\
+					__attribute__((const));
+t_8packd		ft_3dclampsum8(t_3dcoordsx8 c)\
+					__attribute__((const));
+t_8packd		ft_3dnorm8(t_3dcoordsx8 c)\
 					__attribute__((const));
 #endif

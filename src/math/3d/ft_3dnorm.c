@@ -6,12 +6,18 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 00:06:31 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 00:13:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:24:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_math.h"
 #include "math.h"
+
+__attribute__((__always_inline__, const))
+inline t_8packd	ft_3dnorm8(t_3dcoordsx8 c)
+{
+	return (ft_dsqrt_x8(ft_3dclampsum8(ft_3dmul8(c, c))));
+}
 
 __attribute__((__always_inline__, const))
 inline double	ft_3dnorm(t_3dcoords c)
