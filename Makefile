@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/14 02:03:18 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/14 20:30:50 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJDIR     := build
 # ── Toolchain ─────────────────────────────────────────────────────────────────
 CC_CLANG   := clang
 CC_GCC     := gcc
-AR         := ar rcs
+AR         := llvm-ar rcs
 SCANNER    := scan-build
 
 # ── Flags ─────────────────────────────────────────────────────────────────────
@@ -256,6 +256,7 @@ $(OBJDIR)/%.o: src/%.c
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^
+	llvm-ranlib $(NAME)
 
 # ── Convenience ──────────────────────────────────────────────────────────────
 base:
