@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 20:47:55 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/24 15:00:06 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 19:43:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,17 @@ typedef __attribute__((vector_size(16), aligned(16), __may_alias__)) t_u64a\
 typedef __attribute__((vector_size(32), aligned(32), __may_alias__)) double\
 																	t_v4da;
 
+typedef __attribute__((vector_size(32), aligned(1), __may_alias__)) double\
+																	t_v4d;
+
 typedef __attribute__((vector_size(32), aligned(32), __may_alias__)) t_u64a\
 																	t_v4u64a;
 
 typedef __attribute__((vector_size(64), aligned(64), __may_alias__)) double\
 																	t_v8da;
+
+typedef __attribute__((vector_size(64), aligned(1), __may_alias__)) double\
+																	t_v8d;
 
 typedef __attribute__((vector_size(64), aligned(64), __may_alias__)) t_u64a\
 																	t_v8u64a;

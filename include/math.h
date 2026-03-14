@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 17:33:43 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 20:06:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,7 @@ t_3dcoordsx8	ft_3dunit8(t_3dcoordsx8 c)\
 t_8packd		ft_3dclampsum8(t_3dcoordsx8 c)\
 					__attribute__((const));
 t_8packd		ft_3dnorm8(t_3dcoordsx8 c)\
+					__attribute__((const));
+t_8packd		ft_3ddot8(t_3dcoordsx8 a, t_3dcoordsx8 b)\
 					__attribute__((const));
 #endif
