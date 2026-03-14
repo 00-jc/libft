@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/13 16:02:35 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/14 02:03:18 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ WARNS_CLANG := $(WARNS_COMMON)                                                \
 WARNS_GCC  := $(WARNS_COMMON)                                                 \
 	-Wcast-function-type -Wlogical-op -Wduplicated-cond
 
-CFLAGS_OPT := -flto -O3 -pipe -ffunction-sections -fdata-sections -finline-functions \
+CFLAGS_OPT := -flto -O3 -ffast-math -pipe -ffunction-sections -fdata-sections -finline-functions \
 	-fvisibility=hidden -fstack-protector-strong -fcf-protection=full          \
 	-ftrivial-auto-var-init=zero -fno-common -fstack-clash-protection -g3
 

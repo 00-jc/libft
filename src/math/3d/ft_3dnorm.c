@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 00:06:31 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 17:24:15 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 20:21:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ inline double	ft_3dnorm(t_3dcoords c)
 {
 	t_v4da	vec;
 
-	vec = *(const t_v4da * restrict const) & c;
+	vec = *(const t_v4d * restrict const) & c;
 	vec *= vec;
 	return (ft_dsqrt(vec[0] + vec[1] + vec[2]));
 }

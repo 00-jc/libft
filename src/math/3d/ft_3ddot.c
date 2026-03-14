@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 01:26:57 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 20:05:37 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 20:16:28 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ inline double	ft_3ddot(t_3dcoords a, t_3dcoords b)
 	t_v4da	va;
 	t_v4da	vb;
 
-	va = *(const t_v4da * restrict const) & a;
-	vb = *(const t_v4da * restrict const) & b;
+	va = *(const t_v4d * restrict const) & a;
+	vb = *(const t_v4d * restrict const) & b;
 	va *= vb;
 	return (va[0] + va[1] + va[2]);
 }
