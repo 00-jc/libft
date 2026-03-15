@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 02:53:03 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 14:38:43 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:07:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 #include "private/ft_p_map.h"
 
-__attribute__((__nonnull__(1)))
+__attribute__((pure, __nonnull__(1)))
 static inline size_t	ft__get_empty(const t_map *restrict const map,
 	size_t group, size_t nblks)
 {
@@ -50,7 +50,7 @@ t_u32a	ft_map_insert(t_map	*restrict const map,
 	size_t		nblks;
 	size_t		group;
 
-	if (((double)map->count / (double)map->table_size >= 0.85f)
+	if (((double)map->count / (double)map->table_size >= 0.85)
 		&& !ft_map_rehash(map))
 		return (0);
 	hash = ft_murmur3(key, keylen);

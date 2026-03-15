@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 02:47:51 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 03:49:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:51:02 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_u32a	ft_map_rehash(t_map *restrict const map)
 				map->buckets[i].value);
 		++i;
 	}
-	ft_free((void **)&(void *){map->meta});
-	ft_free((void **)&(void *){map->buckets});
+	ft_free(&(void *){map->meta});
+	ft_free(&(void *){map->buckets});
 	*map = new;
 	return (1);
 }

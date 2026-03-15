@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 22:43:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 04:04:24 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:51:29 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_map	ft_map_with(size_t capacity)
 	ft_memset(meta, MAP_EMPTY, capacity);
 	buckets = ft_calloc(capacity, sizeof(t_bucket));
 	if (!buckets)
-		return (ft_free((void **)&(void *){meta}), (t_map){0});
+		return (ft_free(&(void *){meta}), (t_map){0});
 	return ((t_map)
 		{
 			.buckets = buckets,
@@ -43,6 +43,6 @@ t_map	ft_map_new(void)
 __attribute__((__nonnull__(1)))
 void	ft_map_destroy(t_map *restrict const map)
 {
-	ft_free((void **)&(void *){map->buckets});
-	ft_free((void **)&(void *){map->meta});
+	ft_free(&(void *){map->buckets});
+	ft_free(&(void *){map->meta});
 }

@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 20:56:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:07:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-__attribute__((__nonnull__(1, 2)))
+__attribute__((__nonnull__(1, 2), __returns_nonnull__))
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	t_u8		*bd;

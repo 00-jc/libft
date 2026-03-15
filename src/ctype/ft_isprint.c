@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:12:28 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:55:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 __attribute__((const, __always_inline__, hot))
 inline int	ft_isprint(int c)
 {
-	return ((c - 0x20) < 0x5F);
+	return ((unsigned)(c - 0x20) < 0x5F);
 }

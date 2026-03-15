@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:19:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 15:15:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:03:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #ifdef __AVX512F__
 
-__attribute__((__nonnull__(1)))
+__attribute__((pure, __nonnull__(1)))
 size_t	ft_strlen(const char *restrict str)
 {
 	t_uptr						a;
@@ -28,11 +28,11 @@ size_t	ft_strlen(const char *restrict str)
 	while (*str && ((t_uptr)str & (sizeof(t_vu512a) - 1)))
 		++str;
 	if (!*str)
-		return ((t_uptr)str - (t_uptr)a);
+		return ((t_uptr)str - a);
 	wp = (t_blk512r)str;
 	while (1)
 	{
-		mask = ((t_blk512ra)wp)[0] == 0;
+		mask = wp[0] == 0;
 		w = ft_bitpack512(mask);
 		if (w)
 		{
@@ -45,7 +45,7 @@ size_t	ft_strlen(const char *restrict str)
 
 #elif defined(__AVX2__)
 
-__attribute__((__nonnull__(1)))
+__attribute__((pure, __nonnull__(1)))
 size_t	ft_strlen(const char *restrict str)
 {
 	t_uptr						a;
@@ -58,11 +58,11 @@ size_t	ft_strlen(const char *restrict str)
 	while (*str && ((t_uptr)str & (sizeof(t_vu256a) - 1)))
 		++str;
 	if (!*str)
-		return ((t_uptr)str - (t_uptr)a);
+		return ((t_uptr)str - a);
 	wp = (t_blk256r)str;
 	while (1)
 	{
-		mask = ((t_blk256ra)wp)[0] == 0;
+		mask = wp[0] == 0;
 		w = ft_bitpack256(mask);
 		if (w)
 		{
@@ -75,7 +75,7 @@ size_t	ft_strlen(const char *restrict str)
 
 #else
 
-__attribute__((__nonnull__(1)))
+__attribute__((pure, __nonnull__(1)))
 size_t	ft_strlen(const char *restrict str)
 {
 	t_uptr						a;
@@ -92,7 +92,7 @@ size_t	ft_strlen(const char *restrict str)
 	wp = (t_blk128r)str;
 	while (1)
 	{
-		mask = ((t_blk128ra)wp)[0] == 0;
+		mask = wp[0] == 0;
 		w = ft_bitpack128(mask);
 		if (w)
 		{

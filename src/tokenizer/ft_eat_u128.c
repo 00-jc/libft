@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 18:10:35 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/05 13:17:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:52:12 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static inline t_token	ft_eat_until_u128_tail(t_tokenizer *tk,
 	t_u16a	mask;
 
 	remaining = tk->max - i;
-	mask = (t_u16a)fn(*((t_blk128r)((tk->mem + i + remaining)
+	mask = fn(*((t_blk128r)((tk->mem + i + remaining)
 					- sizeof(t_vu128a))));
 	mask &= 0xFFFF << (sizeof(t_vu128a) - remaining);
 	if (mask)
@@ -113,7 +113,7 @@ t_token	ft_eat_until_u128(t_tokenizer *tk,
 	mem = tk->mem;
 	while (i + sizeof(t_vu128a) <= tk->max)
 	{
-		msk = (t_u16a)fn(*((t_blk128r)(mem + i)));
+		msk = fn(*((t_blk128r)(mem + i)));
 		if (msk)
 		{
 			finaloffst = ft_memctz_u16(msk);

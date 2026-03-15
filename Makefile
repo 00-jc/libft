@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/14 20:30:50 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/15 15:41:03 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,45 +17,158 @@ OBJDIR     := build
 # ── Toolchain ─────────────────────────────────────────────────────────────────
 CC_CLANG   := clang
 CC_GCC     := gcc
-AR         := llvm-ar rcs
+CC_ID	   := $(shell $(CC) --version 2>/dev/null | head -1)
 SCANNER    := scan-build
 
 # ── Flags ─────────────────────────────────────────────────────────────────────
 MARCH      := -march=native
 INCLUDES   := -Iinclude
 
-WARNS_COMMON := -Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing \
-	-Wpedantic -std=c99 -Waddress -Wstrict-aliasing -Wredundant-decls         \
-	-Wstrict-prototypes -Wnull-dereference -Wundef -Wformat-security -Wformat=2 \
-	-Wwrite-strings -Wold-style-definition -Wuninitialized -Wpointer-arith     \
-	-Wmissing-prototypes -Wunused -Wtautological-compare -Wvla
+# ─────────────────────────────────────────────────────────────────────────────
+# Warnings: flags supported by BOTH GCC and Clang go in COMMON.
+# Compiler-specific additions go in WARNS_CLANG / WARNS_GCC.
+# ─────────────────────────────────────────────────────────────────────────────
 
+WARNS_COMMON := -Wall -Wextra -Werror -Wpedantic -std=c23                      \
+	-fstrict-aliasing -Wstrict-aliasing                                        \
+	-Wshadow                                                                   \
+	-Waddress                                                                  \
+	-Wattributes                                                               \
+	-Wredundant-decls                                                          \
+	-Wstrict-prototypes                                                        \
+	-Wmissing-prototypes                                                       \
+	-Wold-style-definition                                                     \
+	-Wnull-dereference                                                         \
+	-Wundef                                                                    \
+	-Wformat-security                                                          \
+	-Wformat=2                                                                 \
+	-Wformat-nonliteral                                                        \
+	-Wwrite-strings                                                            \
+	-Wuninitialized                                                            \
+	-Wpointer-arith                                                            \
+	-Wunused                                                                   \
+	-Wtautological-compare                                                     \
+	-Wvla                                                                      \
+	-Wignored-qualifiers                                                       \
+	-Wdouble-promotion                                                         \
+	-Wnonnull                                                                  \
+	-Winfinite-recursion                                                       \
+	-Wimplicit                                                                 \
+	-Wimplicit-fallthrough                                                     \
+	-Wmissing-braces                                                           \
+	-Wmissing-include-dirs                                                     \
+	-Wparentheses                                                              \
+	-Wshift-negative-value                                                     \
+	-Wmisleading-indentation                                                   \
+	-Wfloat-equal                                                              \
+	-Wdangling-else                                                            \
+	-Wmissing-noreturn                                                         \
+	-Wchar-subscripts                                                          \
+	-Wsequence-point                                                           \
+	-Wbool-operation                                                           \
+	-Wunreachable-code                                                         \
+	-Wformat-overflow                                                          \
+	-Wformat-truncation                                                        \
+	-Wcast-function-type
+
+# ── Clang-only extras ────────────────────────────────────────────────────────
+# Clang-specific diagnostics that have no GCC equivalent, plus Clang
+# equivalents for GCC-only flags where the spelling differs.
 WARNS_CLANG := $(WARNS_COMMON)                                                \
-	-Wambiguous-ellipsis -Wambiguous-macro -Wassume -Wpessimizing-move         \
-	-Wgnu-union-cast -Wlanguage-extension-token                               \
+	-Wbitwise-instead-of-logical                                               \
+	-Wnull-pointer-arithmetic                                                  \
+	-Wcast-function-type-strict                                                \
+	-Wambiguous-ellipsis                                                       \
+	-Wambiguous-macro                                                          \
+	-Wassume                                                                   \
+	-Wpessimizing-move                                                         \
+	-Wgnu-union-cast                                                           \
+	-Wlanguage-extension-token                                                 \
 	-Wgnu-statement-expression-from-macro-expansion                            \
-	-Wbounds-safety-counted-by-elt-type-unknown-size -Wcast-function-type-strict \
-	-Wcast-function-type-mismatch -Wc99-compat -Wbool-conversions              \
-	-Wbool-operation -Wbitwise-instead-of-logical -Wbitfield-enum-conversion    \
-	-Warray-bounds-pointer-arithmetic -Wnull-pointer-arithmetic                \
-	-Wloop-analysis -Wcomma -Wover-aligned -Wunreachable-code
+	-Wbounds-safety-counted-by-elt-type-unknown-size                           \
+	-Wcast-function-type-mismatch                                              \
+	-Wc99-compat                                                               \
+	-Wbool-conversions                                                         \
+	-Wbitfield-enum-conversion                                                 \
+	-Warray-bounds-pointer-arithmetic                                          \
+	-Wloop-analysis                                                            \
+	-Wcomma                                                                    \
+	-Wover-aligned                                                             \
+	-Wconditional-uninitialized                                                \
+	-Wimplicit-float-conversion                                                \
+	-Wimplicit-int-conversion	                                               \
+	-Wshorten-64-to-32                                                         \
+	-Wstring-concatenation                                                     \
+	-Wunused-but-set-parameter                                                 \
+	-Wsizeof-array-div                                                         \
+	-Wtautological-constant-in-range-compare                                   \
+	-Wextra-semi-stmt                                                          \
+	-Wthread-safety                                                            \
+	-Wdangling																   \
+	# -Wunsafe-buffer-usage                                                      \
 
-WARNS_GCC  := $(WARNS_COMMON)                                                 \
-	-Wcast-function-type -Wlogical-op -Wduplicated-cond
+# ── GCC-only extras ──────────────────────────────────────────────────────────
+# GCC-specific diagnostics with no Clang equivalent.
+WARNS_GCC := $(WARNS_COMMON)                                                  \
+	-Whardened                                                                 \
+	-Wshift-overflow                                                           \
+	-Wunused-but-set-parameter                                                 \
+	-Wstrict-overflow=5                                                        \
+	-Wmissing-attributes                                                       \
+	-Wmismatched-dealloc                                                       \
+	-Wtrivial-auto-var-init                                                    \
+	-Wuse-after-free=3                                                         \
+	-Wuseless-cast                                                             \
+	--strict-flex-arrays=3                                                     \
+	-Wsuggest-attribute=pure                                                   \
+	-Wsuggest-attribute=const                                                  \
+	-Wsuggest-attribute=noreturn                                               \
+	-Wsuggest-attribute=malloc                                                 \
+	-Wsuggest-attribute=format                                                 \
+	-Wsuggest-attribute=cold                                                   \
+	-Walloc-size                                                               \
+	-Walloca                                                                   \
+	-Warith-conversion                                                         \
+	-Warray-bounds=2                                                           \
+	-Warray-compare                                                            \
+	-Warray-parameter                                                          \
+	-Wattribute-alias=2                                                        \
+	-Wduplicated-branches                                                      \
+	-Wduplicated-cond                                                          \
+	-Wzero-length-bounds                                                       \
+	-Wunsafe-loop-optimizations                                                \
+	-Wtype-limits                                                              \
+	-Wdangling-pointer                                                         \
+	-Wsizeof-pointer-memaccess                                                 \
+	-Wpacked                                                                   \
+	-Wrestrict                                                                 \
+	-Winit-self                                                                \
+	-Wlogical-op                                                               \
+	-Wstringop-overflow=4                                                      \
+	-Wstringop-truncation
 
-CFLAGS_OPT := -flto -O3 -ffast-math -pipe -ffunction-sections -fdata-sections -finline-functions \
-	-fvisibility=hidden -fstack-protector-strong -fcf-protection=full          \
-	-ftrivial-auto-var-init=zero -fno-common -fstack-clash-protection -g3
-
-CFLAGS_NOOPT := -pipe -ffunction-sections -fdata-sections -finline-functions   \
-	-fvisibility=hidden -fstack-protector-strong -fcf-protection=full          \
-	-ftrivial-auto-var-init=zero -fno-common -fstack-clash-protection -g3
+CFLAGS_COMMON_OPT := -pipe -ffunction-sections -fdata-sections                 \
+	-finline-functions -fvisibility=hidden -fstack-protector-strong             \
+	-fcf-protection=full -ftrivial-auto-var-init=zero -fno-common              \
+	-fstack-clash-protection -g3
+ 
+CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -march=native -flto -O3 -ffast-math
+CFLAGS_NOOPT := $(CFLAGS_COMMON_OPT)
 
 SANITIZE   := -fsanitize=address,alignment,undefined -fsanitize-recover=null
 
-# ── Defaults (clang + optimised) ─────────────────────────────────────────────
-CC         := $(CC_CLANG)
-CFLAGS     := $(MARCH) $(CFLAGS_OPT) $(WARNS_CLANG)
+# ── Compiler auto-detection ──────────────────────────────────────────────────
+ifeq ($(findstring clang,$(CC_ID)),clang)
+  WARNS  := $(WARNS_CLANG)
+  AR     := llvm-ar rcs
+  RANLIB := llvm-ranlib
+else
+  WARNS  := $(WARNS_GCC)
+  AR     := ar rcs
+  RANLIB := ranlib
+endif
+
+CFLAGS := $(MARCH) $(CFLAGS_OPT) $(WARNS)
 
 # ── Sources ───────────────────────────────────────────────────────────────────
 SRCS_ALLOC := \
@@ -240,7 +353,7 @@ MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM VEC STR BMI ENV MAP HINT TOK
 SRCS := $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 
-# ── Tests ─────────────────────────────────────────────────────────────────────
+# ── Test list ─────────────────────────────────────────────────────────────────
 TEST_SRCS := memchr strlen memcmp memcpy memset vec str map murmur bmi
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -249,18 +362,17 @@ TEST_SRCS := memchr strlen memcmp memcpy memset vec str map murmur bmi
 
 all: $(NAME)
 
-# ── Normal build (individual .o → archive) ───────────────────────────────────
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^
-	llvm-ranlib $(NAME)
+	$(RANLIB) $@
 
 # ── Convenience ──────────────────────────────────────────────────────────────
 base:
-	$(MAKE) fclean all CFLAGS="$(CFLAGS_NOOPT) $(WARNS_CLANG)"
+	$(MAKE) fclean all CFLAGS="$(CFLAGS_NOOPT) $(WARNS)"
 
 bonus: all
 
@@ -285,47 +397,48 @@ static_analysis:
 	norminette
 
 # ── Tests ────────────────────────────────────────────────────────────────────
+#  Each test_* target does a full rebuild with its own flags via recursive make,
+#  so the ifeq auto-detection picks up CC correctly in the child invocation.
+#
+#    make test              → runs both configs
+#    make test_clang        → clang -march=native
+#    make test_clang_no_march → clang without -march
+#
 test: test_clang test_clang_no_march
 
 test_clang:
-	$(MAKE) _test_impl _TCFG=clang_march
+	@$(MAKE) --no-print-directory _run_tests \
+		CC=$(CC_CLANG) _TMARCH="$(MARCH)" _TBDIR=build_tc_march
 
 test_clang_no_march:
-	$(MAKE) _test_impl _TCFG=clang
+	@$(MAKE) --no-print-directory _run_tests \
+		CC=$(CC_CLANG) _TMARCH="" _TBDIR=build_tc
 
-ifdef _TCFG
-ifeq ($(_TCFG),clang_march)
-  _TCC    := $(CC_CLANG)
-  _TFLAGS := $(MARCH) $(CFLAGS_OPT) $(WARNS_CLANG)
-  _TBDIR  := build_tc_march
-  _TAR    := llvm-ar rcs
-else ifeq ($(_TCFG),clang)
-  _TCC    := $(CC_CLANG)
-  _TFLAGS := $(CFLAGS_OPT) $(WARNS_CLANG)
-  _TBDIR  := build_tc
-  _TAR    := llvm-ar rcs
-endif
-
-_TAR ?= $(AR)
-TOBJS := $(patsubst src/%.c,$(_TBDIR)/%.o,$(SRCS))
-TLIB  := libft_test_tmp.a
+# Internal target — never call directly.
+# CC is passed from the parent, so ifeq above resolves AR/WARNS/RANLIB for us.
+_TBDIR  ?= build_test
+_TMARCH ?= $(MARCH)
+_TFLAGS := $(_TMARCH) $(CFLAGS_OPT) $(WARNS)
+_TOBJS  := $(patsubst src/%.c,$(_TBDIR)/%.o,$(SRCS))
+_TLIB   := libft_test_tmp.a
 
 $(_TBDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(_TCC) $(_TFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(_TFLAGS) $(INCLUDES) -c $< -o $@
 
-_test_impl: $(TOBJS)
-	$(_TAR) $(TLIB) $(TOBJS)
-	@echo "Testing [$(_TCC)$(if $(findstring march,$(_TFLAGS)), +march,)]..."
+_run_tests: $(_TOBJS)
+	$(AR) $(_TLIB) $(_TOBJS)
+	$(RANLIB) $(_TLIB)
+	@echo "── Testing [$(CC)$(if $(_TMARCH), +march,)] ──"
 	@$(foreach t,$(TEST_SRCS), \
-		$(_TCC) $(_TFLAGS) tests/$(t)_test.c -O3 -g3 $(TLIB) $(INCLUDES) $(SANITIZE) \
-		-o test_$(t) && ./test_$(t) && rm -f test_$(t);)
-	@rm -f $(TLIB)
+		$(CC) $(_TFLAGS) $(SANITIZE) $(INCLUDES) \
+			tests/$(t)_test.c $(_TLIB) -o test_$(t) \
+		&& ./test_$(t) && rm -f test_$(t);)
+	@rm -f $(_TLIB)
 	@rm -rf $(_TBDIR)
 	@echo "All tests passed!"
-endif
 
 analyze: all static_analysis test
 
 .PHONY: all base bonus clean fclean re \
-        static_analysis analyze test test_clang test_clang_no_march _test_impl
+        static_analysis analyze test test_clang test_clang_no_march _run_tests

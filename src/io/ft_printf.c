@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 19:17:56 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:37:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ inline size_t	manage(int fd, const char *const c,
 	if (_c == 'x' || _c == 'X')
 		(putx(fd, va_arg(args, size_t), (char)((_c == 'x') * 32)), i += 2);
 	else if (_c == 'd')
-		(puti(fd, va_arg(args, ssize_t)), i += 2);
+		(puti(fd, va_arg(args, int)), i += 2);
 	else if (_c == 'u')
 		(putu(fd, va_arg(args, size_t)), i += 2);
 	else if (_c == 'l' || _c == 'p')
@@ -62,9 +62,9 @@ inline size_t	manage(int fd, const char *const c,
 	else if (_c == 'f')
 		(pflt(fd, va_arg(args, double)), i += 2);
 	else if (_c == '%')
-		((void)putc_('%', fd), i += 2);
+		(putc_('%', fd), i += 2);
 	else if (_c == 'c')
-		((void)putc_((char)va_arg(args, int), fd), i += 2);
+		(putc_((char)va_arg(args, int), fd), i += 2);
 	return ((void)unused, i);
 }
 

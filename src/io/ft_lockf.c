@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 23:58:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:58:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:50:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_u32a	ft_lockf(int fd)
 		.l_start = 0,
 		.l_len = 0,
 	};
-	return ((t_u32a)ft_fcntl((t_u32a)fd, F_SETLKW, &fl));
+	return (ft_fcntl((t_u32a)fd, F_SETLKW, &fl));
 }
 
 t_u32a	ft_unlockf(int fd)

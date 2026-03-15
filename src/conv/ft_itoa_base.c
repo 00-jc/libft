@@ -6,20 +6,22 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:35:25 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lft.h"
 
-static unsigned int	_abs(int n)
+__attribute__((const, __always_inline__))
+static inline ssize_t	_abs(ssize_t n)
 {
 	if (n < 0)
-		return ((unsigned int)-n);
-	return ((unsigned int)n);
+		return ((ssize_t)-n);
+	return ((ssize_t)n);
 }
 
-static size_t	count(int n, int blen)
+__attribute__((const, __always_inline__))
+static inline size_t	count(ssize_t n, ssize_t blen)
 {
 	size_t	c;
 
@@ -34,12 +36,12 @@ static size_t	count(int n, int blen)
 	return (c);
 }
 
-static int	ft_ftalidate_base(char *base)
+static ssize_t	ft_ftalidate_base(char *base)
 {
 	char	*ptr;
-	int		l;
+	ssize_t	l;
 
-	l = ft_strlen(base);
+	l = (ssize_t)ft_strlen(base);
 	if (l < 2)
 		return (-1);
 	while (*base)
@@ -57,7 +59,7 @@ static int	ft_ftalidate_base(char *base)
 
 char	*ft_itoa_base(int n, char *base)
 {
-	int			blen;
+	ssize_t		blen;
 	char		*out;
 	size_t		c;
 
@@ -66,15 +68,15 @@ char	*ft_itoa_base(int n, char *base)
 		return (NULL);
 	if (n == 0)
 		return (ft_strdup("0"));
-	out = ft_alloc(count(n, blen) + 1);
+	out = ft_alloc(count(n,(ssize_t)blen) + 1);
 	if (!out)
 		return (NULL);
-	c = count(n, blen);
+	c = count(n, (ssize_t)blen);
 	out[c] = 0;
 	while (n != 0)
 	{
 		out[--c] = base[_abs(n % blen)];
-		n /= blen;
+		n /= (int)blen;
 	}
 	if (c == 1)
 		out[--c] = '-';

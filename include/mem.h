@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 21:25:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:08:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			ft_memtake(void *restrict dest,
 
 void			*ft_memmove(void *restrict dest,
 					const void *restrict src, size_t n)\
-					__attribute__((__nonnull__(1, 2)));
+					__attribute__((__nonnull__(1, 2), returns_nonnull));
 
 void			*ft_memchr(const void *restrict ptr, int c, size_t n)\
 					__attribute__((__nonnull__(1)));

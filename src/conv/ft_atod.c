@@ -6,34 +6,34 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:59:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "conv.h"
 
+__attribute__((const, __always_inline__))
 static inline double	__eat_decimal(const char *s)
 {
 	double	c;
 	double	out;
 
-	c = 0.1f;
+	c = 0.1;
 	out = 0;
 	while (*s && (*s >= '0' && *s <= '9'))
 	{
 		out += c * (*s++ - '0');
-		c *= 0.1f;
+		c *= 0.1;
 	}
 	return (out);
 }
 
+__attribute__((pure, __nonnull__(1)))
 double	ft_atod(const char *s)
 {
 	int		neg;
 	double	out;
 
-	if (!s)
-		return (0);
 	out = 0;
 	neg = 1;
 	if (*s == '-')

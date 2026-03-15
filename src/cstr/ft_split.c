@@ -6,13 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:03:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cstr.h"
 
-static unsigned int	count_words(char *str, char set)
+__attribute__((__always_inline__, pure, __nonnull__(1)))
+static inline unsigned int	count_words(char *str, char set)
 {
 	unsigned int	iw;
 	unsigned int	wc;
@@ -80,7 +81,7 @@ static int	fill_words(const char *str, char set, char **out)
 	return (1);
 }
 
-__attribute__((__nonnull__(1)))
+__attribute__((pure, __nonnull__(1)))
 char	**ft_split(const char *str, char set)
 {
 	char			**out;

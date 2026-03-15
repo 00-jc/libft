@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 03:06:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:17:04 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_2packd
 {
 	double	x;
 	double	y;
-} __attribute__((aligned(16), packed))	t_2packd;
+} __attribute__((aligned(16)))	t_2packd;
 
 typedef struct s_4packd
 {
@@ -39,7 +39,7 @@ typedef struct s_4packd
 	double	y;
 	double	z;
 	double	w;
-} __attribute__((aligned(32), packed))	t_4packd;
+} __attribute__((aligned(32)))	t_4packd;
 
 typedef struct s_8packd
 {
@@ -51,7 +51,7 @@ typedef struct s_8packd
 	double	b;
 	double	c;
 	double	d;
-} __attribute__((aligned(64), packed))	t_8packd;
+} __attribute__((aligned(64)))	t_8packd;
 
 typedef t_4packd	t_3dcoords;
 
@@ -65,7 +65,7 @@ typedef struct s_3dcoordsx8
 	t_3dcoords	f;
 	t_3dcoords	g;
 	t_3dcoords	h;
-} __attribute__((aligned(64), packed))	t_3dcoordsx8;
+} __attribute__((aligned(64)))	t_3dcoordsx8;
 
 float			ft_q_sqrt(float x)\
 					__attribute__((const));

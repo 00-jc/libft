@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:12:36 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:56:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 __attribute__((const, __always_inline__, hot))
 inline int	ft_isspace(int c)
 {
-	return ((c == 0x20) | ((c - 0x09) < 0x05));
+	return (((unsigned)c == 0x20) | (((unsigned)c - 0x09) < 0x05));
 }

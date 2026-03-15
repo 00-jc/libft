@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 18:10:35 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 14:15:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:53:01 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline t_token	ft_eat_while_u256_tail(t_tokenizer *tk,
 	t_u32a	mask;
 
 	remaining = tk->max - i;
-	mask = (t_u32a) ~ fn(*((t_blk256r)((tk->mem + i + remaining)
+	mask = ~fn(*((t_blk256r)((tk->mem + i + remaining)
 					- sizeof(t_vu256a))));
 	mask &= 0xFFFFFFFF << (sizeof(t_vu256a) - remaining);
 	if (mask)
@@ -56,7 +56,7 @@ t_token	ft_eat_while_u256(t_tokenizer *tk,
 	mem = tk->mem;
 	while (i + sizeof(t_vu256a) <= tk->max)
 	{
-		msk = (t_u32a) ~ fn(*((t_blk256r)(mem + i)));
+		msk = ~fn(*((t_blk256r)(mem + i)));
 		if (msk)
 		{
 			finaloffst = ft_memctz_u32(msk);

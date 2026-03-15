@@ -6,13 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:01:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lft.h"
 
-static size_t	count(size_t n, size_t blen)
+__attribute__((__always_inline__, pure))
+static inline size_t	count(size_t n, size_t blen)
 {
 	size_t	c;
 
@@ -25,7 +26,8 @@ static size_t	count(size_t n, size_t blen)
 	return (c);
 }
 
-static ssize_t	ft_ftalidate_base(char *base)
+__attribute__((__always_inline__, pure, __nonnull__(1)))
+static inline ssize_t	ft_ftalidate_base(char *base)
 {
 	char	*ptr;
 	ssize_t	l;
@@ -46,6 +48,7 @@ static ssize_t	ft_ftalidate_base(char *base)
 	return (l);
 }
 
+__attribute__((__nonnull__(2)))
 char	*ft_utoa_base(size_t n, char *base)
 {
 	size_t		blen;

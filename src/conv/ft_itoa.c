@@ -6,13 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:58:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lft.h"
 
-static unsigned int	count(int n)
+__attribute__((const, __always_inline__))
+static inline unsigned int	count(int n)
 {
 	unsigned int	i;
 
@@ -27,7 +28,8 @@ static unsigned int	count(int n)
 	return (i);
 }
 
-static int	_abs(int x)
+__attribute__((const, __always_inline__))
+static inline int	_abs(int x)
 {
 	if (x < 0)
 		return (-x);
