@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 03:17:51 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:49:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 07:23:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ inline t_u32a	ft_bitpack256(t_vu256a vec)
 
 # ifdef __AVX512F__
 
-/*
- * Noinline bc gold breaks under 'k'
- */
-
-__attribute__((const, used, noinline))
-t_u64a	ft_bitpack512(t_vu512a vec)
+__attribute__((const, used, __always_inline__))
+inline t_u64a	ft_bitpack512(t_vu512a vec)
 {
 	t_u64a	result;
 
