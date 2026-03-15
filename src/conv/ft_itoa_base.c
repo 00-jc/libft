@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 15:35:25 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 19:00:51 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ __attribute__((const, __always_inline__))
 static inline ssize_t	_abs(ssize_t n)
 {
 	if (n < 0)
-		return ((ssize_t)-n);
-	return ((ssize_t)n);
+		return (-n);
+	return (n);
 }
 
 __attribute__((const, __always_inline__))
@@ -68,10 +68,10 @@ char	*ft_itoa_base(int n, char *base)
 		return (NULL);
 	if (n == 0)
 		return (ft_strdup("0"));
-	out = ft_alloc(count(n,(ssize_t)blen) + 1);
+	out = ft_alloc(count(n, blen) + 1);
 	if (!out)
 		return (NULL);
-	c = count(n, (ssize_t)blen);
+	c = count(n, blen);
 	out[c] = 0;
 	while (n != 0)
 	{
