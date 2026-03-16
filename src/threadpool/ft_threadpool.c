@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 19:24:22 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 04:06:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:40:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,26 @@ __attribute__((__nonnull__(1)))
 void	*ft_thread_run(void *arg)
 {
 	t_thread_arg	*ta;
+	size_t			gen;
 	void			*ret;
 
 	ta = (t_thread_arg *)arg;
 	ret = (void *)1;
+	gen = 0;
 	while (ret)
 	{
 		pthread_mutex_lock(&ta->tp->mutex);
 		pthread_cleanup_push(unlock_mutex, &ta->tp->mutex);
-		while (!ta->tp->go)
+		while (ta->tp->go == gen)
 			pthread_cond_wait(&ta->tp->start, &ta->tp->mutex);
+		gen = ta->tp->go;
 		pthread_cleanup_pop(0);
 		pthread_mutex_unlock(&ta->tp->mutex);
 		ret = ta->fn(ta->external_state);
 		pthread_mutex_lock(&ta->tp->mutex);
 		--ta->tp->count;
 		if (ta->tp->count == 0)
-		{
 			pthread_cond_signal(&ta->tp->done);
-			ta->tp->go = 0;
-		}
 		pthread_mutex_unlock(&ta->tp->mutex);
 	}
 	return (ret);
@@ -68,7 +68,7 @@ void	ft_threadpool_start(t_threadpool *tp)
 	while (tp->count > 0)
 		pthread_cond_wait(&tp->done, &tp->mutex);
 	tp->count = FT_NTHREADS;
-	tp->go = 1;
+	tp->go++;
 	pthread_cond_broadcast(&tp->start);
 	pthread_mutex_unlock(&tp->mutex);
 }
@@ -81,6 +81,7 @@ t_u32a	ft_threadpool_new(t_threadpool *tp, t_thread_arg *arg)
 	i = 0;
 	tp->count = 0;
 	tp->go = 0;
+	tp->alive = 0;
 	ft_pin_invariant_msg(FT_NTHREADS,
 		(char *)__FILE__":NTHREADS cannot be 0");
 	pthread_mutex_init(&tp->mutex, NULL);
@@ -90,8 +91,9 @@ t_u32a	ft_threadpool_new(t_threadpool *tp, t_thread_arg *arg)
 	{
 		if (pthread_create(tp->threads + i, NULL, ft_thread_run, (void *)arg))
 			return ((void)(pthread_mutex_unlock(&tp->mutex)),
-				ft_threadpool_destroy(tp, i), 1);
+				ft_threadpool_destroy(tp, i), 0);
 		++i;
 	}
-	return (0);
+	tp->alive = 1;
+	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 04:13:26 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 15:17:02 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -289,7 +289,8 @@ SRCS_MEM := \
 	src/mem/ft_prefetch_intrin.c
 
 SRCS_THREADPOOL := \
-	src/threadpool/ft_threadpool.c
+	src/threadpool/ft_threadpool.c \
+	src/threadpool/ft_threadpool_wait.c
 
 SRCS_VEC := \
 	src/vec/ft_vec_remove.c \
