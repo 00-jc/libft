@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 15:17:02 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 17:00:58 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -165,8 +165,8 @@ ifeq ($(findstring clang,$(CC_ID)),clang)
   RANLIB := llvm-ranlib
 else
   WARNS  := $(WARNS_GCC)
-  AR     := ar rcs
-  RANLIB := ranlib
+  AR     := gcc-ar rcs
+  RANLIB := gcc-ranlib
 endif
 
 CFLAGS := $(MARCH) $(CFLAGS_OPT) $(WARNS)
