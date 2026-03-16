@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 19:24:22 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 04:02:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 04:06:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*ft_thread_run(void *arg)
 	while (ret)
 	{
 		pthread_mutex_lock(&ta->tp->mutex);
-		pthread_cleanup_push(unlock_mutex, &ta->tp->mutex)
+		pthread_cleanup_push(unlock_mutex, &ta->tp->mutex);
 		while (!ta->tp->go)
 			pthread_cond_wait(&ta->tp->start, &ta->tp->mutex);
 		pthread_cleanup_pop(0);
