@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 03:25:50 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 04:13:26 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ OBJDIR     := build
 CC_CLANG   := clang
 CC_GCC     := gcc
 CC_ID	   := $(shell $(CC) --version 2>/dev/null | head -1)
+MAXTHREADS := $(shell nproc)
 SCANNER    := scan-build
 
 # ── Flags ─────────────────────────────────────────────────────────────────────
@@ -102,7 +103,7 @@ WARNS_CLANG := $(WARNS_COMMON)                                                \
 	-Wunused-but-set-parameter                                                 \
 	-Wsizeof-array-div                                                         \
 	-Wtautological-constant-in-range-compare                                   \
-	-Wextra-semi-stmt                                                          \
+	-Wno-extra-semi-stmt                                                       \
 	-Wthread-safety                                                            \
 	-Wdangling																   \
 	# -Wunsafe-buffer-usage                                                      \
@@ -150,7 +151,7 @@ WARNS_GCC := $(WARNS_COMMON)                                                  \
 CFLAGS_COMMON_OPT := -pipe -ffunction-sections -fdata-sections                 \
 	-finline-functions -fvisibility=hidden -fstack-protector-strong             \
 	-fcf-protection=full -ftrivial-auto-var-init=zero -fno-common              \
-	-fstack-clash-protection -g3
+	-fstack-clash-protection -g3 -DFT_NTHREADS=$(MAXTHREADS)
  
 CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -march=native -flto -O3 -ffast-math
 CFLAGS_NOOPT := $(CFLAGS_COMMON_OPT)

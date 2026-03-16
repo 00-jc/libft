@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 00:00:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 04:11:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	test_memset_large(void)
 	i = 0;
 	while (i < 256)
 	{
-		ft_memset(a, i, 4096);
+		ft_memset(a, (t_u8)i, 4096);
 		memset(b, i, 4096);
 		ft_pin_invariant(memcmp(a, b, 4096) == 0);
 		i += 85;
