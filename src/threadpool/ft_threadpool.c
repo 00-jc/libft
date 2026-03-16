@@ -1,0 +1,96 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_threadpool.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 19:24:22 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/03/16 03:25:36 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "threadpool.h"
+#include "hint.h"
+
+__attribute__((__nonnull__(1)))
+void	ft_threadpool_destroy(t_threadpool *tp, size_t i)
+{
+	while (i-- > 0)
+	{
+		pthread_cancel(tp->threads[i]);
+		pthread_join(tp->threads[i], NULL);
+	}
+	pthread_mutex_destroy(&tp->mutex);
+	pthread_cond_destroy(&tp->start);
+	pthread_cond_destroy(&tp->done);
+}
+
+__attribute__((__nonnull__(1)))
+void	*ft_thread_run(void *arg)
+{
+	t_thread_arg	*ta;
+	void			*ret;
+
+	ta = (t_thread_arg *)arg;
+	ret = (void *)1;
+	while (ret)
+	{
+		pthread_mutex_lock(&ta->tp->mutex);
+		pthread_cond_wait(&ta->tp->start, &ta->tp->mutex);
+		pthread_mutex_unlock(&ta->tp->mutex);
+		ret = ta->fn(ta->external_state);
+		pthread_mutex_lock(&ta->tp->mutex);
+		--ta->tp->count;
+		if (ta->tp->count == 0)
+			pthread_cond_signal(&ta->tp->done);
+		pthread_mutex_unlock(&ta->tp->mutex);
+	}
+	return (ret);
+}
+
+__attribute__((__nonnull__(1)))
+void	ft_threadpool_start(t_threadpool *tp)
+{
+	while (tp->count > 0)
+		pthread_cond_wait(&tp->done, &tp->mutex);
+	tp->count = FT_NTHREADS;
+	pthread_cond_broadcast(&tp->start);
+	pthread_mutex_unlock(&tp->mutex);
+}
+
+__attribute__((__nonnull__(1, 2)))
+void	ft_threadpool_join(t_threadpool *tp, void **results)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < FT_NTHREADS)
+	{
+		pthread_join(tp->threads[i], results + i);
+		++i;
+	}
+}
+
+__attribute__((__nonnull__(1, 2)))
+t_u32a	ft_threadpool_new(t_threadpool *tp, t_thread_arg *arg)
+{
+	size_t			i;
+
+	i = 0;
+	tp->count = 0;
+	ft_pin_invariant_msg(FT_NTHREADS,
+		(char *)__FILE__":NTHREADS cannot be 0");
+	pthread_mutex_init(&tp->mutex, NULL);
+	pthread_cond_init(&tp->start, NULL);
+	pthread_cond_init(&tp->done, NULL);
+	pthread_mutex_lock(&tp->mutex);
+	while (i < FT_NTHREADS)
+	{
+		if (pthread_create(tp->threads + i, NULL, ft_thread_run, (void *)arg))
+			return ((void)(pthread_mutex_unlock(&tp->mutex)),
+				ft_threadpool_destroy(tp, i), 1);
+		++i;
+	}
+	return (0);
+}

@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/15 19:01:05 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 03:25:50 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -287,6 +287,9 @@ SRCS_MEM := \
 	src/mem/avx256/ft_memchr_avx256.c \
 	src/mem/ft_prefetch_intrin.c
 
+SRCS_THREADPOOL := \
+	src/threadpool/ft_threadpool.c
+
 SRCS_VEC := \
 	src/vec/ft_vec_remove.c \
 	src/vec/ft_vec_pop.c \
@@ -348,7 +351,7 @@ SRCS_TOK := \
 	src/tokenizer/ft_eat_while.c
 
 # ── Aggregate ─────────────────────────────────────────────────────────────────
-MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM VEC STR BMI ENV MAP HINT TOK
+MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM VEC STR BMI ENV MAP HINT TOK THREADPOOL
 
 SRCS := $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
