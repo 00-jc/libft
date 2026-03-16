@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 19:20:29 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 03:20:59 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 03:52:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_threadpool
 	pthread_mutex_t		mutex;
 	pthread_cond_t		start;
 	pthread_cond_t		done;
+	t_u8				go;
 	size_t				count;
 }	t_threadpool;
 
