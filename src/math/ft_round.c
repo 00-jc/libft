@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 15:39:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 03:28:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ inline float	ft_roundf(float x, t_u8 n)
 	sign = (x < 0);
 	offset = 0.5f - (float)sign;
 	return ((ft_floorf(x * p10 + offset) * (float)(1 - sign)
-			+ ft_ceilf(x * p10 + offset) * (float)sign) / p10);
+		+ ft_ceilf(x * p10 + offset) * (float)sign) / p10);
 }
 
 __attribute__((__always_inline__, const))
