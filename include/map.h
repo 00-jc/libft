@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:35:20 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 16:34:19 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 04:09:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,7 @@ void		ft_map_destroy(t_map *restrict const map)\
 void		ft_map_delete(t_map	*restrict const map,
 				t_u8 *restrict const key, size_t keylen)\
 				__attribute__((__nonnull__(1, 2)));
+void		ft_map_clear(t_map *map)\
+				__attribute__((__nonnull__(1)));
 
 #endif

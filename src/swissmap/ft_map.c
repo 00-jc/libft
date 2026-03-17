@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 22:43:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 14:51:29 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 04:08:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ t_map	ft_map_with(size_t capacity)
 			.count = 0,
 			.table_size = capacity,
 		});
+}
+
+__attribute__((__nonnull__(1)))
+void	ft_map_clear(t_map *map)
+{
+	ft_memset(map->meta, MAP_EMPTY, map->count);
+	map->count = 0;
 }
 
 t_map	ft_map_new(void)
