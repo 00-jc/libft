@@ -26,8 +26,8 @@ inline ssize_t	ft_memcmp_finalround(const void *restrict const ptr1,
 	if (n == 0)
 		return (0);
 	offst <<= 5;
-	load0 = *(t_blk256r)((t_blk8r)ptr1 + offst + n - sizeof(t_vu256a));
-	load1 = *(t_blk256r)((t_blk8r)ptr2 + offst + n - sizeof(t_vu256a));
+	load0 = *(t_blk256r)ft_overlap((t_blk8r)ptr1 + offst, sizeof(t_vu256a), n);
+	load1 = *(t_blk256r)ft_overlap((t_blk8r)ptr2 + offst, sizeof(t_vu256a), n);
 	mask = ft_bitpack256(load0 != load1)
 		& (0xFFFFFFFF << (sizeof(t_vu256a) - n));
 	if (mask)

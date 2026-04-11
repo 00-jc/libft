@@ -7,7 +7,6 @@
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/18 03:43:49 by jaicastr          #+#    #+#              #
 #    Updated: 2026/03/16 17:00:58 by jaicastr         ###   ########.fr        #
-#                                                                              #
 # **************************************************************************** #
 
 # ── Output ────────────────────────────────────────────────────────────────────
@@ -284,6 +283,7 @@ SRCS_MEM := \
 	src/mem/avx512/ft_memcmp_avx512.c \
 	src/mem/avx512/ft_memchr_avx512.c \
 	src/mem/ft_memmove.c \
+	src/mem/ft_overlap.c \
 	src/mem/avx256/ft_memcmp_avx256.c \
 	src/mem/avx256/ft_memchr_avx256.c \
 	src/mem/ft_prefetch_intrin.c

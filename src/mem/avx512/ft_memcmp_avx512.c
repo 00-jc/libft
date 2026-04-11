@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 20:54:28 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:29:51 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ inline ssize_t	ft_memcmp_finalround(const void *restrict const ptr1,
 	if (n == 0)
 		return (0);
 	offst <<= 6;
-	load0 = *(t_blk512r)((t_blk8r)ptr1 + offst + n - sizeof(t_vu512a));
-	load1 = *(t_blk512r)((t_blk8r)ptr2 + offst + n - sizeof(t_vu512a));
+	load0 = *(t_blk512r)ft_overlap((t_blk8r)ptr1 + offst, sizeof(t_vu512a), n);
+	load1 = *(t_blk512r)ft_overlap((t_blk8r)ptr2 + offst, sizeof(t_vu512a), n);
 	mask = ft_bitpack512(load0 != load1)
 		& (0xFFFFFFFFFFFFFFFF << (sizeof(t_vu512a) - n));
 	if (mask)

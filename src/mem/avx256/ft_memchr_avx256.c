@@ -24,7 +24,7 @@ inline void	*ft__fix_last_w(const t_u8 *restrict const ptr,
 
 	if (n == 0)
 		return (NULL);
-	adjusted = (t_vu256 *)(ptr + n - sizeof(t_vu256a));
+	adjusted = (t_vu256 *)ft_overlap((void *)ptr, sizeof(t_vu256a), n);
 	w = (*(t_blk256r)adjusted ^ msk) == 0;
 	packed = ft_bitpack256(w) & (0xFFFFFFFF << (sizeof(t_vu256a) - n));
 	if (packed)
