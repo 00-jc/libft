@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:59:18 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 01:55:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:58:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ inline void	*ft_memchr_avx256(const void *restrict ptr, int c, size_t n)
 	while (n >= sizeof (t_vu256a))
 	{
 		ft_prefetch0(wptr, sizeof(t_vu256) << 1);
-		w = (*((t_blk256r)wptr) ^ (t_u8)c) == 0;
+		w = *((t_blk256r)wptr) == (t_u8)c;
 		hasz = ft_bitpack256(w);
 		if (hasz)
 			return ((void)(hasz = (t_u32a)ft_memctz_u32(hasz)),

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 01:54:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:57:57 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ inline void	*ft_memchr_sse(const void *restrict ptr, int c, size_t n)
 	while (n >= sizeof (t_vu128a))
 	{
 		ft_prefetch0(wptr, sizeof(t_vu128a) << 1);
-		w = (*((t_blk128r)wptr) ^ (t_u8)c) == 0;
+		w = *((t_blk128r)wptr) == (t_u8)c;
 		hasz = ft_bitpack128(w);
 		if (hasz)
 			return ((void)(hasz = (t_u16a)ft_memctz_u16(hasz)),

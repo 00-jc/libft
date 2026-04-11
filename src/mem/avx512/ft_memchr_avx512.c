@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:59:18 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 01:55:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:58:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ inline void	*ft_memchr_avx512(const void *restrict ptr, int c, size_t n)
 	while (n >= sizeof (t_vu512a))
 	{
 		ft_prefetch0(wptr, sizeof(t_vu512a) << 1);
-		w = (*((t_blk512r)wptr) ^ (t_u8)c) == 0;
+		w = *((t_blk512r)wptr) == (t_u8)c;
 		hasz = ft_bitpack512(w);
 		if (hasz)
 			return ((void)(hasz = ft_memctz_u64(hasz)),
