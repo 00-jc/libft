@@ -26,7 +26,7 @@ inline void	*ft__fix_last_w(const t_u8 *restrict const ptr,
 		return (NULL);
 	adjusted = (t_vu512 *)ft_overlap((void *)ptr, sizeof(t_vu512), n);
 	w = (*(t_blk512r)adjusted ^ msk) == 0;
-	packed = ft_bitpack512(w) & (0xFFFFFFFFFFFFFFFF << (sizeof(t_vu512a) - n));
+	packed = ft_bitpack512(w) & ft_roll_mask(sizeof(t_vu512a), n);
 	if (packed)
 		return ((void *)((t_u8 *)adjusted + ft_memctz_u64(packed)));
 	return (NULL);

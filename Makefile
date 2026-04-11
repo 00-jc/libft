@@ -321,6 +321,7 @@ SRCS_BMI := \
 	src/bmi/asm/ft_bitpack_intrin.c \
 	src/bmi/ft_to_be_from_be.c \
 	src/bmi/ft_to_be_from_le.c \
+	src/bmi/ft_rollmask.c \
 	src/bmi/ft_memctz.c \
 	src/bmi/ft_memclz.c \
 	src/bmi/__maxs.c \

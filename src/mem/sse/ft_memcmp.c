@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 22:41:37 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:51:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ inline ssize_t	ft_memcmp_finalround(const void *restrict const ptr1,
 	offst <<= 4;
 	load0 = *(t_blk128r)ft_overlap((t_blk8r)ptr1 + offst, sizeof(t_vu128a), n);
 	load1 = *(t_blk128r)ft_overlap((t_blk8r)ptr2 + offst, sizeof(t_vu128a), n);
-	mask = ft_bitpack128(load0 != load1)
-		& (0xFFFF << (sizeof(t_vu128a) - n));
+	mask = ft_bitpack128(load0 != load1) & ft_roll_mask(sizeof(t_vu128a), n);
 	if (mask)
 	{
 		diffbyte = ft_memctz_u16(mask);

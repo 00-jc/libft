@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/22 17:45:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:51:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ inline void	*ft__fix_last_w(const t_u8 *restrict const ptr,
 		return (NULL);
 	adjusted = (t_vu128 *)ft_overlap((void *)ptr, sizeof(t_vu128a), n);
 	w = (*(t_blk128r)adjusted ^ msk) == 0;
-	packed = ft_bitpack128(w) & (0xFFFF << (sizeof(t_vu128) - n));
+	packed = ft_bitpack128(w) & ft_roll_mask(sizeof(t_vu128a), n);
 	if (packed)
 		return ((void *)((t_u8 *)adjusted + ft_memctz_u16(packed)));
 	return (NULL);

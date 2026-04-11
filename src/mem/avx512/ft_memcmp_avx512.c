@@ -28,8 +28,7 @@ inline ssize_t	ft_memcmp_finalround(const void *restrict const ptr1,
 	offst <<= 6;
 	load0 = *(t_blk512r)ft_overlap((t_blk8r)ptr1 + offst, sizeof(t_vu512a), n);
 	load1 = *(t_blk512r)ft_overlap((t_blk8r)ptr2 + offst, sizeof(t_vu512a), n);
-	mask = ft_bitpack512(load0 != load1)
-		& (0xFFFFFFFFFFFFFFFF << (sizeof(t_vu512a) - n));
+	mask = ft_bitpack512(load0 != load1) & ft_roll_mask(sizeof(t_vu512a), n);
 	if (mask)
 	{
 		diffbyte = ft_memctz_u64(mask);
