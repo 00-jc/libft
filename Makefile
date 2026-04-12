@@ -282,6 +282,7 @@ SRCS_MEM := \
 	src/mem/avx512/ft_memchr_avx512.c \
 	src/mem/ft_memmove.c \
 	src/mem/ft_overlap.c \
+	src/mem/ft_fatptr.c \
 	src/mem/avx256/ft_memcmp_avx256.c \
 	src/mem/avx256/ft_memchr_avx256.c \
 	src/mem/ft_prefetch_intrin.c

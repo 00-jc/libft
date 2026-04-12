@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 02:53:03 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 15:07:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 16:10:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static inline void	ft__interbuck(t_map *restrict const map,
 	t_bucket buck, size_t empty_lot, t_u128a hash)
 {
 	map->buckets[empty_lot] = buck;
-	map->meta[empty_lot] = hash & MAP_H2_MASK;
+	map->meta[empty_lot] = (hash >> 57) & MAP_H2_MASK;
 }
 
 __attribute__((__nonnull__(1, 2, 4)))
@@ -46,18 +46,18 @@ t_u32a	ft_map_insert(t_map	*restrict const map,
 {
 	size_t		empty_lot;
 	t_bucket	buck;
-	t_u128a		hash;
+	t_u64a		hash;
 	size_t		nblks;
 	size_t		group;
 
 	if (((double)map->count / (double)map->table_size >= 0.85)
 		&& !ft_map_rehash(map))
 		return (0);
-	hash = ft_murmur3(key, keylen);
+	hash = ft_xxh3_64bits(ft_fatptr(key, keylen), 0);
 	nblks = map->table_size >> 4;
-	group = (hash >> 64) % nblks;
+	group = hash % nblks;
 	empty_lot = ft__map_lookup_offset(map, key,
-			(size_t [4]){hash & MAP_H2_MASK, nblks, group, keylen});
+			(size_t [4]){(hash >> 57) & MAP_H2_MASK, nblks, group, keylen});
 	buck = (t_bucket){
 		.key = key,
 		.key_len = keylen,

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 02:32:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 14:39:04 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 16:07:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,18 @@ void	ft_map_insert_unchecked(t_map *restrict const map,
 	t_u8 *restrict const key, size_t keylen,
 	t_u8 *restrict const value)
 {
-	t_u128a		hash;
+	t_u64a		hash;
 	size_t		nblks;
 	t_bucket	entry;
 
-	hash = ft_murmur3(key, keylen);
+	hash = ft_xxh3_64bits(ft_fatptr(key, keylen), 0);
 	nblks = map->table_size >> 4;
 	entry = (t_bucket){
 		.key = key,
 		.key_len = keylen,
 		.value = value,
 	};
-	ft__map_insert_unchecked(map, entry, (size_t [3]){hash & MAP_H2_MASK,
-		nblks, (hash >> 64) % nblks});
+	ft__map_insert_unchecked(map, entry,
+		(size_t [3]){(hash >> 57) & MAP_H2_MASK,
+		nblks, hash % nblks});
 }

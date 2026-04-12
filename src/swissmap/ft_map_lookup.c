@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 02:35:25 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 14:46:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 16:08:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	*ft_map_lookup(const t_map *restrict const map,
 	size_t		group;
 	size_t		nblks;
 
-	hash = ft_murmur3(mem, size);
-	h2 = hash & MAP_H2_MASK;
+	hash = ft_xxh3_64bits(ft_fatptr(mem, size), 0);
+	h2 = (hash >> 57) & MAP_H2_MASK;
 	nblks = map->table_size >> 4;
-	group = (hash >> 64) % nblks;
+	group = hash % nblks;
 	return (ft__map_lookup(map, mem,
 			(size_t [4]){h2, nblks, group, size}));
 }

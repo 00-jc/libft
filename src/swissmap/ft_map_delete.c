@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 04:36:40 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 14:46:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 16:09:37 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	ft_map_delete(t_map	*restrict const map,
 	size_t		nblks;
 	size_t		result;
 
-	hash = ft_murmur3(key, keylen);
-	h2 = hash & MAP_H2_MASK;
+	hash = ft_xxh3_64bits(ft_fatptr(key, keylen), 0);
+	h2 = (hash >> 57) & MAP_H2_MASK;
 	nblks = map->table_size >> 4;
-	group = (hash >> 64) % nblks;
+	group = hash % nblks;
 	result = ft__map_lookup_offset(map, key,
 			(size_t [4]){h2, nblks, group, keylen});
 	if (result > map->table_size)
