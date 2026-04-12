@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 02:21:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 15:04:20 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 17:02:35 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 #  endif
 # endif
 
-typedef t_u64a __attribute__((__aligned__(64)))	t_secret[24];
+typedef __attribute__((__aligned__(64))) t_u64a	t_secret[24];
 
 t_u64a		ft_xxh3_avalanche(t_u64 hash)\
 				__attribute__((const));
