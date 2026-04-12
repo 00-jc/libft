@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 22:55:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 20:09:06 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 20:51:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ inline void	ft_memcpy_512_acc(void *restrict dest,
 		((t_blk512wa)dest)[i + 3] = acc[3];
 		i += 4;
 	}
-	ft_memcpy_512_noacc(dest, src, n, blks);
+	ft_memcpy_512_noacc(dest, src, n, blks - i);
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
