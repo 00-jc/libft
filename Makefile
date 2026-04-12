@@ -289,6 +289,7 @@ SRCS_MEM := \
 	src/mem/avx256/ft_memset_avx256.c \
 	src/mem/avx256/ft_memcmp_avx256.c \
 	src/mem/avx256/ft_memchr_avx256.c \
+	src/mem/hugebranches/ft_memcpy_huge.c \
 	src/mem/ft_prefetch_intrin.c
 
 SRCS_THREADPOOL := \
@@ -465,5 +466,49 @@ _run_tests: $(_TOBJS)
 
 analyze: all static_analysis test
 
+# ── Benchmarks ───────────────────────────────────────────────────────────────
+ 
+BENCH_DIR      := bench
+BENCH_SRCS     := $(wildcard $(BENCH_DIR)/*.cc)
+BENCH_BINS     := $(patsubst %.cc,%,$(BENCH_SRCS))
+ 
+BENCH_LIBS     := -lbenchmark -lbenchmark_main -lpthread
+BENCH_CXX      := $(if $(findstring clang,$(CC_ID)),clang++,g++)
+BENCH_FLAGS    := -std=c++20 -O3 -flto -march=native -DNDEBUG
+ 
+BENCH_ARGS ?= --benchmark_report_aggregates_only=true \
+              --benchmark_color=true
+ 
+BENCH_PIN ?= taskset -c 0
+ 
+bench_lib:
+	@$(MAKE) --no-print-directory fclean
+	@$(MAKE) --no-print-directory CFLAGS="$(MARCH) $(CFLAGS_OPT) $(WARNS)"
+ 
+$(BENCH_DIR)/%: $(BENCH_DIR)/%.cc $(NAME)
+	$(BENCH_CXX) $(BENCH_FLAGS) $< $(NAME) $(BENCH_LIBS) -o $@
+ 
+bench_build: bench_lib $(BENCH_BINS)
+ 
+bench: bench_build
+	@echo "── Running benchmarks ──"
+	@for b in $(BENCH_BINS); do \
+		echo "\n>>> $$b"; \
+		$(BENCH_PIN) $$b $(BENCH_ARGS); \
+	done
+	@rm -f $(BENCH_BINS)
+ 
+bench_json: bench_build
+	@mkdir -p bench/results
+	@for b in $(BENCH_BINS); do \
+		out=bench/results/$$(basename $$b).json; \
+		echo "Saving $$out"; \
+		$(BENCH_PIN) $$b $(BENCH_ARGS) \
+			--benchmark_out=$$out \
+			--benchmark_out_format=json; \
+	done
+	@rm -f $(BENCH_BINS)
+
 .PHONY: all base bonus clean fclean re \
-        static_analysis analyze test test_clang test_clang_no_march _run_tests
+        static_analysis analyze test test_clang test_clang_no_march _run_tests \
+        bench bench_build

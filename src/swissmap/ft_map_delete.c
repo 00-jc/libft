@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 04:36:40 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 16:09:37 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 22:16:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	ft_map_delete(t_map	*restrict const map,
 	if (result > map->table_size)
 		return ;
 	map->meta[result] = MAP_DELETED;
-	map->count--;
+	--map->count;
 }

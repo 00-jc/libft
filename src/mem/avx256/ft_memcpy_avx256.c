@@ -6,13 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 22:55:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 20:52:01 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 23:52:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_mem.h"
-
-#if defined(__AVX2__)
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
 inline void	ft_memcpy_256_noacc(void *restrict dest,
@@ -76,5 +74,3 @@ inline void	ft_memcpy_256(void *restrict dest,
 	s = (t_u8 *)src + delta;
 	ft_memcpy_256_acc(d, s, n - delta);
 }
-
-#endif
