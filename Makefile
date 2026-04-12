@@ -273,8 +273,6 @@ SRCS_MEM := \
 	src/mem/dynamic/ft_memset.c \
 	src/mem/dynamic/ft_memchr.c \
 	src/mem/dynamic/ft_memcmp.c \
-	src/mem/hash/ft_murmur3.c \
-	src/mem/hash/ft_murmur_helpers.c \
 	src/mem/ft_memformat.c \
 	src/mem/ft_bzero.c \
 	src/mem/sse/ft_memcmp.c \
@@ -311,6 +309,7 @@ SRCS_STR := \
 SRCS_BMI := \
 	src/bmi/__populate.c \
 	src/bmi/ft_bswap.c \
+	src/bmi/ft_rotl.c \
 	src/bmi/asm/ft_bswap_asm.c \
 	src/bmi/asm/ft_memctz_asm.c \
 	src/bmi/asm/ft_memclz_asm.c \
@@ -319,6 +318,7 @@ SRCS_BMI := \
 	src/bmi/asm/ft_get512.c \
 	src/bmi/asm/ft_bitpack.c \
 	src/bmi/asm/ft_bitpack_intrin.c \
+	src/bmi/asm/ft_mul_epu.c \
 	src/bmi/ft_to_be_from_be.c \
 	src/bmi/ft_to_be_from_le.c \
 	src/bmi/ft_rollmask.c \
@@ -327,6 +327,20 @@ SRCS_BMI := \
 	src/bmi/__maxs.c \
 	src/bmi/__max.c \
 	src/bmi/__hasz.c
+
+SRCS_HASH := \
+	src/hash/murmur3/ft_murmur3.c \
+	src/hash/murmur3/ft_murmur_helpers.c \
+	src/hash/xxh3/ft_xxh3_medium_sizes.c \
+	src/hash/xxh3/ft_xxh3_large_sizes.c \
+	src/hash/xxh3/ft_xxh3_secret.c \
+	src/hash/xxh3/ft_xxh3.c \
+	src/hash/xxh3/ft_xxh3_small_sizes.c \
+	src/hash/xxh3/ft_xxh3_finalizers.c \
+	src/hash/xxh3/ft_xxh3_mul128_fold64.c \
+	src/hash/xxh3/ft_xxh3_avalanche.c \
+	src/hash/xxh3/ft_xxh3_xorshift.c \
+	src/hash/xxh3/ft_xxh3_rrmxmx.c
 
 SRCS_ENV := \
 	src/env/ft_getenv.c
@@ -341,6 +355,7 @@ SRCS_MAP := \
 
 SRCS_HINT := \
 	src/hint/ft_pin_invariant.c \
+	src/hint/ft_assume.c \
 	src/hint/ft_hardcrash.c
 
 SRCS_TOK := \
@@ -354,13 +369,13 @@ SRCS_TOK := \
 	src/tokenizer/ft_eat_while.c
 
 # ── Aggregate ─────────────────────────────────────────────────────────────────
-MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM VEC STR BMI ENV MAP HINT TOK THREADPOOL
+MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL
 
 SRCS := $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 # ── Test list ─────────────────────────────────────────────────────────────────
-TEST_SRCS := memchr strlen memcmp memcpy memset vec str map murmur bmi
+TEST_SRCS := memchr strlen memcmp memcpy memset vec str map murmur bmi xxh3
 
 # ═════════════════════════════════════════════════════════════════════════════
 #  Targets

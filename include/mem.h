@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 01:42:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 06:20:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "types.h"
 # include "bmi.h"
 
-# define LONES_64 0x0101010101010101ULL
-# define HIGHS_64 0x8080808080808080ULL
+# define LONES_64 			0x0101010101010101ULL
+# define HIGHS_64	 		0x8080808080808080ULL
 
 void			ft_bzero(void *restrict ptr, size_t n)\
 					__attribute__((__nonnull__(1)));
@@ -58,12 +58,6 @@ void			*ft_memformat(void *restrict const ptr, size_t size)\
 
 void			ft_membroadcast(void *dst, void *src, size_t chunks, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
-
-t_u128a			ft_murmur3(const t_u8 *restrict mem, size_t size)\
-					__attribute__((__nonnull__(1), pure));
-
-t_u128a			ft_murmur3_with_seed(const t_u8 *restrict mem, size_t seed,
-					size_t size) __attribute__((__nonnull__(1), pure));
 
 void			ft_prefetch0(const void *restrict const ptr, size_t size)\
 					__attribute__((__nonnull__(1)));

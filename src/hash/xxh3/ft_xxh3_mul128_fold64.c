@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pin_invariant.c                                 :+:      :+:    :+:   */
+/*   ft_xxh3_mul128_fold64.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 06:48:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 06:48:20 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/12 03:12:25 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/12 07:52:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "private/ft_p_hint.h"
+#include "private/ft_p_xxh3.h"
 
-__attribute__((__always_inline__))
-inline void	ft_pin_invariant(int res)
+__attribute__((__always_inline__, const))
+inline t_u64a	ft_xxh3_mul128_fold64(t_u64a a, t_u64a b)
 {
-	if (!res)
-		ft_hardcrash();
-}
+	t_u128a	x;
 
-__attribute__((__always_inline__, __nonnull__(2)))
-inline void	ft_pin_invariant_msg(int res, char *msg)
-{
-	if (!res)
-		ft_hardcrash_with_message(msg);
+	x = (t_u128a)a * (t_u128a)b;
+	return ((t_u64a)(x) ^ (t_u64a)(x >> 64));
 }

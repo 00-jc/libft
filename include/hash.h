@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pin_invariant.c                                 :+:      :+:    :+:   */
+/*   hash.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 06:48:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 06:48:20 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/12 00:00:00 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/12 00:00:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "private/ft_p_hint.h"
+#ifndef HASH_H
+# define HASH_H
 
-__attribute__((__always_inline__))
-inline void	ft_pin_invariant(int res)
-{
-	if (!res)
-		ft_hardcrash();
-}
+# include "types.h"
 
-__attribute__((__always_inline__, __nonnull__(2)))
-inline void	ft_pin_invariant_msg(int res, char *msg)
-{
-	if (!res)
-		ft_hardcrash_with_message(msg);
-}
+t_u128a		ft_murmur3(const t_u8 *restrict mem, size_t size)\
+				__attribute__((__nonnull__(1), pure));
+
+t_u128a		ft_murmur3_with_seed(const t_u8 *restrict mem, size_t seed,
+				size_t size) __attribute__((__nonnull__(1), pure));
+
+t_u64a		ft_xxh3_64bits(t_buffer input, t_u64a seed);
+
+#endif

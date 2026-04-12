@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 15:44:20 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,11 @@
 # define LONG_S "10000===0000000000000000000000000000000000000000000000000000"
 # define LONG_M "0000000000000000900???????????????????????????????"
 # define LONG_E "00000000nnnnnnnnnnnnnnnncccccccccccc"
+
+typedef t_u8		t_misal_buffer[1024]	__attribute__((__aligned__(1)));
+typedef t_u8		t_al4_buffer[1024]		__attribute__((__aligned__(4)));
+typedef t_u8		t_al8_buffer[1024]		__attribute__((__aligned__(4)));
+typedef t_u8		t_al64_buffer[1024]		__attribute__((__aligned__(64)));
+typedef t_u8		t_al32_buffer[1024]		__attribute__((__aligned__(32)));
 
 #endif

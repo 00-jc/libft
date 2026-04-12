@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pin_invariant.c                                 :+:      :+:    :+:   */
+/*   ft_mul_epu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 06:48:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 06:48:20 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/12 04:45:33 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/12 07:16:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "private/ft_p_hint.h"
+#include "bmi.h"
 
-__attribute__((__always_inline__))
-inline void	ft_pin_invariant(int res)
-{
-	if (!res)
-		ft_hardcrash();
-}
+#define MASK 0x00000000FFFFFFFF
 
-__attribute__((__always_inline__, __nonnull__(2)))
-inline void	ft_pin_invariant_msg(int res, char *msg)
+__attribute__((const, __always_inline__))
+inline t_512bits	ft_mul_epu512(t_512bits a, t_512bits b)
 {
-	if (!res)
-		ft_hardcrash_with_message(msg);
+	t_vu64_512a	rr[3];
+
+	rr[0] = *(t_vu64_512 *) & a;
+	rr[1] = *(t_vu64_512 *) & b;
+	rr[2] = (rr[0] & MASK) * (rr[1] & MASK);
+	return (*(t_512bits *) & rr[2]);
 }

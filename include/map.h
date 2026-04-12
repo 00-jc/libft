@@ -14,6 +14,7 @@
 # define MAP_H
 
 # include "vec.h"
+# include "hash.h"
 # include "private/ft_p_asm.h"
 
 # ifndef MAP_INITIAL_SIZE

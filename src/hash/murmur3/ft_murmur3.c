@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "private/ft_p_mem.h"
+#include "private/ft_p_hash.h"
 
 #define DEFAULT_SEED	0x9e3779b185ebca87ULL 
 #define C1				0x87c37b91114253d5ULL

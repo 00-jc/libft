@@ -16,6 +16,7 @@
 # include "types.h"
 # include "cstr.h"
 # include "mem.h"
+# include "hash.h"
 # include "math.h"
 # include "ctype.h"
 # include "io.h"

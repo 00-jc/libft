@@ -6,13 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:02:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 01:52:17 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 05:00:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BMI_H
 # define BMI_H
 
+# include "private/ft_p_asm.h"
 # include "types.h"
 
 t_u64			__hasz64(t_u64 x)\
@@ -63,6 +64,10 @@ t_u32a			ft_to_be32(t_u32a x)\
 t_u64a			ft_to_be64(t_u64a x)\
 					__attribute__((const));
 size_t			ft_roll_mask(size_t chunk_size, size_t n)\
+					__attribute__((const));
+t_u64a			ft_rotl64(t_u64a hash, size_t n)\
+					__attribute__((const));
+t_512bits		ft_mul_epu512(t_512bits a, t_512bits b)\
 					__attribute__((const));
 
 #endif
