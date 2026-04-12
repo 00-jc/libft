@@ -6,18 +6,19 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 04:21:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 15:27:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 16:55:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "private/ft_p_xxh3.h"
+
+#define MASK 0x00000000FFFFFFFF
 
 __attribute__((__nonnull__(1, 2, 3), __always_inline__))
 inline void	ft_xxh3_accumulate_512(t_blk8r acc, t_blk8r input, t_blk8r secret)
 {
 	t_vu64_512	*xacc;
 	t_vu64_512	rr[7];
-	t_512bits	tmp;
 	t_vu32_512	d32;
 
 	xacc = (t_vu64_512 *)acc;
@@ -28,8 +29,7 @@ inline void	ft_xxh3_accumulate_512(t_blk8r acc, t_blk8r input, t_blk8r secret)
 		rr[1] = *(const t_vu64_512 * const restrict)secret;
 		rr[2] = rr[0] ^ rr[1];
 		rr[3] = rr[2] >> 32;
-		tmp = ft_mul_epu512(*(t_512bits *) & rr[2], *(t_512bits *) & rr[3]);
-		rr[4] = *(const t_vu64_512 * const restrict) & tmp;
+		rr[4] = (rr[2] & MASK) * (rr[3] & MASK);
 		d32 = (t_vu32_512)rr[0];
 		rr[5] = (t_vu64_512)(t_vu32_512){
 			d32[2], d32[3], d32[0], d32[1], d32[6], d32[7], d32[4], d32[5],
@@ -47,7 +47,6 @@ inline void	ft_xxh3_scramble_acc_512(t_blk8r acc, t_blk8r secret)
 		* XXH3_PRIME32_1;
 	t_vu64_512				*xacc;
 	t_vu64_512				rr[7];
-	t_512bits				tmp;
 
 	__attribute__((assume(((t_uptr)acc & 63) == 0)));
 	__attribute__((assume(XXH3_STRIPE_LEN == sizeof(t_vu512))));
@@ -58,10 +57,8 @@ inline void	ft_xxh3_scramble_acc_512(t_blk8r acc, t_blk8r secret)
 		rr[2] = *(const t_vu64_512 * const restrict)secret;
 		rr[3] = rr[2] ^ rr[0] ^ rr[1];
 		rr[4] = rr[3] >> 32;
-		tmp = ft_mul_epu512(*(t_512bits *) & rr[3], *(t_512bits *) & prime);
-		rr[5] = *(t_vu64_512 *) & tmp;
-		tmp = ft_mul_epu512(*(t_512bits *) & rr[4], *(t_512bits *) & prime);
-		rr[6] = *(t_vu64_512 *) & tmp;
+		rr[5] = (rr[3] & MASK) * (prime & MASK);
+		rr[6] = (rr[4] & MASK) * (prime & MASK);
 		*xacc = rr[5] + (rr[6] << 32);
 	}
 }

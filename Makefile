@@ -319,7 +319,6 @@ SRCS_BMI := \
 	src/bmi/asm/ft_get512.c \
 	src/bmi/asm/ft_bitpack.c \
 	src/bmi/asm/ft_bitpack_intrin.c \
-	src/bmi/asm/ft_mul_epu.c \
 	src/bmi/ft_to_be_from_be.c \
 	src/bmi/ft_to_be_from_le.c \
 	src/bmi/ft_rollmask.c \
