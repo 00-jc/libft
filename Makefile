@@ -265,24 +265,28 @@ SRCS_MEM := \
 	src/mem/ft_membroadcast.c \
 	src/mem/ft_memtake.c \
 	src/mem/ft_memclone.c \
-	src/mem/dynamic/ft_memcpy_portable.c \
-	src/mem/dynamic/ft_memset_portable.c \
-	src/mem/dynamic/ft_memcpy_dispatch.c \
-	src/mem/dynamic/ft_memset_dispatch.c \
 	src/mem/dynamic/ft_memcpy.c \
 	src/mem/dynamic/ft_memset.c \
 	src/mem/dynamic/ft_memchr.c \
 	src/mem/dynamic/ft_memcmp.c \
 	src/mem/ft_memformat.c \
 	src/mem/ft_bzero.c \
+	src/mem/portable/ft_memcpy.c \
+	src/mem/portable/ft_memset.c \
+	src/mem/sse/ft_memcpy.c \
+	src/mem/sse/ft_memset.c \
 	src/mem/sse/ft_memcmp.c \
 	src/mem/sse/ft_memchr.c \
 	src/mem/ft_prefetch_noop.c \
+	src/mem/avx512/ft_memcpy_avx512.c \
+	src/mem/avx512/ft_memset_avx512.c \
 	src/mem/avx512/ft_memcmp_avx512.c \
 	src/mem/avx512/ft_memchr_avx512.c \
 	src/mem/ft_memmove.c \
 	src/mem/ft_overlap.c \
 	src/mem/ft_fatptr.c \
+	src/mem/avx256/ft_memcpy_avx256.c \
+	src/mem/avx256/ft_memset_avx256.c \
 	src/mem/avx256/ft_memcmp_avx256.c \
 	src/mem/avx256/ft_memchr_avx256.c \
 	src/mem/ft_prefetch_intrin.c
