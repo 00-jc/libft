@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 05:54:23 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 16:17:14 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/12 16:37:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ inline t_u64a	ft_xxh3_mix2accs(t_blk64w acc, const t_u8 *secret)
 }
 
 __attribute__((pure, __always_inline__))
-inline t_u64a	ft_xxh3_merge_accs(t_blk64w acc, const t_u8 *secret, t_u64 start)
+inline t_u64a	ft_xxh3_merge_accs(t_blk64w acc, const t_u8 *secret,
+	t_u64 start)
 {
 	t_u64	result;
 
