@@ -23,7 +23,7 @@ t_vec	ft_vec_new(size_t size, size_t type_size)
 	mem = ft_alloc(size * type_size);
 	return ((t_vec)
 		{
-			.head = (t_u8 *)mem,
+			.size = 0,
 			.capacity = size,
 			.data = mem,
 		});

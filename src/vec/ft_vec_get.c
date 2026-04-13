@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:14:07 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:57:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/13 16:02:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,31 @@ __attribute__((__nonnull__(1), __always_inline__, pure))
 inline const void	*ft_vec_get(const t_vec *restrict const vec,
 		size_t idx, size_t type_size)
 {
-	size_t	sizeb;
-
-	sizeb = ft_vec_bytesize(vec);
-	idx = idx * type_size;
-	return ((void *)((idx < sizeb) * ((t_uptr)vec->data + idx)));
+	return ((void *)(-(idx < vec->size)
+		& ((t_uptr)vec->data + idx * type_size)));
 }
 
 __attribute__((__nonnull__(1), __always_inline__, pure))
 inline void	*ft_vec_get_mut(const t_vec *restrict const vec,
 		size_t idx, size_t type_size)
 {
-	size_t	sizeb;
-
-	sizeb = ft_vec_bytesize(vec);
-	idx = idx * type_size;
-	return ((void *)((idx < sizeb) * ((t_uptr)vec->data + idx)));
+	return ((void *)(-(idx < vec->size)
+		& ((t_uptr)vec->data + idx * type_size)));
 }
 
 __attribute__((__nonnull__(1), __always_inline__, pure))
 inline const void	*ft_vec_peek_last(const t_vec *restrict const vec,
 	size_t type_size)
 {
-	return ((t_u8 *)((vec->data != vec->head)
-		* ((t_uptr)vec->head - type_size)));
+	if (vec->size == 0)
+		return (NULL);
+	return (vec->data + ((vec->size - 1) * type_size));
 }
 
 __attribute__((__nonnull__(1), __always_inline__, pure))
 inline void	*ft_vec_get_last(const t_vec *restrict const vec, size_t type_size)
 {
-	return ((t_u8 *)((vec->data != vec->head)
-		* ((t_uptr)vec->head - type_size)));
+	if (vec->size == 0)
+		return (NULL);
+	return ((t_u8 *)vec->data + ((vec->size - 1) * type_size));
 }

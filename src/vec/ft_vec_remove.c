@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:19:12 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/01/19 04:38:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/13 15:21:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int	ft_vec_remove(t_vec *restrict const v, size_t i, size_t type_size)
 	last = ft_vec_peek_last(v, type_size);
 	if (elem == NULL || last == NULL)
 		return (0);
-	ft_memcpy(elem, elem + type_size,
-		((t_uptr)last - (t_uptr)elem) + type_size);
-	v->head -= type_size;
+	ft_memmove(elem, elem + type_size, (t_uptr)last - (t_uptr)elem);
+	--v->size;
 	return (1);
 }
 
@@ -44,8 +43,7 @@ int	ft_vec_removef(t_vec *restrict const v, size_t i, size_t type_size,
 	if (elem == NULL || last == NULL)
 		return (0);
 	f(elem);
-	ft_memcpy(elem, elem + type_size,
-		((t_uptr)last - (t_uptr)elem) + type_size);
-	v->head -= type_size;
+	ft_memmove(elem, elem + type_size, (t_uptr)last - (t_uptr)elem);
+	--v->size;
 	return (1);
 }

@@ -6,21 +6,16 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:50:40 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/23 17:57:31 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/13 18:36:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
 
 __attribute__((__always_inline__, __nonnull__(1)))
-inline int	ft_vec_pop(t_vec *restrict const v, size_t type_size)
+inline void	ft_vec_pop(t_vec *restrict const v)
 {
-	t_uptr	prev;
-
-	prev = (t_uptr)v->head;
-	v->head = (t_u8 *)((((v->data != v->head) * ((t_uptr)v->head - type_size))
-				| (v->data == v->head) * prev));
-	return ((t_uptr)v->head != prev);
+	v->size -= v->size != 0;
 }
 
 __attribute__((__always_inline__, __nonnull__(1)))
@@ -30,10 +25,13 @@ inline int	ft_vec_popmv(t_vec *restrict const v, void *const dest,
 	t_u8	*last;
 
 	last = ft_vec_get_last(v, type_size);
-	if (!last)
-		return (0);
-	ft_memcpy(dest, last, type_size);
-	return (ft_vec_pop(v, type_size));
+	if (__builtin_expect(last != NULL, 1))
+	{
+		ft_memcpy(dest, last, type_size);
+		ft_vec_pop(v);
+		return (1);
+	}
+	return (0);
 }
 
 __attribute__((__always_inline__, __nonnull__(1)))
@@ -43,10 +41,11 @@ inline int	ft_vec_popf(t_vec *restrict const v, size_t type_size,
 	t_u8	*last;
 
 	last = ft_vec_get_last(v, type_size);
-	if (last)
+	if (__builtin_expect(last != NULL, 1))
 	{
 		f(last);
-		return (ft_vec_pop(v, type_size));
+		ft_vec_pop(v);
+		return (1);
 	}
 	return (0);
 }

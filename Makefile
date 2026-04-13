@@ -486,13 +486,14 @@ bench_lib:
 	@$(MAKE) --no-print-directory CFLAGS="$(MARCH) $(CFLAGS_OPT) $(WARNS)"
  
 $(BENCH_DIR)/%: $(BENCH_DIR)/%.cc $(NAME)
-	$(BENCH_CXX) $(BENCH_FLAGS) $< $(NAME) $(BENCH_LIBS) -o $@
+	@mkdir -p $(OBJDIR)/$(BENCH_DIR)
+	$(BENCH_CXX) $(BENCH_FLAGS) $< $(NAME) $(BENCH_LIBS) -o $(OBJDIR)/$@
  
 bench_build: bench_lib $(BENCH_BINS)
  
 bench: bench_build
 	@echo "── Running benchmarks ──"
-	@for b in $(BENCH_BINS); do \
+	@for b in $(OBJDIR)/$(BENCH_DIR)/*; do \
 		echo "\n>>> $$b"; \
 		$(BENCH_PIN) $$b $(BENCH_ARGS); \
 	done

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:32:14 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/17 15:57:24 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/13 18:11:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,39 @@ __attribute__((__nonnull__(1), __always_inline__))
 inline int	ft_vec_reserve(t_vec *restrict const vec,
 		size_t type_size, size_t n)
 {
-	size_t		nn;
-	size_t		old_size;
-	size_t		old_cap_bytes;
-	size_t		bytes_to_append;
-	t_vec		v;
+	t_u8	*newalloc;
+	t_u8	*old;
+	size_t	new_cap;
 
-	v = *vec;
-	old_size = ft_vec_bytesize(vec);
-	old_cap_bytes = v.capacity * type_size;
-	bytes_to_append = n * type_size;
-	if (old_size + bytes_to_append >= old_cap_bytes)
+	new_cap = __max_s(vec->capacity << 1, n + vec->size);
+	newalloc = ft_alloc(new_cap * type_size);
+	if (__builtin_expect(newalloc != NULL, 1))
 	{
-		nn = __maxu64(old_cap_bytes << 1, old_size + bytes_to_append);
-		v.data = ft_recalloc((void *)v.data, old_cap_bytes, nn);
-		if (v.data == NULL)
-			return (0);
-		v.head = (t_u8 *)v.data + old_size;
-		v.capacity = nn / type_size;
+		old = (t_u8 *)vec->data;
+		ft_memcpy(newalloc, old, vec->size * type_size);
+		ft_free((void **)&old);
+		vec->data = newalloc;
+		vec->capacity = new_cap;
+		return (1);
 	}
-	*vec = v;
-	return (1);
+	return (0);
 }
 
 __attribute__((__nonnull__(1, 2)))
 int	ft_vec_extend(t_vec *restrict const vec,
 		const t_u8 *restrict const data, size_t type_size, size_t n)
 {
-	t_vec		deref_v;
-	size_t		growth;
+	t_u8	should_extend;
 
-	if (vec->data == NULL)
-		return (0);
-	if (!ft_vec_reserve(vec, type_size, n))
-		return (0);
-	deref_v = *vec;
-	growth = n * type_size;
-	ft_memcpy(deref_v.head, data, growth);
-	deref_v.head += growth;
-	*vec = deref_v;
+	__attribute__((assume(vec->data != NULL)));
+	{
+		should_extend = vec->capacity < vec->size + n;
+		if (__builtin_expect(should_extend
+				&& !ft_vec_reserve(vec, type_size, n), 0))
+			return (0);
+		ft_memcpy((t_u8 *)vec->data + (vec->size * type_size),
+			data, n * type_size);
+		vec->size += n;
+	}
 	return (1);
 }
