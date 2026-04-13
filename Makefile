@@ -152,7 +152,7 @@ CFLAGS_COMMON_OPT := -pipe -ffunction-sections -fdata-sections                 \
 	-fcf-protection=full -ftrivial-auto-var-init=zero -fno-common              \
 	-fstack-clash-protection -g3 -DFT_NTHREADS=$(MAXTHREADS)
  
-CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -march=native -flto -O3 -ffast-math
+CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -march=native -mtune=native -flto -O3 -ffast-math
 CFLAGS_NOOPT := $(CFLAGS_COMMON_OPT)
 
 SANITIZE   := -fsanitize=address,alignment,undefined -fsanitize-recover=null
