@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 04:07:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 01:57:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/13 13:45:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ inline void	*ft__fix_last_w(const t_u8 *restrict const ptr,
 	t_vu128a		w;
 	t_vu128			*adjusted;
 	t_u16a			packed;
+	t_uptr			p;
 
-	if (n == 0)
-		return (NULL);
-	adjusted = (t_vu128 *)ft_overlap((void *)ptr, sizeof(t_vu128a), n);
-	w = *(t_blk128r)adjusted == msk;
-	packed = ft_bitpack128(w) & ft_roll_mask(sizeof(t_vu128a), n);
-	if (packed)
-		return ((void *)((t_u8 *)adjusted + ft_memctz_u16(packed)));
+	if (n != 0)
+	{
+		adjusted = (t_vu128 *)ft_overlap((void *)ptr, sizeof(t_vu128), n);
+		w = *(t_blk128r)adjusted == msk;
+		packed = ft_bitpack128(w) & ft_roll_mask(sizeof(t_vu128a), n);
+		p = (t_uptr)adjusted + ft_memctz_u16(packed);
+		return ((void *)(-((t_uptr)(packed != 0)) & p));
+	}
 	return (NULL);
 }
 
