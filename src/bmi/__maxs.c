@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 02:10:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 04:35:26 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/13 19:02:25 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 size_t	__max_s(size_t x, size_t y)
 {
-	return ((x < y) * y | (x >= y) * x);
+	size_t	cnd;
+
+	cnd = -(x < y);
+	return ((cnd & y) | (~cnd & x));
 }

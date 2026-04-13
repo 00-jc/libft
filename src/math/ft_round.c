@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 03:28:16 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/13 19:02:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,24 @@ __attribute__((__always_inline__, const))
 inline float	ft_floorf(float x)
 {
 	long long	i;
+	long long	cnd;
 
 	i = (long long)x;
-	return ((float)((((float)i > x) * (i - 1))
-		| (((float)i <= x) * i)));
+	cnd = (float)i > x;
+	return ((float)(((cnd & (i - 1))
+			| (~cnd & i))));
 }
 
 __attribute__((__always_inline__, const))
 inline float	ft_ceilf(float x)
 {
 	long long	i;
+	long long	cnd;
 
 	i = (long long)x;
-	return ((float)((((float)i > x) * (i + 1))
-		| (((float)i <= x) * i)));
+	cnd = (float)i < x;
+	return ((float)(((cnd & (i + 1))
+			| (~cnd & i))));
 }
 
 __attribute__((__always_inline__, const))
