@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:32:14 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/13 18:11:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/14 05:08:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ inline int	ft_vec_reserve(t_vec *restrict const vec,
 	t_u8	*old;
 	size_t	new_cap;
 
-	new_cap = __max_s(vec->capacity << 1, n + vec->size);
+	new_cap = n + vec->size;
 	newalloc = ft_alloc(new_cap * type_size);
 	if (__builtin_expect(newalloc != NULL, 1))
 	{
