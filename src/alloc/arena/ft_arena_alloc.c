@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/16 15:07:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/16 19:58:30 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@ t_arena	ft_new_arena_alloc(void)
 	size_t			pagesize;
 	int				pageflag;
 
-	pagesize = ft_match_paging(1 << 30);
+	pagesize = ft_match_paging(1ULL << 30);
 	pageflag = ft_match_paging_flags(pagesize);
 	initial_page = new_hugepage(NULL, pagesize, pageflag);
 	if (!initial_page)
 		return ((t_arena){0});
 	return ((t_arena)
 		{
-			.global = initial_page,
-			.current = (t_slab *)initial_page->data
+			.current = initial_page
 		});
 }
 
@@ -36,14 +35,14 @@ inline void	ft_arena_clean_fwd(const t_arena *restrict const alloc)
 	t_hugepage	*x;
 	t_hugepage	*next;
 
-	next = alloc->global->next;
+	next = alloc->current->next;
+	alloc->current->next = NULL;
 	while (next)
 	{
 		x = next->next;
-		ft_munmap(next, next->size);
+		ft_munmap(next, next->page_size);
 		next = x;
 	}
-	alloc->global->next = NULL;
 }
 
 __attribute__((__nonnull__(1)))
@@ -53,13 +52,14 @@ void	ft_destroy_arena(t_arena *alloc)
 	t_hugepage	*next;
 
 	ft_arena_clean_fwd(alloc);
-	x = alloc->global;
+	x = alloc->current;
 	while (x)
 	{
 		next = x->prev;
-		ft_munmap(x, x->size);
+		ft_munmap(x, x->page_size);
 		x = next;
 	}
+	alloc->current = NULL;
 }
 
 __attribute__((nonnull(1)))
@@ -71,10 +71,11 @@ void	*ft_arena_alloc(t_arena *restrict const allocator,
 	size_t			pagesize;
 	int				pageflag;
 
-	pagesize = ft_match_paging(size);
-	pageflag = ft_match_paging_flags(pagesize);
-	if (pagesize == 0 || align == 0 || (align & (align - 1)) != 0)
+	if (__builtin_expect(size == 0 || align == 0
+			|| (align & (align - 1)) != 0, 0))
 		return (NULL);
+	pagesize = ft_match_paging(size + align - 1);
+	pageflag = ft_match_paging_flags(pagesize);
 	next_ptr = get_next_ptr(allocator->current, align);
 	waste = (size_t)((t_u8 *)next_ptr - (allocator->current->data
 				+ allocator->current->used));

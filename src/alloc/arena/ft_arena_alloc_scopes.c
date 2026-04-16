@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/19 18:13:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/16 18:24:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ __attribute__((__always_inline__))
 inline void	ft_arena_rewind(t_arena *restrict const arena,
 	t_arena_checkpoint checkpoint)
 {
-	arena->global = checkpoint.location;
-	arena->current = (t_slab *)arena->global->data;
-	arena->current->total = checkpoint.total;
+	arena->current = checkpoint.location;
 	arena->current->used = checkpoint.used;
 }
 
@@ -35,8 +33,7 @@ inline t_arena_checkpoint	ft_arena_checkpoint(
 {
 	return ((t_arena_checkpoint)
 		{
-			.total = arena->current->total,
 			.used = arena->current->used,
-			.location = arena->global,
+			.location = arena->current,
 		});
 }
