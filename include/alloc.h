@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/16 15:07:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:17:01 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,28 @@ typedef struct s_checkpoint
 # define HUGEPAGE_1GB    1073741824UL
 # define HUGEPAGE_2GB    2147483648UL
 # define HUGEPAGE_16GB   17179869184UL
+
+# ifndef MAP_HUGE_2MB
+#  define MAP_HUGE_2MB 0
+# endif
+# ifndef MAP_HUGE_16MB
+#  define MAP_HUGE_16MB 0
+# endif
+# ifndef MAP_HUGE_256MB
+#  define MAP_HUGE_256MB 0
+# endif
+# ifndef MAP_HUGE_512MB
+#  define MAP_HUGE_512MB 0
+# endif
+# ifndef MAP_HUGE_1GB
+#  define MAP_HUGE_1GB 0
+# endif
+# ifndef MAP_HUGE_2GB
+#  define MAP_HUGE_2GB 0
+# endif
+# ifndef MAP_HUGE_16GB
+#  define MAP_HUGE_16GB 0
+# endif
 
 # ifndef DEF_ALIGN
 #  define DEF_ALIGN 32
