@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/03 00:00:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 00:53:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	test_memcpy_basic(void)
 	ft_pin_invariant(memcmp(a, b, 17) == 0);
 	ft_memcpy(a, src, 0);
 	ft_pin_invariant(memcmp(a, b, 17) == 0);
+	memcpy(src, "hello world1", 13);
+	ft_memcpy(a, src, 13);
+	memcpy(b, src, 13);
+	ft_pin_invariant(memcmp(a, b, 13) == 0);
+	ft_memcpy(a, src, 0);
+	ft_pin_invariant(memcmp(a, b, 13) == 0);
 }
 
 void	test_memcpy_misaligned(void)

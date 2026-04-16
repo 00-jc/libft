@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/13 00:14:28 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 01:00:41 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ inline void	ft_memcpy_512_huge(void *restrict dest,
 		ft__cascade_cpy(d, sr, s.i);
 		s.i += 8;
 	}
+	while (s.i <= s.blks)
+	{
+		((t_blk512wa)dest)[s.i] = ((t_blk512r)src)[s.i];
+		++s.i;
+	}
 	s.i <<= 6;
-	ft_memcpy_512(d + s.i, sr + s.i, n - s.i);
+	ft_memcpy_256(d + s.i, sr + s.i, n - s.i);
 }

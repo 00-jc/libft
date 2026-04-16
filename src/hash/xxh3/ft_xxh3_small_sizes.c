@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 02:40:31 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 08:18:17 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 00:33:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ inline t_u64a	ft_xxh3_len_1to3(t_buffer input, t_buffer secret, t_u64a seed)
 	__attribute__((assume(input.size > 0 && input.size <= 3)));
 	__attribute__((assume(input.mem != NULL && secret.mem != NULL)));
 	bytes[2] = input.mem[0];
-	idx = ((input.size > 1) * 1) | ((input.size <= 1) * 0);
+	idx = input.size > 1;
 	bytes[3] = input.mem[idx];
 	bytes[0] = input.mem[input.size - 1];
 	bytes[1] = (t_u8)input.size;
