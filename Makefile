@@ -380,7 +380,7 @@ SRCS := $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 # ── Test list ─────────────────────────────────────────────────────────────────
-TEST_SRCS := memchr strlen memcmp memcpy memset vec str map murmur bmi xxh3
+TEST_SRCS := memchr strlen memcmp memcpy memset vec str map murmur bmi xxh3 arena arena_extend
 
 # ═════════════════════════════════════════════════════════════════════════════
 #  Targets
