@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 15:32:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:07:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_hugepage
 {
 	struct s_hugepage	*next;
 	struct s_hugepage	*prev;
+	size_t				size;
 	t_u8				data[];
 }	t_hugepage;
 
@@ -48,7 +49,14 @@ typedef struct s_checkpoint
 	t_hugepage		*location;
 }	t_arena_checkpoint;
 
-# define HUGEPAGE_SIZE 268435456ULL
+# define HUGEPAGE_2MB    2097152UL
+# define HUGEPAGE_4MB    4194304UL
+# define HUGEPAGE_16MB   16777216UL
+# define HUGEPAGE_256MB  268435456UL
+# define HUGEPAGE_512MB  536870912UL
+# define HUGEPAGE_1GB    1073741824UL
+# define HUGEPAGE_2GB    2147483648UL
+# define HUGEPAGE_16GB   17179869184UL
 
 # ifndef DEF_ALIGN
 #  define DEF_ALIGN 32

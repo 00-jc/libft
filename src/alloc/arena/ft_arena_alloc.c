@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 04:34:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:07:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 t_arena	ft_new_arena_alloc(void)
 {
 	t_hugepage		*initial_page;
+	size_t			pagesize;
+	int				pageflag;
 
-	initial_page = new_hugepage(NULL);
+	pagesize = ft_match_paging(1 << 30);
+	pageflag = ft_match_paging_flags(pagesize);
+	initial_page = new_hugepage(NULL, pagesize, pageflag);
 	if (!initial_page)
 		return ((t_arena){0});
 	return ((t_arena)
@@ -36,7 +40,7 @@ inline void	ft_arena_clean_fwd(const t_arena *restrict const alloc)
 	while (next)
 	{
 		x = next->next;
-		ft_munmap(next, HUGEPAGE_SIZE);
+		ft_munmap(next, next->size);
 		next = x;
 	}
 	alloc->global->next = NULL;
@@ -53,7 +57,7 @@ void	ft_destroy_arena(t_arena *alloc)
 	while (x)
 	{
 		next = x->prev;
-		ft_munmap(x, HUGEPAGE_SIZE);
+		ft_munmap(x, x->size);
 		x = next;
 	}
 }
@@ -62,11 +66,14 @@ __attribute__((nonnull(1)))
 void	*ft_arena_alloc(t_arena *restrict const allocator,
 	size_t size, size_t align)
 {
-	void	*next_ptr;
-	size_t	waste;
+	void			*next_ptr;
+	size_t			waste;
+	size_t			pagesize;
+	int				pageflag;
 
-	if ((size >= (HUGEPAGE_SIZE - (sizeof(t_slab) + sizeof(t_hugepage))))
-		|| align == 0 || (align & (align - 1)) != 0)
+	pagesize = ft_match_paging(size);
+	pageflag = ft_match_paging_flags(pagesize);
+	if (pagesize == 0 || align == 0 || (align & (align - 1)) != 0)
 		return (NULL);
 	next_ptr = get_next_ptr(allocator->current, align);
 	waste = (size_t)((t_u8 *)next_ptr - (allocator->current->data
@@ -74,7 +81,7 @@ void	*ft_arena_alloc(t_arena *restrict const allocator,
 	if ((t_u8 *)next_ptr + size > allocator->current->data
 		+ allocator->current->total)
 	{
-		if (!ft_arena_move_fwd(allocator))
+		if (!ft_arena_move_fwd(allocator, pagesize, pageflag))
 			return (NULL);
 		next_ptr = get_next_ptr(allocator->current, align);
 		waste = (size_t)((t_u8 *)next_ptr - (allocator->current->data
