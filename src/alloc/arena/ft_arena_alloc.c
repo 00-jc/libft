@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/16 19:58:30 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/16 20:27:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@ t_arena	ft_new_arena_alloc(void)
 	size_t			pagesize;
 	int				pageflag;
 
-	pagesize = ft_match_paging(1ULL << 30);
+	pagesize = ft_match_paging(1ULL << 25);
 	pageflag = ft_match_paging_flags(pagesize);
 	initial_page = new_hugepage(NULL, pagesize, pageflag);
 	if (!initial_page)
 		return ((t_arena){0});
-	return ((t_arena)
-		{
-			.current = initial_page
-		});
+	return ((t_arena){.current = initial_page});
 }
 
 __attribute__((__nonnull__(1), __always_inline__))
@@ -35,13 +32,16 @@ inline void	ft_arena_clean_fwd(const t_arena *restrict const alloc)
 	t_hugepage	*x;
 	t_hugepage	*next;
 
-	next = alloc->current->next;
-	alloc->current->next = NULL;
-	while (next)
+	if (alloc->current)
 	{
-		x = next->next;
-		ft_munmap(next, next->page_size);
-		next = x;
+		next = alloc->current->next;
+		alloc->current->next = NULL;
+		while (next)
+		{
+			x = next->next;
+			ft_munmap(next, next->page_size);
+			next = x;
+		}
 	}
 }
 
@@ -71,8 +71,9 @@ void	*ft_arena_alloc(t_arena *restrict const allocator,
 	size_t			pagesize;
 	int				pageflag;
 
-	if (__builtin_expect(size == 0 || align == 0
-			|| (align & (align - 1)) != 0, 0))
+	if (__builtin_expect(align == 0 || size == 0
+			|| (align & (align - 1)) != 0
+			|| size > HUGEPAGE_16GB - sizeof(t_hugepage) - (align - 1), 0))
 		return (NULL);
 	pagesize = ft_match_paging(size + align - 1);
 	pageflag = ft_match_paging_flags(pagesize);
