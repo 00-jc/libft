@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 03:52:23 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/02/20 05:52:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:43:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ t_file	ft_read_file(const char *restrict const fname)
 	fd = open(fname, O_RDONLY);
 	if (fd == -1)
 		return (ft_vec_free(&buffer), (t_file){0});
-	ret = read(fd, (void *)buffer.data, BUFSIZE);
+	ret = read(fd, buffer.data, BUFSIZE);
 	while (ret > 0)
 	{
-		buffer.head += ret;
+		buffer.size += ret;
 		if (!ft_vec_reserve(&buffer, sizeof(t_u8), BUFSIZE))
 			return ((void)close(fd), (t_file){0});
-		ret = read(fd, (void *)buffer.head, BUFSIZE);
+		ret = read(fd, (t_u8 *)buffer.data + buffer.size, BUFSIZE);
 	}
+	if (ret < 0)
+		return ((void)close(fd), (t_file){0});
 	return ((t_file){.content = (t_u8 *)buffer.data,
-		.size = (t_uptr)buffer.head - (t_uptr)buffer.data,
+		.size = (t_uptr)buffer.size,
 		.fd = (t_u32)fd});
 }
 
