@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 19:04:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 06:10:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,13 @@ void			*ft_overlap(const void *restrict ptr,\
 
 t_buffer		ft_fatptr(t_blk8r mem, size_t size)\
 					__attribute__((const));
+
+void			*ft_align_fwd(void *ptr, const size_t align)\
+					__attribute__((const, __nonnull__(1),\
+					__returns_nonnull__));
+
+void			*ft_align_bkw(void *ptr, const size_t align)\
+					__attribute__((const, __nonnull__(1),\
+					__returns_nonnull__));
 
 #endif
