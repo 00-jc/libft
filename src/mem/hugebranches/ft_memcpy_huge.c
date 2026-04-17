@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 19:49:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:39:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ inline void	ft_memcpy_hugetail(void *restrict dest,
 	if (__builtin_expect(n != 0, 1))
 	{
 		i = -(1 < n) & 2;
-		((t_blk512wa)dest)[0] = ((t_blk512r)src)[0];
-		((t_blk512wa)dest)[0 < n] = ((t_blk512r)src)[0 < n];
-		((t_blk512wa)dest)[i] = ((t_blk512r)src)[i];
+		__attribute__((assume(((t_uptr)dest & 63) == 0)));
+		{
+			((t_blk512wa)dest)[0] = ((t_blk512r)src)[0];
+			((t_blk512wa)dest)[0 < n] = ((t_blk512r)src)[0 < n];
+			((t_blk512wa)dest)[i] = ((t_blk512r)src)[i];
+		}
 		*((t_blk512w)ft_overlap(dest, sizeof(t_vu512a), n)) =
 			*((t_blk512r)ft_overlap(src, sizeof(t_vu512a), n));
 	}
@@ -34,14 +37,17 @@ inline void	ft__cascade_cpy(void *restrict dest,
 	const void	*restrict const src, size_t i,
 	t_vu512a *restrict const x)
 {
-	x[0] = ((t_blk512r)src)[i + 0];
-	x[1] = ((t_blk512r)src)[i + 1];
-	x[2] = ((t_blk512r)src)[i + 2];
-	x[3] = ((t_blk512r)src)[i + 3];
-	((t_blk512wa)dest)[i + 0] = x[0];
-	((t_blk512wa)dest)[i + 1] = x[1];
-	((t_blk512wa)dest)[i + 2] = x[2];
-	((t_blk512wa)dest)[i + 3] = x[3];
+	__attribute__((assume(((t_uptr)dest & 63) == 0)));
+	{
+		x[0] = ((t_blk512r)src)[i + 0];
+		x[1] = ((t_blk512r)src)[i + 1];
+		x[2] = ((t_blk512r)src)[i + 2];
+		x[3] = ((t_blk512r)src)[i + 3];
+		((t_blk512wa)dest)[i + 0] = x[0];
+		((t_blk512wa)dest)[i + 1] = x[1];
+		((t_blk512wa)dest)[i + 2] = x[2];
+		((t_blk512wa)dest)[i + 3] = x[3];
+	}
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
