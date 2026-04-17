@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 01:39:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 02:19:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,12 @@ inline void	ft_memcpy_hugetail(void *restrict dest,
 	}
 }
 
-__attribute__((__nonnull__(1, 2), __always_inline__))
+__attribute__((__nonnull__(1, 2)))
 inline void	ft__cascade_cpy(void *restrict dest,
 	const void	*restrict const src, size_t i)
 {
 	t_vu512a	x[4];
 
-	ft_prefetchnta(src, 0);
-	ft_prefetchnta(dest, 0);
-	ft_prefetchnta(src, sizeof(t_vu512));
-	ft_prefetchnta(dest, sizeof(t_vu512));
 	x[0] = ((t_blk512r)src)[i + 0];
 	x[1] = ((t_blk512r)src)[i + 1];
 	x[2] = ((t_blk512r)src)[i + 2];
@@ -63,7 +59,7 @@ inline void	ft_memcpy_512_huge(void *restrict dest,
 	d = (t_u8 *)dest + delta;
 	sr = (const t_u8 *)src + delta;
 	n -= delta;
-	s.blks = (n - delta) >> 6;
+	s.blks = n >> 6;
 	s.i = 0;
 	while (s.i + 4 < s.blks)
 	{
