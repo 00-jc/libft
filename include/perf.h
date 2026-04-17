@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:15:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 20:52:25 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 21:51:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ typedef struct s_perf_keyval
 }	t_perf_keyval;
 
 # define HW_COUNTERS_N 6
-# define SW_COUNTERS_N 4
+# define SW_COUNTERS_N 3
 
 typedef struct s_perf_read
 {
 	t_u64a			nr;
-	t_perf_keyval	kv[10];
+	t_perf_keyval	kv[9];
 }	t_perf_read;
 
 typedef enum e_hw_counters
@@ -67,7 +67,6 @@ typedef enum e_sw_counters
 {
 	DUMMY = PERF_COUNT_SW_DUMMY,
 	ALIGNMENT = PERF_COUNT_SW_ALIGNMENT_FAULTS,
-	CLOCK = PERF_COUNT_SW_TASK_CLOCK,
 	PAGEFAULT = PERF_COUNT_SW_PAGE_FAULTS,
 }	t_sw_counters;
 
@@ -82,8 +81,8 @@ void			ft_perf_counters_start(t_perf_counters c)\
 					__attribute__((__nonnull__(1)));
 void			ft_perf_counters_stop(t_perf_counters c)\
 					__attribute__((__nonnull__(1)));
-void			ft_perf_start_sample(t_perf_counters c)\
-					__attribute__((__nonnull__(1)));
+void			ft_perf_start_sample(t_perf_counters c, t_perf_sample *s)\
+					__attribute__((__nonnull__(1, 2)));
 int				ft_perf_collect_sample(size_t n,\
 					t_perf_counters c, t_perf_sample *s)\
 					__attribute__((__nonnull__(2, 3)));
