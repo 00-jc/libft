@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:15:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 21:51:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:20:57 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ typedef struct s_perf_keyval
 }	t_perf_keyval;
 
 # define HW_COUNTERS_N 6
-# define SW_COUNTERS_N 3
+# define SW_COUNTERS_N 2
 
 typedef struct s_perf_read
 {
 	t_u64a			nr;
-	t_perf_keyval	kv[9];
+	t_perf_keyval	kv[8];
 }	t_perf_read;
 
 typedef enum e_hw_counters
@@ -65,12 +65,11 @@ typedef enum e_hw_counters
 
 typedef enum e_sw_counters
 {
-	DUMMY = PERF_COUNT_SW_DUMMY,
 	ALIGNMENT = PERF_COUNT_SW_ALIGNMENT_FAULTS,
 	PAGEFAULT = PERF_COUNT_SW_PAGE_FAULTS,
 }	t_sw_counters;
 
-typedef long	t_perf_counters[10];
+typedef long	t_perf_counters[8];
 
 int				ft_bind_process_to_cpu(t_u32 cpu);
 int				ft_perf_create_counters(t_perf_counters c)\
