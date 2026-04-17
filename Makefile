@@ -147,8 +147,8 @@ WARNS_GCC := $(WARNS_COMMON)                                                  \
 	-Wstringop-overflow=4                                                      \
 	-Wstringop-truncation
 
-CFLAGS_COMMON_OPT := -pipe -ffunction-sections -fdata-sections                 \
-	-finline-functions -fvisibility=hidden -fstack-protector-strong             \
+CFLAGS_COMMON_OPT := -D_GNU_SOURCE -pipe -ffunction-sections -fdata-sections   \
+	-finline-functions -fvisibility=hidden -fstack-protector-strong            \
 	-fcf-protection=full -ftrivial-auto-var-init=zero -fno-common              \
 	-fstack-clash-protection -g3 -DFT_NTHREADS=$(MAXTHREADS)
  
@@ -375,8 +375,19 @@ SRCS_TOK := \
 	src/tokenizer/ft_tokenizer.c \
 	src/tokenizer/ft_eat_while.c
 
+SRCS_TIME := \
+	src/time/ft_get_nanos.c
+
+SRCS_PERF := \
+	src/perf/ft_perf_create_counters.c \
+	src/perf/ft_bind_process_to_cpu.c \
+	src/perf/ft_get_flag_groups.c \
+	src/perf/ft_perf_counter_interface.c \
+	src/perf/ft_perf_destroy_counters.c \
+	src/perf/ft_perf_sampling.c
+
 # ── Aggregate ─────────────────────────────────────────────────────────────────
-MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL
+MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL TIME PERF
 
 SRCS := $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))

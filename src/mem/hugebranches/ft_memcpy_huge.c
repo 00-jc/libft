@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 10:09:41 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:49:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ inline void	ft_memcpy_hugetail(void *restrict dest,
 __attribute__((__nonnull__(1, 2, 4)))
 inline void	ft__cascade_cpy(void *restrict dest,
 	const void	*restrict const src, size_t i,
-	t_vu512a * restrict const x)
+	t_vu512a *restrict const x)
 {
 	x[0] = ((t_blk512r)src)[i + 0];
 	x[1] = ((t_blk512r)src)[i + 1];

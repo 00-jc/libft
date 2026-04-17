@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lft.h                                              :+:      :+:    :+:   */
+/*   timing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 19:51:35 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/17 15:02:04 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/17 19:50:10 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LFT_H
-# define LFT_H
+#ifndef TIMING_H
+# define TIMING_H
 
+# include <time.h>
 # include "types.h"
-# include "cstr.h"
-# include "mem.h"
-# include "hash.h"
-# include "math.h"
-# include "ctype.h"
-# include "io.h"
-# include "put.h"
-# include "conv.h"
-# include "vec.h"
-# include "map.h"
-# include "macros.h"
-# include "tokenizer.h"
-# include "hint.h"
-# include "time.h"
-# include "perf.h"
+
+t_u64a		ft_get_nanos(void);
 
 #endif

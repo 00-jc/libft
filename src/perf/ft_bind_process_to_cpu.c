@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lft.h                                              :+:      :+:    :+:   */
+/*   ft_bind_process_to_cpu.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 19:51:35 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/17 15:17:04 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/17 20:52:28 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LFT_H
-# define LFT_H
+#include "perf.h"
 
-# include "types.h"
-# include "cstr.h"
-# include "mem.h"
-# include "hash.h"
-# include "math.h"
-# include "ctype.h"
-# include "io.h"
-# include "put.h"
-# include "conv.h"
-# include "vec.h"
-# include "map.h"
-# include "macros.h"
-# include "tokenizer.h"
-# include "hint.h"
-# include "time.h"
-# include "perf.h"
+int	ft_bind_process_to_cpu(t_u32 cpu)
+{
+	pid_t		pid;
+	cpu_set_t	set;
 
-#endif
+	pid = getpid();
+	CPU_ZERO(&set);
+	CPU_SET(cpu, &set);
+	if (sched_setaffinity(pid, sizeof(set), &set) == -1)
+		return (0);
+	return (1);
+}

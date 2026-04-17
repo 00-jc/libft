@@ -1,0 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_flag_groups.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/17 17:22:34 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/17 20:49:16 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "private/ft_p_perf.h"
+
+__attribute__((__always_inline__, const))
+inline const t_hw_counters	*get_hw_counters(void)
+{
+	static const t_hw_counters	counters[] = {
+		CYCLES, INSTR, CACHEHITLL, CACHEMISS,
+		BRANCH, BRANCHMISS,
+	};
+
+	return (counters);
+}
+
+__attribute__((__always_inline__, const))
+inline const t_sw_counters	*get_sw_counters(void)
+{
+	static const t_sw_counters	counters[] = {
+		DUMMY, ALIGNMENT, CLOCK, PAGEFAULT
+	};
+
+	return (counters);
+}
