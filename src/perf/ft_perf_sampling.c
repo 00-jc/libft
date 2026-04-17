@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:34:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 21:54:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:23:24 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	ft_perf_collect_sample(size_t n,
 	}
 	s->n = n;
 	s->ns = t - s->ns;
-	s->alignment_faults = v[1];
-	s->page_faults = v[2];
-	s->cycles = v[3];
-	s->instr = v[4];
-	s->cache_ll = v[5];
-	s->cache_miss = v[6];
-	s->branches = v[7];
-	s->branch_miss = v[8];
+	s->alignment_faults = v[0];
+	s->page_faults = v[1];
+	s->cycles = v[2];
+	s->instr = v[3];
+	s->cache_ll = v[4];
+	s->cache_miss = v[5];
+	s->branches = v[6];
+	s->branch_miss = v[7];
 	return (1);
 }
