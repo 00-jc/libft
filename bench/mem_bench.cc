@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 21:47:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 02:45:16 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:53:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,8 @@ static void libc_memmove_bwd(benchmark::State &state)
 }
 
 #define MEM_SIZES                         \
-    ->Arg(8)->Arg(16)->Arg(32)->Arg(64)   \
+    ->Arg(1)->Arg(2)->Arg(4)->Arg(8)	  \
+	->Arg(16)->Arg(32)->Arg(64)			  \
     ->Arg(128)->Arg(256)->Arg(512)        \
     ->Arg(1024)->Arg(2048)->Arg(4096)     \
     ->Arg(8192)->Arg(16384)->Arg(32768)   \
