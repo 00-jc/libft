@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 21:47:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/13 01:51:20 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 02:45:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static uint8_t *alloc_buf(uint8_t fill)
 {
     void *raw = nullptr;
     (void)posix_memalign(&raw, ALIGN, BUF_SIZE);
+	benchmark::DoNotOptimize(raw);
     memset(raw, fill, BUF_SIZE);
     return (uint8_t *)raw;
 }
@@ -57,6 +58,7 @@ static inline size_t get_offset(benchmark::State &state)
 static void ft_memcpy_unaligned(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state);
@@ -72,6 +74,7 @@ static void ft_memcpy_unaligned(benchmark::State &state)
 static void libc_memcpy_unaligned(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state);
@@ -87,6 +90,7 @@ static void libc_memcpy_unaligned(benchmark::State &state)
 static void ft_memcpy_aligned(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state) & ~(size_t)63;
@@ -102,6 +106,7 @@ static void ft_memcpy_aligned(benchmark::State &state)
 static void libc_memcpy_aligned(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state) & ~(size_t)63;
@@ -117,6 +122,7 @@ static void libc_memcpy_aligned(benchmark::State &state)
 static void ft_memset_bench(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state);
@@ -131,6 +137,7 @@ static void ft_memset_bench(benchmark::State &state)
 static void libc_memset_bench(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state);
@@ -145,6 +152,7 @@ static void libc_memset_bench(benchmark::State &state)
 static void ft_bzero_bench(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state);
@@ -159,6 +167,7 @@ static void ft_bzero_bench(benchmark::State &state)
 static void libc_bzero_bench(benchmark::State &state)
 {
     size_t n = state.range(0);
+	benchmark::DoNotOptimize(n);
     for (auto _ : state)
     {
         size_t   off = get_offset(state);
