@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 21:35:17 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 02:24:45 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/17 02:54:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ inline void	ft_memcpy_naive(void *restrict dest,
 	((t_blk8w)dest)[i[2]] = ((t_blk8r)src)[i[2]];
 	((t_blk8w)dest)[i[3]] = ((t_blk8r)src)[i[3]];
 	((t_blk8w)dest)[i[4]] = ((t_blk8r)src)[i[4]];
-	((t_blk8w)dest)[i[5]] = ((t_blk8r)src)[i[5]];
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
