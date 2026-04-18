@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:02:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/18 01:52:56 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/18 20:18:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ inline t_u64a	ft_get_nanos(void)
 	if (__builtin_expect(hz == 0, 0))
 		hz = ft_get_hz();
 	__asm__ volatile ("rdtscp" : "=a"(lo), "=d"(hi), "=c"(aux));
-	lane = (t_u64a)(((t_u64a)hi << 32) | lo) * 1000000000;
-	return ((t_u64a)lane / hz);
+	lane = (((t_u64a)hi << 32) | lo) * 1000000000;
+	return (lane / hz);
 }
 
 #else

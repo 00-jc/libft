@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:49:27 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 21:32:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/18 20:13:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static inline struct perf_event_attr	ft__getattr(t_u32a type, long conf)
 	struct perf_event_attr	attr;
 
 	ft_memset(&attr, 0, sizeof(attr));
+	attr.read_format = PERF_FORMAT_TOTAL_TIME_ENABLED
+		| PERF_FORMAT_TOTAL_TIME_RUNNING;
 	attr.type = type;
 	attr.inherit = 1;
 	attr.inherit_thread = 1;

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:15:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 22:20:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/18 19:45:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <sched.h>
 # include <unistd.h>
 # include "types.h"
+# include <linux/prctl.h>
+# include <sys/prctl.h>
 # include <sys/ioctl.h>
 # include "mem.h"
 # include "timing.h"

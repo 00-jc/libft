@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_p_perf.h                                        :+:      :+:    :+:   */
+/*   tailor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 17:23:23 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/18 20:09:22 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/18 19:32:06 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/18 19:35:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_P_PERF_H
-# define FT_P_PERF_H
+#ifndef TAILOR_H
+# define TAILOR_H
 
 # include "perf.h"
+# include "alloc.h"
+# include "mem.h"
 
-typedef struct s_perf_timing
+typedef void	(*t_tailor_fn)(void *);
+
+typedef struct s_tailor
 {
-	t_u64	val;
-	t_u64	enabled;
-	t_u64	running;
-}	t_perf_timing;
-
-const t_hw_counters		*get_hw_counters(void)\
-							__attribute__((const));
-
-const t_sw_counters		*get_sw_counters(void)\
-							__attribute__((const));
+	t_arena				arena;
+	t_tailor_fn			fns;
+	size_t				n_fns;
+	t_perf_counters		counters;
+}	t_tailor;
 
 #endif
