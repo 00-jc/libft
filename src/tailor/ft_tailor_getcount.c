@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_p_hash.h                                        :+:      :+:    :+:   */
+/*   ft_tailor_getcount.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/19 16:36:28 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/19 03:18:52 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/19 03:23:46 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_P_HASH_H
-# define FT_P_HASH_H
+#include "tailor.h"
 
-# include "mem.h"
-# include "hash.h"
+__attribute__((pure, __nonnull__(1)))
+size_t	ft_tailor_getcount(const void *ptr)
+{
+	t_tailor_arg	*arg;
 
-t_u64a	rotl(t_u64a x, size_t r)\
-			__attribute__((const));
-
-t_u64a	fmix64(t_u64a k)\
-			__attribute__((const));
-
-#endif
+	arg = (t_tailor_arg *)ptr;
+	return (arg->iters);
+}

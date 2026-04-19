@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_p_hash.h                                        :+:      :+:    :+:   */
+/*   ft_tailor_top.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/19 16:36:28 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/20 00:29:02 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/20 00:32:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_P_HASH_H
-# define FT_P_HASH_H
+#include "private/ft_p_tailor.h"
 
-# include "mem.h"
-# include "hash.h"
+__attribute__((__nonnull__(1, 2)))
+int	ft_tailor_bench(t_tailor *t, t_tailor_bench benches[], size_t size)
+{
+	size_t	i;
 
-t_u64a	rotl(t_u64a x, size_t r)\
-			__attribute__((const));
-
-t_u64a	fmix64(t_u64a k)\
-			__attribute__((const));
-
-#endif
+	i = 0;
+	while (i < size)
+	{
+		if (!ft_tailor_benchfn(t, benches[i].fn, benches[i].name))
+			return (0);
+		++i;
+	}
+	return (1);
+}

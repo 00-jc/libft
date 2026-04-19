@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_p_hash.h                                        :+:      :+:    :+:   */
+/*   ft_qsort_u64s.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/19 16:36:28 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/04/19 22:46:11 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/20 01:29:43 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_P_HASH_H
-# define FT_P_HASH_H
+#include "sort.h"
 
-# include "mem.h"
-# include "hash.h"
+__attribute__((__nonnull__(1, 2), pure))
+int	ft_cmp_u64(const void *a, const void *b)
+{
+	t_u64a	x;
+	t_u64a	y;
 
-t_u64a	rotl(t_u64a x, size_t r)\
-			__attribute__((const));
-
-t_u64a	fmix64(t_u64a k)\
-			__attribute__((const));
-
-#endif
+	x = *(t_blk64r)a;
+	y = *(t_blk64r)b;
+	return ((x > y) - (x < y));
+}

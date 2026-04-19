@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:34:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/18 20:47:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/19 20:21:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ __attribute__((__nonnull__(1, 2)))
 void	ft_perf_start_sample(t_perf_counters c, t_perf_sample *t)
 {
 	ft_perf_counters_reset(c);
-	ft_perf_counters_start(c);
 	t->ns = ft_get_nanos();
+	ft_perf_counters_start(c);
 }
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
@@ -55,8 +55,8 @@ int	ft_perf_collect_sample(size_t n,
 	t_u64a	v[SW_COUNTERS_N + HW_COUNTERS_N];
 	t_u64a	t;
 
-	t = ft_get_nanos();
 	ft_perf_counters_stop(c);
+	t = ft_get_nanos();
 	if (__builtin_expect(ft__get_sample_plexed(c, v) == 0, 0))
 		return (0);
 	s->n = n;

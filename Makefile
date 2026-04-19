@@ -331,6 +331,7 @@ SRCS_BMI := \
 	src/bmi/ft_rollmask.c \
 	src/bmi/ft_memctz.c \
 	src/bmi/ft_memclz.c \
+	src/bmi/ft_tern.c \
 	src/bmi/__maxs.c \
 	src/bmi/__max.c \
 	src/bmi/__hasz.c
@@ -378,6 +379,9 @@ SRCS_TOK := \
 SRCS_TIME := \
 	src/time/ft_get_nanos.c
 
+SRCS_RNG := \
+	src/rng/ft_xoshiro256ss.c
+
 SRCS_PERF := \
 	src/perf/ft_perf_create_counters.c \
 	src/perf/ft_bind_process_to_cpu.c \
@@ -386,8 +390,23 @@ SRCS_PERF := \
 	src/perf/ft_perf_destroy_counters.c \
 	src/perf/ft_perf_sampling.c
 
+SRCS_SORT := \
+	src/sort/ft_qsort.c \
+	src/sort/ft_qsort_u64s.c
+
+SRCS_TAILOR := \
+	src/tailor/ft_tailor_resample.c \
+	src/tailor/ft_tailor_fuzz.c \
+	src/tailor/ft_tailor_get_rand_buffer.c \
+	src/tailor/ft_tailor_new.c \
+	src/tailor/ft_tailor_calibration.c \
+	src/tailor/ft_tailor_summary.c \
+	src/tailor/ft_tailor_run.c \
+	src/tailor/ft_tailor_getcount.c \
+	src/tailor/ft_tailor_top.c
+
 # ── Aggregate ─────────────────────────────────────────────────────────────────
-MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL TIME PERF
+MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL TIME PERF RNG TAILOR SORT
 
 SRCS := $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))

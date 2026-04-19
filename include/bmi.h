@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:02:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/12 16:56:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/19 00:54:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ t_u64a			ft_to_be64(t_u64a x)\
 size_t			ft_roll_mask(size_t chunk_size, size_t n)\
 					__attribute__((const));
 t_u64a			ft_rotl64(t_u64a hash, size_t n)\
+					__attribute__((const));
+
+t_u64a			ft_tern(t_u64a cond, t_u64a value1,\
+					t_u64a value2)\
+					__attribute__((const));
+
+double			ft_dtern(t_u64a cond, double value1,\
+					double value2)\
 					__attribute__((const));
 
 #endif

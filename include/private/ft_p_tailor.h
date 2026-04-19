@@ -1,0 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_p_tailor.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/18 21:51:49 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/04/20 00:42:47 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FT_P_TAILOR_H
+# define FT_P_TAILOR_H
+
+# include "tailor.h"
+# include "sort.h"
+
+typedef struct s_datapoint
+{
+	size_t		n;
+	size_t		iters;
+	double		mu;
+	double		m2;
+	double		min;
+	double		max;
+}	t_datapoint;
+
+typedef struct s_tailor_calib
+{
+	t_datapoint		dp;
+	size_t			inner;
+	t_u64a			cold;
+}	t_tailor_calib;
+
+typedef struct s_phase1
+{
+	t_u64a	sum;
+	t_u64a	n;
+	t_u64a	iters;
+	t_u64a	cap;
+}	t_phase1;
+
+typedef struct s_plankb
+{
+	t_u64a		b;
+	t_u64a		k;
+	t_u64a		k_runs;
+	t_datapoint	dp;
+}	t_plankb;
+
+# ifndef TAILOR_MAX
+#  define TAILOR_MAX 8388608
+# endif
+
+# define K_REL_CI 0.01
+# define K_WARMUP 3
+
+typedef struct s_perf_sample_mean
+{
+	double			ns;
+	double			n;
+	double			cache_ll;
+	double			cache_miss;
+	double			cycles;
+	double			instr;
+	double			branches;
+	double			branch_miss;
+	double			alignment_faults;
+	double			page_faults;
+}	t_perf_sample_mean;
+
+t_plankb		ft_get_kb(t_tailor *t, t_tailor_fn fn)\
+					__attribute__((__nonnull__(1, 2)));
+
+int				ft_bootstrap(t_tailor *t, t_buffer surv, t_plankb plan,\
+					t_blk8r name) __attribute__((__nonnull__(1)));
+
+void			ft_print_summary(t_buffer surv, t_plankb plan, t_blk8r name,\
+					t_u64a data[4])\
+					__attribute__((__nonnull__(3, 4)));
+
+int				ft_tailor_benchfn(t_tailor *t, t_tailor_fn fn, t_blk8r name)\
+					__attribute__((__nonnull__(1)));
+
+#endif

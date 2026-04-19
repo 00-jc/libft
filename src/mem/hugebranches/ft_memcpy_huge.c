@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 22:43:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/19 15:15:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ inline void	ft_memcpy_512_huge(void *restrict dest,
 	d = (t_u8 *)dest + delta;
 	sr = (const t_u8 *)src + delta;
 	n -= delta;
-	s.blks = n >> 6;
+	s.blks = (n >> 6);
 	s.i = 0;
 	while (s.i + 4 < s.blks)
 	{
