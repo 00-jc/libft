@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 00:24:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 01:37:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 01:50:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "private/ft_p_tailor.h"
@@ -57,7 +57,7 @@ static void	ft_print_body(t_perf_sample sum, t_v8da v8d, t_plankb plan,
 		"  branch miss  = %f%%					(%f/%f per_call)\n"
 		"  align faults = %f per_call\n"
 		"  page  faults = %f per_call\n"
-		"  iters        = %lu\n",
+		"  total_iters  = %lu\n",
 		name, v8d[0], v8d[1],
 		ft_dtern(sum.cycles != 0,
 			(double)sum.instr / (double)sum.cycles, 0.0),
@@ -82,7 +82,9 @@ void	ft_print_summary(t_buffer surv, t_plankb plan, t_blk8r name,
 	ft_percall(&sum, &v8d, (double)(surv.size * plan.dp.iters));
 	it = plan.dp.iters;
 	ft_print_body(sum, v8d, plan, name);
-	ft_printf("  med          = %luns [%lu, %lu] min=%luns\n",
+	ft_printf("  med          = %luns [%lu, %lu] min=%luns\n"
+		"  relevant     = %lu samples (burst of=%lu iters)\n",
 		data[0] / it, data[2] / it,
-		data[3] / it, data[1] / it);
+		data[3] / it, data[1] / it,
+		surv.size, plan.dp.iters);
 }
