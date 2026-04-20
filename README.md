@@ -9,7 +9,7 @@ Build:
     make base     # no opts
     make test     # run tests
     make analyze  # static analysis + tests
-    make bench    # runs the benchmarks (C++)
+    make bench    # runs the benchmarks (self-hosted)
 
     make clean
     make fclean
@@ -22,5 +22,5 @@ Notes:
 - Linux only
 - Targets Norminette >3.3.59
 - Uses -march=native by default
-- Uses google benchmark for the bench target
+- Uses src/tailor/ for the bench target
 ```
