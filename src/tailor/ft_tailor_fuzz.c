@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 03:40:48 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/19 04:04:54 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:48:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline void	*ft__handle_alignment_alloc(t_tailor *t, size_t size,
 	return (tmp);
 }
 
-__attribute__((__nonnull__(1, 2)))
+__attribute__((__nonnull__(1, 2, 3)))
 int	ft_tailor_buffers(t_tailor *t, size_t *sizes, t_u8 *alignment, size_t n)
 {
 	size_t				i;
