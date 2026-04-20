@@ -406,6 +406,13 @@ SRCS_TAILOR := \
 	src/tailor/ft_tailor_getcount.c \
 	src/tailor/ft_tailor_top.c
 
+SRCS_BENCH := \
+	bench/memcpy/memcpy_bench_large.c \
+	bench/memcpy/memcpy_bench_varied.c \
+	bench/memcpy/memcpy_bench_medium.c \
+	bench/memcpy/memcpy_bench_short.c \
+	bench/memcpy/memcpy_bench.c
+
 # ── Aggregate ─────────────────────────────────────────────────────────────────
 MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL TIME PERF RNG TAILOR SORT
 
@@ -445,15 +452,15 @@ re: fclean all
 
 # ── Static analysis ─────────────────────────────────────────────────────────
 static_analysis:
-	$(SCANNER) $(CC_CLANG) $(WARNS_CLANG) $(CFLAGS_OPT) $(MARCH) $(INCLUDES) \
+	@$(SCANNER) $(CC_CLANG) $(WARNS_CLANG) $(CFLAGS_OPT) $(MARCH) $(INCLUDES) \
 		-Xclang -analyzer-output=text --analyze $(SRCS)
-	$(SCANNER) $(CC_CLANG) $(WARNS_CLANG) $(CFLAGS_OPT) $(INCLUDES) \
+	@$(SCANNER) $(CC_CLANG) $(WARNS_CLANG) $(CFLAGS_OPT) $(INCLUDES) \
 		-Xclang -analyzer-output=text --analyze $(SRCS)
-	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_OPT) $(MARCH) $(INCLUDES) \
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_OPT) $(MARCH) $(INCLUDES) \
 		-fanalyzer $(SRCS) -c && rm -f *.o
-	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_OPT) $(INCLUDES) \
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_OPT) $(INCLUDES) \
 		-fanalyzer $(SRCS) -c && rm -f *.o
-	norminette
+	@norminette
 
 # ── Tests ────────────────────────────────────────────────────────────────────
 #  Each test_* target does a full rebuild with its own flags via recursive make,
@@ -483,11 +490,11 @@ _TLIB   := libft_test_tmp.a
 
 $(_TBDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(_TFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(_TFLAGS) $(INCLUDES) -c $< -o $@
 
 _run_tests: $(_TOBJS)
-	$(AR) $(_TLIB) $(_TOBJS)
-	$(RANLIB) $(_TLIB)
+	@$(AR) $(_TLIB) $(_TOBJS)
+	@$(RANLIB) $(_TLIB)
 	@echo "── Testing [$(CC)$(if $(_TMARCH), +march,)] ──"
 	@$(foreach t,$(TEST_SRCS), \
 		$(CC) $(_TFLAGS) $(SANITIZE) $(INCLUDES) \
@@ -499,50 +506,33 @@ _run_tests: $(_TOBJS)
 
 analyze: all static_analysis test
 
-# ── Benchmarks ───────────────────────────────────────────────────────────────
- 
-BENCH_DIR      := bench
-BENCH_SRCS     := $(wildcard $(BENCH_DIR)/*.cc)
-BENCH_BINS     := $(patsubst %.cc,%,$(BENCH_SRCS))
- 
-BENCH_LIBS     := -lbenchmark -lbenchmark_main -lpthread
-BENCH_CXX      := $(if $(findstring clang,$(CC_ID)),clang++,g++)
-BENCH_FLAGS    := -std=c++20 -O3 -flto -march=native -DNDEBUG
- 
-BENCH_ARGS ?= --benchmark_report_aggregates_only=true \
-              --benchmark_color=true
- 
-BENCH_PIN ?= taskset -c 0
- 
-bench_lib:
-	@$(MAKE) --no-print-directory fclean
-	@$(MAKE) --no-print-directory CFLAGS="$(MARCH) $(CFLAGS_OPT) $(WARNS)"
- 
-$(BENCH_DIR)/%: $(BENCH_DIR)/%.cc $(NAME)
-	@mkdir -p $(OBJDIR)/$(BENCH_DIR)
-	$(BENCH_CXX) $(BENCH_FLAGS) $< $(NAME) $(BENCH_LIBS) -o $(OBJDIR)/$@
- 
-bench_build: bench_lib $(BENCH_BINS)
- 
-bench: bench_build
-	@echo "── Running benchmarks ──"
-	@for b in $(OBJDIR)/$(BENCH_DIR)/*; do \
-		echo "\n>>> $$b"; \
-		$(BENCH_PIN) $$b $(BENCH_ARGS); \
+# ── Bench config ──────────────────────────────────────────────────────────────
+BENCH_NAMES := $(filter-out include,$(notdir $(patsubst %/,%,$(wildcard bench/*/))))
+BBDIR       := build/bench
+BMARCH      ?= $(MARCH)
+BFLAGS       = $(BMARCH) $(CFLAGS_OPT) $(WARNS)
+BINCS       := $(INCLUDES) -Ibench/include
+
+bench: bench_clang bench_clang_no_march
+
+bench_clang:
+	$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="$(MARCH)" BTAG="+march"
+
+bench_clang_no_march:
+	$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="" BTAG="no-march"
+
+_run_bench: fclean $(NAME)
+	@mkdir -p $(BBDIR)
+	@echo "── Running benchmarks [$(CC) $(BTAG)] ──"
+	@set -e; for b in $(BENCH_NAMES); do \
+		echo "▶ $$b"; \
+		$(CC) $(BFLAGS) $(BINCS) bench/$$b/*.c $(NAME) -o $(BBDIR)/$${b}_bench; \
+		$(BENCH_PIN) $(BBDIR)/$${b}_bench $(BENCH_ARGS); \
+		rm -f $(BBDIR)/$${b}_bench; \
 	done
-	@rm -f $(BENCH_BINS)
- 
-bench_json: bench_build
-	@mkdir -p bench/results
-	@for b in $(BENCH_BINS); do \
-		out=bench/results/$$(basename $$b).json; \
-		echo "Saving $$out"; \
-		$(BENCH_PIN) $$b $(BENCH_ARGS) \
-			--benchmark_out=$$out \
-			--benchmark_out_format=json; \
-	done
-	@rm -f $(BENCH_BINS)
+	@rm -rf $(BBDIR)
+	@echo "Benchmarks complete!"
 
 .PHONY: all base bonus clean fclean re \
         static_analysis analyze test test_clang test_clang_no_march _run_tests \
-        bench bench_build
+        bench bench_clang bench_clang_no_march _run_bench
