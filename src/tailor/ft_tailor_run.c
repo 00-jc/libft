@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:41:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 11:14:54 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:38:59 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline t_buffer	ft_tailor_runfn(t_tailor *t, t_tailor_fn fn,
 	if (!samples)
 		return (ft_arena_rewind(&t->arena, t->rpoint), (t_buffer){0, 0});
 	i = 0;
-	((void)ft_xoshiro_init(arg.xoshiro), (void)(arg.buffers = t->rand_buffers));
+	(ft_xoshiro_init(arg.xoshiro), (void)(arg.buffers = t->rand_buffers));
 	plan.dp.bytes_processed = 0;
 	arg.iters = plan.dp.iters;
 	while (i < plan.k_runs)
