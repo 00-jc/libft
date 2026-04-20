@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 00:24:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 12:24:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 12:24:41 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "private/ft_p_tailor.h"
@@ -89,7 +89,7 @@ void	ft_print_summary(t_buffer surv, t_plankb plan, t_blk8r name,
 	ft_print_tail(sum, plan);
 	ft_printf("  total_iters  = %lu\n"
 		"  med          = %luns [%lu, %lu] min=%luns\n"
-		"  relevant     = %lu samples (burst of=%lu iters)\n",
+		"  relevant     = %lu samples (burst of=%lu iters)\n"
 		"  resamples    = %lu bootstrap_runs\n",
 		total_iters,
 		data[0] / it, data[2] / it, data[3] / it, data[1] / it,
