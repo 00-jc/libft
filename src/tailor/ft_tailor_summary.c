@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 00:24:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 18:44:18 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 18:53:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "private/ft_p_tailor.h"
@@ -44,7 +44,7 @@ static void	ft_print_head(t_perf_sample sum, t_plankb plan, t_blk8r name,
 
 	bps = ft_dtern(sum.ns != 0,
 			(double)plan.dp.bytes_processed / (double)sum.ns * 1e9, 0.0) / 1e9;
-	ft_printf(ANSI_BCYAN">> %s"ANSI_RESET"\n"
+	ft_printf(ANSI_BCYAN" * %s"ANSI_RESET"\n"
 		" ├─ time         = %f ns per_call\n"
 		" ├─ ipc          = %f\n"
 		" ├─ GB/sec       = %f\n"
