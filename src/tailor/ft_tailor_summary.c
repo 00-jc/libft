@@ -6,13 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 00:24:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 11:21:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:35:48 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "private/ft_p_tailor.h"
 #include "io.h"
 #include "bmi.h"
-#include "private/ft_p_math.h"
 
 __attribute__((__nonnull__(1, 2), __always_inline__))
 static inline void	ft_sum_counters(t_perf_sample *src, t_perf_sample *sum,
