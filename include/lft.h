@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/17 19:51:35 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/21 01:22:26 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 # include "hint.h"
 # include "time.h"
 # include "perf.h"
+# include "tailor.h"
 
 #endif
