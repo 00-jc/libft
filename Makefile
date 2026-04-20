@@ -430,15 +430,15 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
-	$(RANLIB) $@
+	@$(AR) $@ $^
+	@$(RANLIB) $@
 
 # ── Convenience ──────────────────────────────────────────────────────────────
 base:
-	$(MAKE) fclean all CFLAGS="$(CFLAGS_NOOPT) $(WARNS)"
+	@$(MAKE) fclean all CFLAGS="$(CFLAGS_NOOPT) $(WARNS)"
 
 bonus: all
 
@@ -516,10 +516,10 @@ BINCS       := $(INCLUDES) -Ibench/include
 bench: bench_clang bench_clang_no_march
 
 bench_clang:
-	$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="$(MARCH)" BTAG="+march"
+	@$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="$(MARCH)" BTAG="+march"
 
 bench_clang_no_march:
-	$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="" BTAG="no-march"
+	@$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="" BTAG="no-march"
 
 _run_bench: fclean $(NAME)
 	@mkdir -p $(BBDIR)
