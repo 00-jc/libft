@@ -508,7 +508,7 @@ analyze: all static_analysis test
 
 # ── Bench config ──────────────────────────────────────────────────────────────
 BENCH_NAMES := $(filter-out include,$(notdir $(patsubst %/,%,$(wildcard bench/*/))))
-BBDIR       := build/bench
+BBDIR       := $(OBJDIR)/bench/bin
 BMARCH      ?= $(MARCH)
 BFLAGS       = $(BMARCH) $(CFLAGS_OPT) $(WARNS)
 BINCS       := $(INCLUDES) -Ibench/include
@@ -525,9 +525,7 @@ _run_bench: fclean $(NAME)
 		echo "▶ $$b"; \
 		$(CC) $(BFLAGS) $(BINCS) bench/$$b/*.c $(NAME) -o $(BBDIR)/$${b}_bench; \
 		$(BENCH_PIN) $(BBDIR)/$${b}_bench $(BENCH_ARGS); \
-		rm -f $(BBDIR)/$${b}_bench; \
 	done
-	@rm -rf $(BBDIR)
 	@echo "Benchmarks complete!"
 
 .PHONY: all base bonus clean fclean re \
