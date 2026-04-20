@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memset_bench_large.c                               :::      ::::::::   */
-/*                                                    mars:         +:      */
+/*   memset_bench_large.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#    +:+     +#          */
-/*                                                +#++#+#++#+   +#++#++#++#  */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:22:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 16:44:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 18:51:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_memset_test_large_aligned(void *ptr)
 
 	n = ft_tailor_getcount(ptr);
 	buffers = ft_get_all_buffers(ptr, bufn);
-	buffers += 22;
+	buffers += 26;
 	bufn[0] = 2;
 	ft_pin_invariant_msg(buffers != NULL, (char *)"NO BUFFERS");
 	bufn[2] = 0;
@@ -47,7 +47,7 @@ void	ft_memset_test_large_unaligned(void *ptr)
 
 	n = ft_tailor_getcount(ptr);
 	buffers = ft_get_all_buffers(ptr, bufn);
-	buffers += 12;
+	buffers += 26;
 	bufn[0] = 2;
 	ft_pin_invariant_msg(buffers != NULL, (char *)"NO BUFFERS");
 	bufn[2] = 0;

@@ -513,13 +513,10 @@ BMARCH      ?= $(MARCH)
 BFLAGS       = $(BMARCH) $(CFLAGS_OPT) $(WARNS)
 BINCS       := $(INCLUDES) -Ibench/include
 
-bench: bench_clang bench_clang_no_march
+bench: bench_clang
 
 bench_clang:
 	@$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="$(MARCH)" BTAG="+march"
-
-bench_clang_no_march:
-	@$(MAKE) --no-print-directory _run_bench CC=$(CC_CLANG) BMARCH="" BTAG="no-march"
 
 _run_bench: fclean $(NAME)
 	@mkdir -p $(BBDIR)
