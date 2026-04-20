@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 00:41:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 01:40:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 10:46:12 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static inline t_datapoint	ft_tailor_calibrate_welford(t_tailor *t,
 	double			fpv[3];
 	t_tailor_arg	arg;
 
-	dp = (t_datapoint){0, 0, 0, 0, DBL_MAX, 0};
+	dp = (t_datapoint){0, 0, 0, 0, 0, DBL_MAX, 0};
 	p1 = ft_tailor_calibrate_mu(t, fn);
 	ft_xoshiro_init(arg.xoshiro);
 	arg.buffers = t->rand_buffers;

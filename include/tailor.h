@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 19:32:06 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 01:22:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 10:42:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_tailor_arg
 	size_t		iters;
 	t_buffer	buffers;
 	t_xoshiro	xoshiro;
+	size_t		bytes_processed;
 }	t_tailor_arg;
 
 typedef struct s_tailor
@@ -67,4 +68,7 @@ void		ft_tailor_destroy(t_tailor *t)\
 
 t_buffer	*ft_get_all_buffers(const void *ptr, size_t *n)\
 				__attribute__((__nonnull__(1)));
+
+void		ft_tailor_add_processed_bytes(void *ptr, const size_t bytes)\
+				__attribute__((__nonnull__(1), __always_inline__));
 #endif

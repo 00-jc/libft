@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:51:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 00:42:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 10:35:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_datapoint
 {
 	size_t		n;
 	size_t		iters;
+	size_t		bytes_processed;
 	double		mu;
 	double		m2;
 	double		min;
@@ -55,20 +56,6 @@ typedef struct s_plankb
 
 # define K_REL_CI 0.01
 # define K_WARMUP 3
-
-typedef struct s_perf_sample_mean
-{
-	double			ns;
-	double			n;
-	double			cache_ll;
-	double			cache_miss;
-	double			cycles;
-	double			instr;
-	double			branches;
-	double			branch_miss;
-	double			alignment_faults;
-	double			page_faults;
-}	t_perf_sample_mean;
 
 t_plankb		ft_get_kb(t_tailor *t, t_tailor_fn fn)\
 					__attribute__((__nonnull__(1, 2)));

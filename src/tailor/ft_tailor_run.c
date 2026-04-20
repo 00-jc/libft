@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:41:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/20 01:24:49 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:14:54 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@ static inline t_buffer	ft_tailor_runfn(t_tailor *t, t_tailor_fn fn,
 	t_perf_sample	s;
 
 	plan = ft_get_kb(t, fn);
-	*oplan = plan;
 	t->rpoint = ft_arena_checkpoint(&t->arena);
 	samples = ft_arena_alloc(&t->arena, sizeof(*samples) * plan.k_runs, 64);
 	if (!samples)
 		return (ft_arena_rewind(&t->arena, t->rpoint), (t_buffer){0, 0});
 	i = 0;
-	arg.buffers = t->rand_buffers;
-	ft_xoshiro_init(arg.xoshiro);
+	((void)ft_xoshiro_init(arg.xoshiro), (void)(arg.buffers = t->rand_buffers));
+	plan.dp.bytes_processed = 0;
 	arg.iters = plan.dp.iters;
 	while (i < plan.k_runs)
 	{
 		(ft_perf_start_sample(t->counters, &s), fn(&arg));
-		if (__builtin_expect(!ft_perf_collect_sample(arg.iters, t->counters, &s)
-				, 0))
+		if (!ft_perf_collect_sample(arg.iters, t->counters, &s))
 			return (ft_arena_rewind(&t->arena, t->rpoint), (t_buffer){0, 0});
 		samples[i++] = s;
 	}
+	plan.dp.bytes_processed = arg.bytes_processed;
+	*oplan = plan;
 	return (ft_fatptr((void *)samples, plan.k_runs));
 }
 

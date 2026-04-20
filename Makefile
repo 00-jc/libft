@@ -401,6 +401,7 @@ SRCS_TAILOR := \
 	src/tailor/ft_tailor_new.c \
 	src/tailor/ft_tailor_calibration.c \
 	src/tailor/ft_tailor_summary.c \
+	src/tailor/ft_tailor_bytes.c \
 	src/tailor/ft_tailor_run.c \
 	src/tailor/ft_tailor_getcount.c \
 	src/tailor/ft_tailor_top.c
