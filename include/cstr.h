@@ -24,7 +24,7 @@ int				ft_tolower(int c);
 
 int				ft_toupper(int c);
 
-size_t			ft_strlen(const char *restrict str)\
+size_t			ft_strlen(const char *__restrict__ str)\
 					__attribute__((__nonnull__(1)));
 
 char			*ft_strdup(const char *str)\
@@ -73,7 +73,7 @@ char			**ft_split(const char *str, char set)\
 int				ft_strcmp(const char *a, const char *b)\
 					__attribute__((__nonnull__(1, 2)));
 
-t_u8			ft_isunum(const char *restrict s, size_t size)\
+t_u8			ft_isunum(const char *__restrict__ s, size_t size)\
 					__attribute__((__nonnull__(1)));
 
 int				ft_s_isblob(char *s)\

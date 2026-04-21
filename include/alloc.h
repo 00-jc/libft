@@ -89,20 +89,20 @@ void				*ft_extend_zero(void *ptr, size_t n, size_t size);
 void				*ft_realloc(void *ptr, size_t n, size_t size);
 void				*ft_recalloc(void *ptr, size_t n, size_t size);
 void				*ft_mmap(size_t size, long prot_extra, long flags_extra);
-void				ft_munmap(void *restrict const mem, size_t size)\
+void				ft_munmap(void *__restrict__ const mem, size_t size)\
 						__attribute__((nonnull(1)));
 t_arena				ft_new_arena_alloc(void);
-void				*ft_arena_alloc(t_arena *restrict const allocator,
+void				*ft_arena_alloc(t_arena *__restrict__ const allocator,
 						size_t size, size_t align)\
 						__attribute__((nonnull(1)));
 void				ft_destroy_arena(t_arena *alloc)\
 						__attribute__((__nonnull__(1)));
-t_arena_checkpoint	ft_arena_checkpoint(const t_arena *restrict const arena)\
+t_arena_checkpoint	ft_arena_checkpoint(const t_arena *__restrict__ const arena)\
 						__attribute__((__nonnull__(1),\
 						pure));
-void				ft_arena_rewind_clean(t_arena *restrict const arena,
+void				ft_arena_rewind_clean(t_arena *__restrict__ const arena,
 						t_arena_checkpoint checkpoint);
-void				ft_arena_rewind(t_arena *restrict const arena,
+void				ft_arena_rewind(t_arena *__restrict__ const arena,
 						t_arena_checkpoint checkpoint);
 
 #endif

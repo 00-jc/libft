@@ -27,6 +27,6 @@ size_t			ft_atoul(const char *str)\
 					__attribute__((__nonnull__(1)));
 double			ft_atod_bounded(const char *s, size_t n)\
 					__attribute__((__nonnull__(1)));
-size_t			ft_atoul_bounded(const char *restrict const str,\
+size_t			ft_atoul_bounded(const char *__restrict__ const str,\
 					size_t n) __attribute__((__nonnull__(1)));
 #endif

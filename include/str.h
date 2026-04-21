@@ -38,11 +38,11 @@ typedef struct s_string
 
 t_str		ft_str_new(size_t n);
 
-int			ft_str_push_back(t_str *restrict str, const t_u8 byte)\
+int			ft_str_push_back(t_str *__restrict__ str, const t_u8 byte)\
 				__attribute__((__nonnull__(1)));
 
-int			ft_str_extend(t_str *restrict str,
-				const t_u8 *restrict const data, size_t n)\
+int			ft_str_extend(t_str *__restrict__ str,
+				const t_u8 *__restrict__ const data, size_t n)\
 				__attribute__((__nonnull__(1)));
 
 int			ft_str_remove(t_str *str, size_t idx)\

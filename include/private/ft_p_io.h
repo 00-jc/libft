@@ -19,7 +19,7 @@ void			putu(int fd, size_t n);
 void			putx(int fd, size_t n, char or);
 void			putd(int fd, ssize_t n);
 void			puti(int fd, int n);
-void			pputs(int fd, const char *restrict const str);
+void			pputs(int fd, const char *__restrict__ const str);
 void			pflt(int fd, double d);
 void			putc_(char c, int fd);
 

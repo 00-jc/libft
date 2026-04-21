@@ -17,7 +17,7 @@
 
 extern char		**environ;
 
-char			*ft_getenv(const char *restrict const var)\
+char			*ft_getenv(const char *__restrict__ const var)\
 					__attribute__((__nonnull__(1)));
 
 #endif

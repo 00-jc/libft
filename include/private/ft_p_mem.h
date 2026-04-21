@@ -22,49 +22,49 @@ typedef struct s_double_size
 	size_t		blks;
 }	t_double_size;
 
-void			ft_memcpy_512_huge(void *restrict dest,\
-					const void	*restrict const src,\
+void			ft_memcpy_512_huge(void *__restrict__ dest,\
+					const void	*__restrict__ const src,\
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			ft_memcpy_64(void *restrict dest,
-					const void	*restrict const src,
+void			ft_memcpy_64(void *__restrict__ dest,
+					const void	*__restrict__ const src,
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			ft_memset_naive(void *restrict dest,
+void			ft_memset_naive(void *__restrict__ dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
-void			ft_memset_64(void *restrict dest,
-					const t_u8 b, size_t n)\
-					__attribute__((__nonnull__(1)));
-
-void			ft_memcpy_128(void *restrict dest,
-					const void	*restrict const src,
-					size_t n)\
-					__attribute__((__nonnull__(1, 2)));
-void			ft_memcpy_256(void *restrict dest,
-					const void	*restrict const src,
-					size_t n)\
-					__attribute__((__nonnull__(1, 2)));
-void			ft_memcpy_512(void *restrict dest,
-					const void	*restrict const src,
-					size_t n)\
-					__attribute__((__nonnull__(1, 2)));
-void			ft_movsb(void *restrict dest,
-					const void	*restrict const src,
-					size_t n)\
-					__attribute__((__nonnull__(1, 2)));
-
-void			ft_memset_128(void *restrict dest,
+void			ft_memset_64(void *__restrict__ dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memset_256(void *restrict dest,
+void			ft_memcpy_128(void *__restrict__ dest,
+					const void	*__restrict__ const src,
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+void			ft_memcpy_256(void *__restrict__ dest,
+					const void	*__restrict__ const src,
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+void			ft_memcpy_512(void *__restrict__ dest,
+					const void	*__restrict__ const src,
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+void			ft_movsb(void *__restrict__ dest,
+					const void	*__restrict__ const src,
+					size_t n)\
+					__attribute__((__nonnull__(1, 2)));
+
+void			ft_memset_128(void *__restrict__ dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memset_512(void *restrict dest,
+void			ft_memset_256(void *__restrict__ dest,
+					const t_u8 b, size_t n)\
+					__attribute__((__nonnull__(1)));
+
+void			ft_memset_512(void *__restrict__ dest,
 					const t_u8 b, size_t n)\
 					__attribute__((__nonnull__(1)));
 
@@ -84,21 +84,21 @@ void			*ft_memchr_avx512(const void *ptr,
 					int c, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-ssize_t			ft_memcmp_minimal(const void *restrict const ptr1,
-					const void	*restrict const ptr2, size_t offst,\
+ssize_t			ft_memcmp_minimal(const void *__restrict__ const ptr1,
+					const void	*__restrict__ const ptr2, size_t offst,\
 					size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-ssize_t			ft_memcmp_sse(const void *restrict const ptr1,
-					const void	*restrict const ptr2, size_t n)\
+ssize_t			ft_memcmp_sse(const void *__restrict__ const ptr1,
+					const void	*__restrict__ const ptr2, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-ssize_t			ft_memcmp_avx256(const void *restrict const ptr1,
-					const void	*restrict const ptr2, size_t n)\
+ssize_t			ft_memcmp_avx256(const void *__restrict__ const ptr1,
+					const void	*__restrict__ const ptr2, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-ssize_t			ft_memcmp_avx512(const void *restrict const ptr1,
-					const void	*restrict const ptr2, size_t n)\
+ssize_t			ft_memcmp_avx512(const void *__restrict__ const ptr1,
+					const void	*__restrict__ const ptr2, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
 #endif

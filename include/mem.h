@@ -22,56 +22,56 @@
 # define LONES_64 			0x0101010101010101ULL
 # define HIGHS_64	 		0x8080808080808080ULL
 
-void			ft_bzero(void *restrict ptr, size_t n)\
+void			ft_bzero(void *__restrict__ ptr, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memset(void *restrict s, const t_u8 c, size_t n)\
+void			ft_memset(void *__restrict__ s, const t_u8 c, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memcpy(void *restrict dest,
-					const void *restrict src, size_t n)\
+void			ft_memcpy(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			ft_set(void *restrict s, const t_u8 c, size_t n)\
+void			ft_set(void *__restrict__ s, const t_u8 c, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_memtake(void *restrict dest,
-					void *restrict src, size_t n)\
+void			ft_memtake(void *__restrict__ dest,
+					void *__restrict__ src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			*ft_memmove(void *restrict dest,
-					const void *restrict src, size_t n)\
+void			*ft_memmove(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n)\
 					__attribute__((__nonnull__(1, 2), returns_nonnull));
 
-void			*ft_memchr(const void *restrict ptr, int c, size_t n)\
+void			*ft_memchr(const void *__restrict__ ptr, int c, size_t n)\
 					__attribute__((__nonnull__(1)));
 
-ssize_t			ft_memcmp(const void *restrict const dest,
-					const void *restrict src, size_t n)\
+ssize_t			ft_memcmp(const void *__restrict__ const dest,
+					const void *__restrict__ src, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			*ft_memclone(void *restrict ptr, size_t size)\
+void			*ft_memclone(void *__restrict__ ptr, size_t size)\
 					__attribute__((__nonnull__(1)));
 
-void			*ft_memformat(void *restrict const ptr, size_t size)\
+void			*ft_memformat(void *__restrict__ const ptr, size_t size)\
 					__attribute__((__nonnull__(1)));
 
 void			ft_membroadcast(void *dst, void *src, size_t chunks, size_t n)\
 					__attribute__((__nonnull__(1, 2)));
 
-void			ft_prefetch0(const void *restrict const ptr, size_t size)\
+void			ft_prefetch0(const void *__restrict__ const ptr, size_t size)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_prefetch1(const void *restrict const ptr, size_t size)\
+void			ft_prefetch1(const void *__restrict__ const ptr, size_t size)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_prefetch2(const void *restrict const ptr, size_t size)\
+void			ft_prefetch2(const void *__restrict__ const ptr, size_t size)\
 					__attribute__((__nonnull__(1)));
 
-void			ft_prefetchnta(const void *restrict const ptr, size_t size)\
+void			ft_prefetchnta(const void *__restrict__ const ptr, size_t size)\
 					__attribute__((__nonnull__(1)));
 
-void			*ft_overlap(const void *restrict ptr,\
+void			*ft_overlap(const void *__restrict__ ptr,\
 					size_t chunk_size, size_t rem_size)\
 					__attribute__((__nonnull__(1), const));
 
