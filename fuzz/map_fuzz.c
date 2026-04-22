@@ -1,0 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_fuzz.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codex <codex@openai>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/23 00:00:00 by codex             #+#    #+#             */
+/*   Updated: 2026/04/23 00:00:00 by codex            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fuzz.h"
+
+static void	init_keys(t_u8 keys[FUZZ_KEY_SLOTS][2])
+{
+	size_t	i;
+
+	i = 0;
+	while (i < FUZZ_KEY_SLOTS)
+	{
+		keys[i][0] = (t_u8)i;
+		keys[i][1] = (t_u8)(i ^ 0x5A);
+		++i;
+	}
+}
+
+static void	fuzz_map_case(t_fuzzer *fz, t_map *m, t_u8 keys[FUZZ_KEY_SLOTS][2])
+{
+	size_t	i;
+	int		val;
+	int		*x;
+
+	i = ft_fuzz_get_rand_u(fz) % FUZZ_KEY_SLOTS;
+	val = (int)ft_fuzz_get_rand_u(fz);
+	ft_printf("trying map slot %lu size %lu alignment %lu\n", i, 2UL,
+		fuzz_ptr_align(keys[i]));
+	ft_pin_invariant(ft_map_insert(m, keys[i], 2, (t_u8 *)&val));
+	x = ft_map_lookup(m, keys[i], 2);
+	ft_pin_invariant(x != NULL);
+	ft_pin_invariant(*x == val);
+	ft_map_delete(m, keys[i], 2);
+	ft_pin_invariant(ft_map_lookup(m, keys[i], 2) == NULL);
+}
+
+int	main(void)
+{
+	t_fuzzer	fz;
+	t_map		m;
+	t_u8		keys[FUZZ_KEY_SLOTS][2];
+	size_t		i;
+	size_t		n;
+
+	fz = ft_fuzzer_new(ft_new_arena_alloc());
+	ft_pin_invariant(fz.arena.current != NULL);
+	ft_pin_invariant(ft_fuzzer_add_rand(&fz));
+	m = ft_map_new();
+	init_keys(keys);
+	n = fz.buf_n * 2;
+	i = 0;
+	while (i++ < n)
+		fuzz_map_case(&fz, &m, keys);
+	ft_map_destroy(&m);
+	ft_fuzzer_destroy(&fz);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:32:14 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/14 05:08:07 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:16:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ inline int	ft_vec_push_back(t_vec *restrict const vec,
 	__attribute__((assume(vec->data != NULL)));
 	{
 		if (__builtin_expect(vec->size == vec->capacity
-				&& !ft_vec_reserve(vec, type_size, vec->capacity << 1), 0))
+				&& !ft_vec_reserve(vec, type_size,
+					ft_tern(vec->capacity, vec->capacity << 1, 4)), 0))
 			return (0);
 		ft_memcpy((t_u8 *)vec->data + (vec->size * type_size), data, type_size);
 		++vec->size;

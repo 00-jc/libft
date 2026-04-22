@@ -162,10 +162,12 @@ ifeq ($(findstring clang,$(CC_ID)),clang)
   WARNS  := $(WARNS_CLANG)
   AR     := llvm-ar rcs
   RANLIB := llvm-ranlib
+  LDFLAGS_LINK := -fuse-ld=lld
 else
   WARNS  := $(WARNS_GCC)
   AR     := gcc-ar rcs
   RANLIB := gcc-ranlib
+  LDFLAGS_LINK :=
 endif
 
 CFLAGS := $(MARCH) $(CFLAGS_OPT) $(WARNS)
@@ -413,14 +415,20 @@ SRCS_BENCH := \
 	bench/memcpy/memcpy_bench_short.c \
 	bench/memcpy/memcpy_bench.c
 
+SRCS_FUZZ := \
+	src/fuzzer/ft_fuzzer_get_rand.c \
+	src/fuzzer/ft_fuzzer_initrand.c \
+	src/fuzzer/ft_fuzzer.c 
+
 # ── Aggregate ─────────────────────────────────────────────────────────────────
-MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL TIME PERF RNG TAILOR SORT
+MODULES := ALLOC CONV CSTR CTYPE IO MATH MEM HASH VEC STR BMI ENV MAP HINT TOK THREADPOOL TIME PERF RNG TAILOR SORT FUZZ
 
 SRCS := $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 # ── Test list ─────────────────────────────────────────────────────────────────
-TEST_SRCS := memchr strlen memcmp memcpy memset vec str map murmur bmi xxh3 arena arena_extend
+TEST_SRCS := memchr strlen memcmp memcpy memset vec map murmur bmi xxh3 arena arena_extend
+FUZZ_SRCS := mem vec map
 
 # ═════════════════════════════════════════════════════════════════════════════
 #  Targets
@@ -487,17 +495,23 @@ _TMARCH ?= $(MARCH)
 _TFLAGS := $(_TMARCH) $(CFLAGS_OPT) $(WARNS)
 _TOBJS  := $(patsubst src/%.c,$(_TBDIR)/%.o,$(SRCS))
 _TLIB   := libft_test_tmp.a
+_FBDIR  := $(_TBDIR)/fuzz
+_FOBJS  := $(patsubst %,$(_FBDIR)/%_fuzz.o,$(FUZZ_SRCS))
 
 $(_TBDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(_TFLAGS) $(INCLUDES) -c $< -o $@
+
+$(_FBDIR)/%_fuzz.o: fuzz/%_fuzz.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(_TFLAGS) $(SANITIZE) $(INCLUDES) -c $< -o $@
 
 _run_tests: $(_TOBJS)
 	@$(AR) $(_TLIB) $(_TOBJS)
 	@$(RANLIB) $(_TLIB)
 	@echo "── Testing [$(CC)$(if $(_TMARCH), +march,)] ──"
 	@$(foreach t,$(TEST_SRCS), \
-		$(CC) $(_TFLAGS) $(SANITIZE) $(INCLUDES) \
+		$(CC) $(LDFLAGS_LINK) $(_TFLAGS) $(SANITIZE) $(INCLUDES) \
 			tests/$(t)_test.c $(_TLIB) -o test_$(t) \
 		&& ./test_$(t) && rm -f test_$(t);)
 	@rm -f $(_TLIB)
@@ -505,6 +519,30 @@ _run_tests: $(_TOBJS)
 	@echo "All tests passed!"
 
 analyze: all static_analysis test
+
+# ── Fuzz ─────────────────────────────────────────────────────────────────────
+fuzz: fuzz_clang fuzz_clang_no_march
+
+fuzz_clang:
+	@$(MAKE) --no-print-directory _run_fuzz \
+		CC=$(CC_CLANG) _TMARCH="$(MARCH)" _TBDIR=build_fc_march
+
+fuzz_clang_no_march:
+	@$(MAKE) --no-print-directory _run_fuzz \
+		CC=$(CC_CLANG) _TMARCH="" _TBDIR=build_fc
+
+_run_fuzz: $(_TOBJS) $(_FOBJS)
+	@$(AR) $(_TLIB) $(_TOBJS)
+	@$(RANLIB) $(_TLIB)
+	@echo "── Fuzzing [$(CC)$(if $(_TMARCH), +march,)] ──"
+	$(foreach t,$(FUZZ_SRCS), \
+		$(CC) $(LDFLAGS_LINK) $(_TFLAGS) $(SANITIZE) $(INCLUDES) \
+			$(_FBDIR)/$(t)_fuzz.o $(_TLIB) -o fuzz_$(t) \
+		&& ASAN_OPTIONS=detect_leaks=0 ./fuzz_$(t) && rm -f fuzz_$(t) \
+		|| { echo "FAILED: $(t)"; rm -f fuzz_$(t) $(_TLIB); exit 1; }; )
+	@rm -f $(_TLIB)
+	@rm -rf $(_TBDIR)
+	@echo "All fuzz targets passed!"
 
 # ── Bench config ──────────────────────────────────────────────────────────────
 BENCH_NAMES := $(filter-out include,$(notdir $(patsubst %/,%,$(wildcard bench/*/))))
@@ -523,11 +561,12 @@ _run_bench: fclean $(NAME)
 	@echo "── Running benchmarks [$(CC) $(BTAG)] ──"
 	@set -e; for b in $(BENCH_NAMES); do \
 		echo "▶ $$b"; \
-		$(CC) $(BFLAGS) $(BINCS) bench/$$b/*.c $(NAME) -o $(BBDIR)/$${b}_bench; \
+		$(CC) $(LDFLAGS_LINK) $(BFLAGS) $(BINCS) bench/$$b/*.c $(NAME) -o $(BBDIR)/$${b}_bench; \
 		$(BENCH_PIN) $(BBDIR)/$${b}_bench $(BENCH_ARGS); \
 	done
 	@echo "Benchmarks complete!"
 
 .PHONY: all base bonus clean fclean re \
         static_analysis analyze test test_clang test_clang_no_march _run_tests \
+        fuzz fuzz_clang fuzz_clang_no_march _run_fuzz \
         bench bench_clang bench_clang_no_march _run_bench

@@ -1,0 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vec_fuzz.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codex <codex@openai>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/23 00:00:00 by codex             #+#    #+#             */
+/*   Updated: 2026/04/23 01:16:34 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fuzz.h"
+
+static size_t	fuzz_vec_len(t_buffer *b)
+{
+	size_t	n;
+
+	n = b->size / sizeof(int);
+	if (n > FUZZ_VEC_CAP)
+		n = FUZZ_VEC_CAP;
+	return (n);
+}
+
+static void	fuzz_vec_case(t_fuzzer *fz)
+{
+	t_buffer	*b;
+	t_vec		v;
+	size_t		n;
+	int			last;
+
+	b = ft_fuzz_get_rand(fz);
+	n = fuzz_vec_len(b);
+	v = ft_vec_new(1, sizeof(int));
+	ft_pin_invariant(v.data != NULL);
+	ft_pin_invariant(ft_vec_extend(&v, b->mem, sizeof(int), n));
+	ft_printf("vec test: size=%lu, capacity=%lu\n", v.size, v.capacity);
+	ft_pin_invariant(ft_vec_len(&v, sizeof(int)) == n);
+	if (n != 0)
+	{
+		ft_memcpy(&last, (t_u8 *)b->mem + (n - 1) * sizeof(int), sizeof(int));
+		ft_pin_invariant(ft_vec_popmv(&v, &last, sizeof(int)));
+		ft_pin_invariant(ft_vec_len(&v, sizeof(int)) == n - 1);
+	}
+	ft_vec_free(&v);
+}
+
+int	main(void)
+{
+	t_fuzzer	fz;
+	size_t		i;
+	size_t		n;
+
+	fz = ft_fuzzer_new(ft_new_arena_alloc());
+	ft_pin_invariant(fz.arena.current != NULL);
+	ft_pin_invariant(ft_fuzzer_add_rand(&fz));
+	n = fz.buf_n * 2;
+	i = 0;
+	while (i++ < n)
+		fuzz_vec_case(&fz);
+	ft_fuzzer_destroy(&fz);
+	return (0);
+}

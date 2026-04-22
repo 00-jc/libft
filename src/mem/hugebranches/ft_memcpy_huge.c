@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/19 15:15:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:11:12 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,12 @@ __attribute__((__nonnull__(1, 2), __always_inline__))
 inline void	ft_memcpy_hugetail(void *restrict dest,
 	const void	*restrict const src, size_t n)
 {
-	size_t	i;
-
 	if (__builtin_expect(n != 0, 1))
 	{
-		i = -(1 < n) & 2;
 		__attribute__((assume(((t_uptr)dest & 63) == 0)));
 		{
-			((t_blk512wa)dest)[0] = ((t_blk512r)src)[0];
-			((t_blk512wa)dest)[0 < n] = ((t_blk512r)src)[0 < n];
-			((t_blk512wa)dest)[i] = ((t_blk512r)src)[i];
+			((t_blk512wa)dest)[64 < n] = ((t_blk512r)src)[64 < n];
+			((t_blk512wa)dest)[128 < n] = ((t_blk512r)src)[128 < n];
 		}
 		*((t_blk512w)ft_overlap(dest, sizeof(t_vu512a), n)) =
 			*((t_blk512r)ft_overlap(src, sizeof(t_vu512a), n));
@@ -67,7 +63,7 @@ inline void	ft_memcpy_512_huge(void *restrict dest,
 	n -= delta;
 	s.blks = (n >> 6);
 	s.i = 0;
-	while (s.i + 4 < s.blks)
+	while (s.i + 4 <= s.blks)
 	{
 		ft__cascade_cpy(d, sr, s.i, x);
 		s.i += 4;
