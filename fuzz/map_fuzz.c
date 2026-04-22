@@ -6,7 +6,7 @@
 /*   By: codex <codex@openai>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 00:00:00 by codex             #+#    #+#             */
-/*   Updated: 2026/04/23 00:00:00 by codex            ###   ########.fr       */
+/*   Updated: 2026/04/23 01:27:12 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	fuzz_map_case(t_fuzzer *fz, t_map *m, t_u8 keys[FUZZ_KEY_SLOTS][2])
 
 	i = ft_fuzz_get_rand_u(fz) % FUZZ_KEY_SLOTS;
 	val = (int)ft_fuzz_get_rand_u(fz);
-	ft_printf("trying map slot %lu size %lu alignment %lu\n", i, 2UL,
-		fuzz_ptr_align(keys[i]));
+	ft_printf("trying map slot %lu size %lu alignment to word %lu\n", i, 2UL,
+		(t_uptr)(keys + i) & -(t_uptr)(keys + i));
 	ft_pin_invariant(ft_map_insert(m, keys[i], 2, (t_u8 *)&val));
 	x = ft_map_lookup(m, keys[i], 2);
 	ft_pin_invariant(x != NULL);

@@ -6,7 +6,7 @@
 /*   By: codex <codex@openai>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 00:00:00 by codex             #+#    #+#             */
-/*   Updated: 2026/04/23 00:00:00 by codex            ###   ########.fr       */
+/*   Updated: 2026/04/23 01:26:37 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	fuzz_mem_rw(t_fuzzer *fz)
 	size_t		n;
 
 	a = ft_fuzz_get_rand(fz);
-	ft_printf("trying mem size %lu alignment %lu\n", a->size,
-		fuzz_ptr_align(a->mem));
+	ft_printf("trying mem size %lu alignment to word %lu\n", a->size,
+		(t_uptr)a->mem & -(t_uptr)a->mem);
 	n = a->size;
 	ft_memcpy(x, a->mem, n);
 	memcpy(y, a->mem, n);

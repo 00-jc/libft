@@ -6,7 +6,7 @@
 /*   By: codex <codex@openai>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 00:00:00 by codex             #+#    #+#             */
-/*   Updated: 2026/04/23 01:16:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:28:17 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	fuzz_vec_case(t_fuzzer *fz)
 	v = ft_vec_new(1, sizeof(int));
 	ft_pin_invariant(v.data != NULL);
 	ft_pin_invariant(ft_vec_extend(&v, b->mem, sizeof(int), n));
-	ft_printf("vec test: size=%lu, capacity=%lu\n", v.size, v.capacity);
+	ft_printf("vec extend + copy test: size=%lu, capacity=%lu\n", v.size,
+		v.capacity);
 	ft_pin_invariant(ft_vec_len(&v, sizeof(int)) == n);
 	if (n != 0)
 	{
