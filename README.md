@@ -10,6 +10,7 @@ Build:
     make test     # run tests
     make analyze  # static analysis + tests
     make bench    # runs the benchmarks (self-hosted)
+    make fuzz     # runs the fuzzers (self-hosted)
 
     make clean
     make fclean
@@ -23,4 +24,5 @@ Notes:
 - Targets Norminette >3.3.59
 - Uses -march=native by default
 - Uses src/tailor/ for the bench target
+- Uses src/fuzz/ for the fuzzer
 ```
