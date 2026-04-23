@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/23 01:11:12 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/23 03:15:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ __attribute__((__nonnull__(1, 2), __always_inline__))
 inline void	ft_memcpy_hugetail(void *restrict dest,
 	const void	*restrict const src, size_t n)
 {
+	size_t	i[2];
+
 	if (__builtin_expect(n != 0, 1))
 	{
+		i[0] = -(127ULL < n) & 2;
+		i[1] = -(191ULL < n) & 3;
 		__attribute__((assume(((t_uptr)dest & 63) == 0)));
 		{
-			((t_blk512wa)dest)[64 < n] = ((t_blk512r)src)[64 < n];
-			((t_blk512wa)dest)[128 < n] = ((t_blk512r)src)[128 < n];
+			((t_blk512wa)dest)[0] = ((t_blk512r)src)[0];
+			((t_blk512wa)dest)[63 < n] = ((t_blk512r)src)[63 < n];
+			((t_blk512wa)dest)[i[0]] = ((t_blk512r)src)[i[0]];
+			((t_blk512wa)dest)[i[1]] = ((t_blk512r)src)[i[1]];
 		}
 		*((t_blk512w)ft_overlap(dest, sizeof(t_vu512a), n)) =
 			*((t_blk512r)ft_overlap(src, sizeof(t_vu512a), n));
