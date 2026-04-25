@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:05:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/23 03:15:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/25 18:59:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ inline void	ft_memcpy_hugetail(void *restrict dest,
 {
 	size_t	i[2];
 
-	if (__builtin_expect(n != 0, 1))
+	if (__builtin_expect(63 < n, 1))
 	{
 		i[0] = -(127ULL < n) & 2;
 		i[1] = -(191ULL < n) & 3;
@@ -29,9 +29,10 @@ inline void	ft_memcpy_hugetail(void *restrict dest,
 			((t_blk512wa)dest)[i[0]] = ((t_blk512r)src)[i[0]];
 			((t_blk512wa)dest)[i[1]] = ((t_blk512r)src)[i[1]];
 		}
+	}
+	if (__builtin_expect(n != 0, 1))
 		*((t_blk512w)ft_overlap(dest, sizeof(t_vu512a), n)) =
 			*((t_blk512r)ft_overlap(src, sizeof(t_vu512a), n));
-	}
 }
 
 __attribute__((__nonnull__(1, 2, 4), __always_inline__))
